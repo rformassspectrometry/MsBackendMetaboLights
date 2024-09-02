@@ -1,0 +1,48 @@
+Package: MsBackendMetaboLights
+Title: Retrieve Mass Spectrometry Data from MetaboLights
+Version: 0.0.1
+Authors@R:
+    c(person(given = "Johannes", family = "Rainer",
+             email = "Johannes.Rainer@eurac.edu",
+             role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-6977-7147")),
+             person(given = "Philippine", family = "Louail",
+                    email = "philippine.louail@eurac.edu",
+                    role = c("aut"),
+                    comment = c(ORCID = "0009-0007-5429-6846")))
+Description: MetaboLights is one of the main public repositories for storage
+             of metabolomics experiments, which includes analysis results as
+	     well as raw data. The MsBackendMetaboLights package provides
+	     functionality to retrieve and represent mass spectrometry (MS)
+	     raw data from MetaboLights. Raw data from metabolomics experiments
+	     can thus be directly and seamlessly integrated into R-based
+	     analysis workflows with the Spectra and MsBackendMetaboLights
+	     package.
+Depends:
+    R (>= 4.2.0),
+    Spectra (>= 1.9.12)
+Imports:
+    BiocParallel,
+    S4Vectors,
+    methods,
+    ProtGenerics (>= 1.35.3),
+    MsCoreUtils,
+    IRanges,
+    BiocGenerics
+Suggests:
+    testthat,
+    knitr (>= 1.1.0),
+    roxygen2,
+    BiocStyle (>= 2.5.19),
+    msdata,
+    rmarkdown,
+    microbenchmark,
+    mzR
+License: Artistic-2.0
+Encoding: UTF-8
+VignetteBuilder: knitr
+BugReports: https://github.com/RforMassSpectrometry/MsBackendMetaboLights/issues
+URL: https://github.com/RforMassSpectrometry/MsBackendMetaboLights
+biocViews: Infrastructure, MassSpectrometry, Metabolomics, DataImport, Proteomics
+Roxygen: list(markdown=TRUE)
+RoxygenNote: 7.3.1
