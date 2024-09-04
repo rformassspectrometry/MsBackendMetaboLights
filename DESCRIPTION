@@ -1,6 +1,6 @@
 Package: MsBackendMetaboLights
 Title: Retrieve Mass Spectrometry Data from MetaboLights
-Version: 0.0.1
+Version: 0.0.2
 Authors@R:
     c(person(given = "Johannes", family = "Rainer",
              email = "Johannes.Rainer@eurac.edu",
@@ -21,7 +21,11 @@ Description: MetaboLights is one of the main public repositories for storage
 Depends:
     R (>= 4.2.0)
 Imports:
-    curl
+    curl,
+    ProtGenerics,
+    Spectra,
+    BiocFileCache,
+    methods
 Suggests:
     testthat,
     rmarkdown,

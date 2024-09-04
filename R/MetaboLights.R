@@ -119,7 +119,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
 #' @noRd
 .mtbls_assay_list <- function(x = character()) {
     fpath <- mtbls_ftp_path(x, mustWork = FALSE)
-    a_fls <- mtbls_list_files(x, pattern = "a_")
+    a_fls <- mtbls_list_files(x, pattern = "^a_")
     res <- lapply(a_fls, function(z) {
         read.table(paste0(fpath, z),
                    sep = "\t", header = TRUE,
@@ -142,15 +142,17 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
 #' @return `character` with the file names matching the provided pattern.
 #'
 #' @noRd
-.mtbls_derived_data_file <- function(x, pattern = "mzML$|CDF$|mzXML$") {
-    cls <- which(colnames(x) == "Derived Spectral Data File")
-    res <- character()
-    for (i in cls) {
-        keep <- grepl(pattern, x[[i]])
-        if (any(keep)) {
-            res <- x[[i]][keep]
-            break
+.mtbls_data_file_from_assay <-
+    function(x, pattern = "mzML$|CDF$|cdf$|mzXML$",
+             colname = "Derived Spectral Data File") {
+        cls <- which(colnames(x) == colname)
+        res <- character()
+        for (i in cls) {
+            keep <- grepl(pattern, x[[i]])
+            if (any(keep)) {
+                res <- x[[i]][keep]
+                break
+            }
         }
+        res
     }
-    res
-}

@@ -27,17 +27,17 @@ test_that(".mtbls_assay_list works", {
     expect_true(is.data.frame(res[[1L]]))
 })
 
-test_that(".mtbls_derived_data_file works", {
-    res <- .mtbls_derived_data_file(alist_ms[[1L]])
+test_that(".mtbls_data_file_from_assay works", {
+    res <- .mtbls_data_file_from_assay(alist_ms[[1L]])
     expect_true(is.character(res))
     expect_true(length(res) == 16)
 
     ## check the second column containing mzData files
-    res <- .mtbls_derived_data_file(alist_ms[[1L]], pattern = "mzData")
+    res <- .mtbls_data_file_from_assay(alist_ms[[1L]], pattern = "mzData")
     expect_true(is.character(res))
     expect_true(length(res) == 16)
 
-    res <- .mtbls_derived_data_file(alist_nmr[[1L]])
+    res <- .mtbls_data_file_from_assay(alist_nmr[[1L]])
     expect_true(is.character(res))
     expect_true(length(res) == 0)
 })
