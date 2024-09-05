@@ -1,4 +1,10 @@
 ## Note: clean BiocFileCache with cleanbfc(days = -10, ask = FALSE)
+## MTBLS10555: lists files in assay column that don't exist. Will result in an
+##             error when we try to download the data. The data set contains
+##             small data files. maybe use pattern sham-1-10.mzML
+## MTBLS39: cdf files listed in Raw Spectral Data File column. Maybe use a
+##          specific pattern to load/cache only some files.
+## MTBLS243: mzML.gz files. Can eventually use an additional filter.
 
 test_that("MsBackendMetaboLights works", {
     res <- MsBackendMetaboLights()
@@ -59,15 +65,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_equal(a$rpath, d$rpath)
 })
 
-## MTBLS10555: lists files in assay column that don't exist. Will result in an
-##             error when we try to download the data. The data set contains
-##             small data files. maybe use pattern sham-1-10.mzML
-## MTBLS39: cdf files listed in Raw Spectral Data File column. Maybe use a
-##          specific pattern to load/cache only some files.
-## MTBLS243: mzML.gz files. Can eventually use an additional filter.
-
-a <- MsBackendMetaboLights:::.mtbls_assay_list("MTBLS39")
-MsBackendMetaboLights:::.mtbls_data_file_from_assay(a[[1]], pattern = "63A.cdf",
-                                                    colname = "Raw Spectral Data File")
-
-a <- MsBackendMetaboLights:::.mtbls_assay_list("MTBLS243")
+test_that("backendMerge,MsBackendMetaboLights fails", {
+    b <- MsBackendMetaboLights()
+    expect_error(backendMerge(b, b), "Merging of backends")
+})

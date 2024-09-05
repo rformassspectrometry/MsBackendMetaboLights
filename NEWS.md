@@ -1,5 +1,9 @@
 # MsBackendMetabolights 0.0
 
+## Changes in 0.0.3
+
+- Add vignette and `backendMerge,MsBackendMetaboLights` function.
+
 ## Changes in 0.0.2
 
 - Add `MsBackendMetaboLights` class, constructor and `backendInitalize()`

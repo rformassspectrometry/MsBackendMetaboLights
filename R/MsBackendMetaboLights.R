@@ -83,6 +83,10 @@
 #' The `MsBackendMetaboLights()` is considered *read-only* and does thus not
 #' support changing *m/z* and intensity values directly.
 #'
+#' Also, merging of MS data of `MsBackendMetaboLights` is not supported and
+#' thus `c()` of several `Spectra` with MS data represented by
+#' `MsBackendMetaboLights` will throw an error.
+#'
 #' @importClassesFrom Spectra MsBackendMzR
 #'
 #' @exportClass MsBackendMetaboLights
@@ -145,10 +149,19 @@ setMethod(
         object
     })
 
-## backendMerge: should not work... show note that changing first to
-## MsBackendMzR would work.
+#' @rdname MsBackendMetaboLights
+#'
+#' @importFrom ProtGenerics backendMerge
+#'
+#' @exportMethod backendMerge
+setMethod(
+    "backendMerge", "MsBackendMetaboLights",
+    function(object, ...) {
+        stop("Merging of backends of type 'MsBackendMetaboLights' is not ",
+             "supported. Use 'setBackend()' to change to a backend that ",
+             "supports merging, such as the 'MsBackendMemory'.")
+    })
 
-## setBackend: should not work - but is it needed at all?
 
 ################################################################################
 ##

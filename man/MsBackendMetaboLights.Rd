@@ -4,6 +4,7 @@
 \alias{MsBackendMetaboLights}
 \alias{MsBackendMetaboLights-class}
 \alias{backendInitialize,MsBackendMetaboLights-method}
+\alias{backendMerge,MsBackendMetaboLights-method}
 \title{MsBackend representing MS data from MetaboLights}
 \usage{
 MsBackendMetaboLights()
@@ -16,6 +17,8 @@ MsBackendMetaboLights()
   offline = FALSE,
   ...
 )
+
+\S4method{backendMerge}{MsBackendMetaboLights}(object, ...)
 }
 \arguments{
 \item{object}{an instance of \code{MsBackendMetaboLights}.}
@@ -73,6 +76,10 @@ in the respective MetaboLights assay file.
 
 The \code{MsBackendMetaboLights()} is considered \emph{read-only} and does thus not
 support changing \emph{m/z} and intensity values directly.
+
+Also, merging of MS data of \code{MsBackendMetaboLights} is not supported and
+thus \code{c()} of several \code{Spectra} with MS data represented by
+\code{MsBackendMetaboLights} will throw an error.
 }
 \section{Initialization and loading of data}{
 
