@@ -1,10 +1,10 @@
 ---
-title: "Seamless Integration of Mass Spectrometry Data from MetaboLights"
+title: "Using Mass Spectrometry Data from MetaboLights"
 output:
     BiocStyle::html_document:
         toc_float: true
 vignette: >
-    %\VignetteIndexEntry{Seamless Integration of Mass Spectrometry Data from MetaboLights}
+    %\VignetteIndexEntry{Using Mass Spectrometry Data from MetaboLights}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
     %\VignettePackage{MsBackendMetaboLights}
@@ -49,7 +49,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install("RforMassSpectrometry/MsBackendMetaboLights")
 ```
-
 
 
 # Importing MS Data from MetaboLights
@@ -134,7 +133,8 @@ reduce the amount of data that needs to be downloaded. We define for that a
 pattern matching the file name of only some data files using the `filePattern`
 parameter. Alternatively, for data sets with more than one assay, it would also
 be possible to select MS data files from one particular assay only using the
-`assayId` parameter. In our case we load all MS data files that end with *63A.cdf*.
+`assayName` parameter. In our case we load all MS data files that end with
+*63A.cdf*.
 
 ```{r}
 library(Spectra)

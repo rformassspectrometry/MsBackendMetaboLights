@@ -12,7 +12,7 @@ MsBackendMetaboLights()
 \S4method{backendInitialize}{MsBackendMetaboLights}(
   object,
   mtblsId = character(),
-  assayId = character(),
+  assayName = character(),
   filePattern = "mzML$|CDF$|cdf$|mzXML$",
   offline = FALSE,
   ...
@@ -26,8 +26,8 @@ MsBackendMetaboLights()
 \item{mtblsId}{\code{character(1)} with the ID of the MetaboLights data
 set/experiment.}
 
-\item{assayId}{\code{character} with the file names of assay files of the data
-set. If not provided (\code{assayId = character()}, the default), MS data
+\item{assayName}{\code{character} with the file names of assay files of the data
+set. If not provided (\code{assayName = character()}, the default), MS data
 files of all data set's assays is loaded. Use
 \verb{mtbls_list_files(<MetaboLights ID>, pattern = "^a_")} to list all
 available assay files of a data set \verb{<MetaboLights ID>}.}
@@ -86,14 +86,14 @@ thus \code{c()} of several \code{Spectra} with MS data represented by
 
 New instances of the class can be created with the \code{MsBackendMetaboLights()}
 function. Data is loaded and initialized using the \code{backendInitialize()}
-function with parameters \code{mtblsId}, \code{assayId} and \code{filePattern}. \code{mtblsId}
+function with parameters \code{mtblsId}, \code{assayName} and \code{filePattern}. \code{mtblsId}
 must be the ID of a \strong{single} (existing) MetaboLights data set. Parameter
-\code{assayId} allows to define specific \emph{assays} of the MetaboLights data set
+\code{assayName} allows to define specific \emph{assays} of the MetaboLights data set
 from which the data files should be loaded. If provided, it should be the
 file names of the respective assays in MetaboLights (use e.g.
 \verb{mtbls_list_files(<MetaboLights ID>, pattern = "^a_")} to list all available
 assay files for a given MetaboLights ID \verb{<MetaboLights ID>}. By default,
-with \code{assayId = character()} MS data files from all assays of a data set
+with \code{assayName = character()} MS data files from all assays of a data set
 are loaded. Optional parameter \code{filePattern} defines the pattern that should
 be used to filter the file names. It defaults to data files with file
 endings of supported MS data files. \code{backendInitialize()} requires by
