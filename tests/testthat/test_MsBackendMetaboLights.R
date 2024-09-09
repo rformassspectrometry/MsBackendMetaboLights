@@ -34,6 +34,11 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
                       "derived_spectral_data_file") %in%
                     Spectra::spectraVariables(res)))
     expect_true(all(res$mtbls_id == "MTBLS39"))
+
+    ## Offline
+    res_o <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                               filePattern = "63A.cdf", offline = TRUE)
+    expect_equal(Spectra::rtime(res), Spectra::rtime(res_o))
 })
 
 test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
@@ -42,6 +47,14 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
                                    assayName = "does not exist"),
                  "Not all assay names")
     expect_error(.mtbls_data_files(mtblsId = "MTBLS100"), "No files matching")
+
+    bfc <- BiocFileCache::BiocFileCache()
+    BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
+    BiocFileCache::bfcmetaremove(bfc, "MTBLS")
+
+    ## Error if no cache available
+    expect_error(.mtbls_data_files_offline("MTBLS39"),
+                 "No local MetaboLights cache")
 
     ## Cache the data: MTBLS39 contains small cdf files, but they are listed
     ## in the Raw Spectral Data File column. Will use a specfic pattern to
@@ -52,12 +65,26 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(all(a$mtbls_id == "MTBLS39"))
     ## Re-call function the data.
     b <- .mtbls_data_files("MTBLS39", pattern = "63A.cdf")
-    expect_true(is.data.frame(a))
-    expect_true(nrow(a) == 3)
-    expect_true(all(a$mtbls_id == "MTBLS39"))
+    expect_true(is.data.frame(b))
+    expect_true(nrow(b) == 3)
+    expect_true(all(b$mtbls_id == "MTBLS39"))
+    expect_equal(a$rpath, b$rpath)
+
+    ## with assayName
+    b <- .mtbls_data_files(
+        "MTBLS39", pattern = "63A.cdf",
+        assayName = paste0("a_MTBLS39_the_plasticity_of_the_grapevine_berry",
+                           "_transcriptome_metabolite_profiling_mass",
+                           "_spectrometry.txt"))
+    expect_true(is.data.frame(b))
+    expect_true(nrow(b) == 3)
+    expect_true(all(b$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, b$rpath)
 
     ## Use offline
+    expect_error(.mtbls_data_files_offline("MTBLS39", assayName = "something"),
+                 "No locally cached data files")
+
     d <- .mtbls_data_files_offline("MTBLS39", pattern = "63A.cdf")
     expect_true(is.data.frame(a))
     expect_true(nrow(a) == 3)
