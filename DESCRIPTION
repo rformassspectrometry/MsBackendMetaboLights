@@ -1,6 +1,6 @@
 Package: MsBackendMetaboLights
 Title: Retrieve Mass Spectrometry Data from MetaboLights
-Version: 0.0.3
+Version: 0.99.0
 Authors@R:
     c(person(given = "Johannes", family = "Rainer",
              email = "Johannes.Rainer@eurac.edu",
@@ -14,10 +14,11 @@ Description: MetaboLights is one of the main public repositories for storage
              of metabolomics experiments, which includes analysis results as
 	     well as raw data. The MsBackendMetaboLights package provides
 	     functionality to retrieve and represent mass spectrometry (MS)
-	     raw data from MetaboLights. Raw data from metabolomics experiments
-	     can thus be directly and seamlessly integrated into R-based
-	     analysis workflows with the Spectra and MsBackendMetaboLights
-	     package.
+	     data from MetaboLights. Data files are downloaded and cached
+	     locally avoiding repetitive downloads. MS data from metabolomics
+	     experiments can thus be directly and seamlessly integrated into
+	     R-based analysis workflows with the Spectra and
+	     MsBackendMetaboLights package.
 Depends:
     R (>= 4.2.0)
 Imports:

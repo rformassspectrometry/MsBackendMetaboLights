@@ -1,10 +1,10 @@
 ---
-title: "Using Mass Spectrometry Data from MetaboLights"
+title: "Retrieve and Use Mass Spectrometry Data from MetaboLights"
 output:
     BiocStyle::html_document:
         toc_float: true
 vignette: >
-    %\VignetteIndexEntry{Using Mass Spectrometry Data from MetaboLights}
+    %\VignetteIndexEntry{Retrieve and Use Mass Spectrometry Data from MetaboLights}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
     %\VignettePackage{MsBackendMetaboLights}
@@ -28,20 +28,21 @@ library(BiocStyle)
 # Introduction
 
 The `r Biocpkg("Spectra")` package provides a central infrastructure for the
-handling of Mass Spectrometry (MS) data. The package supports interchangeable
-use of different *backends* to import MS data from a variety of sources and data
-formats. The *MsBackendMetaboLights* package allows to retrieve MS data files
-directly from the [MetaboLights](https://www.ebi.ac.uk/metabolights/)
-repository. MetaboLights is one of the main public repositories for deposition
-of metabolomics experiments including (raw) MS and/or NMR data files and the
-related experimental and analytical results. The *MsBackendMetaboLights* package
-downloads and locally caches MS data files for a MetaboLights data set and
-enables further analyses of this data directly in R.
+handling of Mass Spectrometry (MS) data in Bioconductor. The package supports
+interchangeable use of different *backends* to import and represent MS data from
+a variety of sources and data formats. The *MsBackendMetaboLights* package
+allows to retrieve MS data files directly from the
+[MetaboLights](https://www.ebi.ac.uk/metabolights/) repository. MetaboLights is
+one of the main public repositories for deposition of metabolomics experiments
+including (raw) MS and/or NMR data files and the related experimental and
+analytical results. The *MsBackendMetaboLights* package downloads and locally
+caches MS data files for a MetaboLights data set and enables further analyses of
+this data directly in R.
 
 
 # Installation
 
-The package can be installed directly from within R with the few commands below:
+The package can be installed from within R with the commands below:
 
 ```{r, eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -90,9 +91,9 @@ mtbls_ftp_path("MTBLS39")
 ```
 
 We could inspect the content of this folder also using a browser supporting the
-ftp file transfer protocol and also download the files. We can however access
-the files also directly from within R. Below we read the *assay* data file
-directly using the `read.table()` function.
+ftp file transfer protocol and download individual files manually. We can
+however access the files also directly from within R. Below we read the *assay*
+data file directly using the base R `read.table()` function.
 
 ```{r}
 #' Get the assay files of the data set
@@ -106,35 +107,36 @@ a <- read.table(paste0(mtbls_ftp_path("MTBLS39"),
 
 Each row in this assay table refers to one measurement (data file) of the data
 set, with columns providing information on that measurement. The number and
-content of columns can vary between data sets. Below we list the columns
-available in the assay file of our test data set.
+content of columns can vary between data sets and depends on the information the
+original researcher (manually) provided. Below we list the columns available in
+the assay file of our test data set.
 
 ```{r}
 colnames(a)
 ```
 
 MS data files are generally provided in a column named `"Derived Spectral Data
-File"` or `"Raw Spectral Data File"`, depending into which data field the data
-set submitted entered the data. Below we list the content of these data columns.
+File"` but sometimes they are also listed in a column named `"Raw Spectral Data
+File"`. Note that providing MS data files is not absolutely mandatory, thus, for
+some data sets no MS data files might be available. Below we list the content of
+these data columns.
 
 ```{r}
 a[, c("Raw Spectral Data File", "Derived Spectral Data File")]
 ```
 
-Note that providing MS data files is not absolutely mandatory, thus, for some
-data sets no MS data files might be available. For this particular data set the
-MS data files are provided in the `"Raw Spectral Data File"` column. These files
-are in CDF format and can hence be loaded using the `MsBackendMetaboLights`
-backend into R as a `Spectra` object (`MsBackendMetaboLights` directly extends
-*Spectra*'s `MsBackendMzR` backend and therefore supports import of MS data
-files in mzML, CDF or mzXML formats). By default, all MS data files of all
-assays would be retrieved, but in our example below we restrict to few files to
-reduce the amount of data that needs to be downloaded. We define for that a
-pattern matching the file name of only some data files using the `filePattern`
-parameter. Alternatively, for data sets with more than one assay, it would also
-be possible to select MS data files from one particular assay only using the
-`assayName` parameter. In our case we load all MS data files that end with
-*63A.cdf*.
+For this particular data set the MS data files are provided in the `"Raw
+Spectral Data File"` column. These files are in CDF format and can hence be
+loaded using the `MsBackendMetaboLights` backend into R as a `Spectra` object
+(`MsBackendMetaboLights` directly extends *Spectra*'s `MsBackendMzR` backend and
+therefore supports import of MS data files in *mzML*, *CDF* or *mzXML*
+formats). By default, all MS data files of all assays would be retrieved, but in
+our example below we restrict to few data files to reduce the amount of data
+that needs to be downloaded. To this end we define a pattern matching the file
+name of only some data files using the `filePattern` parameter. Alternatively,
+for data sets with more than one assay, it would also be possible to select MS
+data files from one particular assay only using the `assayName` parameter. In
+our case we load all MS data files that end with *63A.cdf*.
 
 ```{r}
 library(Spectra)
@@ -147,8 +149,9 @@ s
 
 This call now downloaded the files to the local cache and loaded these files as
 a `Spectra` object. The downloading and caching of the data is handled by
-Bioconductor's `r Biocpkg("BiocFileCache")`. Any subsequent loading of the same
-data files will load the locally cached versions avoiding thus repetitive
+Bioconductor's `r Biocpkg("BiocFileCache")`. The local cache can thus be managed
+directly using functionality from that package. Any subsequent loading of the
+same data files will load the locally cached versions avoiding thus repetitive
 download of the same data.
 
 The message that is shown by the call above indicates that the MS data files
@@ -156,27 +159,29 @@ were not provided in the expected column (`"Derived Spectral Data File"`) but in
 the column for raw data files.
 
 The `Spectra` object with the MS data files of the MetaboLights data set enables
-now any subsequent of the data that supports this type of data. On top of the
-spectra variables and mass peak data values that are provided by the MS data
-files also additional information related to the MetaboLights data set are
-available as specific *spectra variables*. We list all available spectra
-variables of the data set below.
+now any subsequent analysis of the data in R. On top of the spectra variables
+and mass peak data values that are provided by the MS data files also additional
+information related to the MetaboLights data set are available as specific
+*spectra variables*. We list all available spectra variables of the data set
+below.
 
 ```{r}
 spectraVariables(s)
 ```
 
 The MetaboLights-specific variables are `"mtbls_id"`, `"mtbls_assay_name"` and
-`"derived_spectral_data_file"`.
+`"derived_spectral_data_file"` providing the MetaboLights ID of the data set,
+the assay/method with which the data files were generated and the original file
+path/name of the data files on the MetaboLights ftp server.
 
 ```{r}
 spectraData(s, c("mtbls_id", "mtbls_assay_name",
                  "derived_spectral_data_file"))
 ```
 
-These variables can also be used to e.g. link the individual spectra back to the
-original sample (e.g. through the *assay* and *sample* tables of the
-MetaboLights data set.
+These variables can be used to link the individual spectra back to the original
+sample (e.g. through the *assay* and *sample* tables of the MetaboLights data
+set.
 
 
 # Session information

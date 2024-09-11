@@ -6,11 +6,12 @@
 #'
 #' @description
 #'
-#' The `MsBackendMetaboLights` retrieves and represents mass spectrometry (MS)
+#' `MsBackendMetaboLights` retrieves and represents mass spectrometry (MS)
 #' data from metabolomics experiments stored in the
 #' [MetaboLights](https://www.ebi.ac.uk/metabolights/) repository. The backend
 #' directly extends the [MsBackendMzR] backend from the *Spectra* package and
-#' hence supports MS data in mzML, netCDF and mzXML format. Upon initialization
+#' hence supports MS data in mzML, netCDF and mzXML format. Data in other
+#' formats can not be loaded with `MsBackendMetaboLights`. Upon initialization
 #' with the `backendInitialize()` method, the `MsBackendMetaboLights` backend
 #' downloads and caches the MS data files of an experiment locally avoiding
 #' hence repeated download of the data.
@@ -19,69 +20,77 @@
 #'
 #' New instances of the class can be created with the `MsBackendMetaboLights()`
 #' function. Data is loaded and initialized using the `backendInitialize()`
-#' function with parameters `mtblsId`, `assayName` and `filePattern`. `mtblsId`
-#' must be the ID of a **single** (existing) MetaboLights data set. Parameter
-#' `assayName` allows to define specific *assays* of the MetaboLights data set
-#' from which the data files should be loaded. If provided, it should be the
-#' file names of the respective assays in MetaboLights (use e.g.
+#' function which can be configured with parameters `mtblsId`, `assayName` and
+#' `filePattern`. `mtblsId` must be the ID of a **single** (existing)
+#' MetaboLights data set. Parameter `assayName` allows to define specific
+#' *assays* of the MetaboLights data set from which the data files should be
+#' loaded. If provided, it should be the file name(s) of the respective
+#' assay(s) in MetaboLights (use e.g.
 #' `mtbls_list_files(<MetaboLights ID>, pattern = "^a_")` to list all available
-#' assay files for a given MetaboLights ID `<MetaboLights ID>`. By default,
-#' with `assayName = character()` MS data files from all assays of a data set
-#' are loaded. Optional parameter `filePattern` defines the pattern that should
-#' be used to filter the file names. It defaults to data files with file
-#' endings of supported MS data files. `backendInitialize()` requires by
-#' default an active internet connection as the function first compares the
-#' remote file content to eventually synchronize changes/updates. This can be
-#' skipped with `offline = TRUE` in which case only locally cached content
-#' is considered.
+#' assay files for a given MetaboLights ID `<MetaboLights ID>`). By default,
+#' with `assayName = character()` MS data files from **all** assays of a data
+#' set are loaded. Optional parameter `filePattern` defines the pattern that
+#' should be used to filter the file names of the MS data files. It defaults
+#' to data files with file endings of supported MS data files.
+#' `backendInitialize()` requires an active internet connection as the
+#' function first compares the remote file content to the locally cached files
+#' and eventually synchronizes changes/updates. This can be skipped with
+#' `offline = TRUE` in which case only locally cached content is queried.
 #'
 #' @param object an instance of `MsBackendMetaboLights`.
 #'
-#' @param mtblsId `character(1)` with the ID of the MetaboLights data
+#' @param mtblsId `character(1)` with the ID of a single MetaboLights data
 #'     set/experiment.
 #'
 #' @param assayName `character` with the file names of assay files of the data
 #'     set. If not provided (`assayName = character()`, the default), MS data
-#'     files of all data set's assays is loaded. Use
+#'     files of all data set's assays are loaded. Use
 #'     `mtbls_list_files(<MetaboLights ID>, pattern = "^a_")` to list all
 #'     available assay files of a data set `<MetaboLights ID>`.
 #'
 #' @param filePattern `character` with the pattern defining the supported (or
 #'     requested) file types. Defaults to
 #'     `filePattern = "mzML$|CDF$|cdf$|mzXML$"` hence restricting to mzML,
-#'     CDF and mzXML files supported by *Spectra*'s `MsBackendMzR` backend.
+#'     CDF and mzXML files which are supported by *Spectra*'s
+#'     `MsBackendMzR` backend.
 #'
 #' @param offline `logical(1)` whether only locally cached content should be
 #'     evaluated/loaded.
 #'
 #' @param ... additional parameters; currently ignored.
 #'
+#' @return
+#'
+#' - For `MsBackendMetaboLights()`: an instance of `MsBackendMetaboLights`.
+#' - For `backendInitialize()`: an instance of `MsBackendMetaboLights` with
+#'   the MS data of the specified MetaboLights data set.
+#'
 #' @details
 #'
-#' Data files are by default extracted from the column `"Derived Spectral
-#' Data File"` of the MetaboLights data set's *assay* table. If this column
-#' does not contain any supported file names, the assay's column
-#' `"Raw Spectral Data File"` is evaluated.
+#' File names for data files are by default extracted from the column
+#' `"Derived Spectral Data File"` of the MetaboLights data set's *assay*
+#' table. If this column does not contain any supported file names, the
+#' assay's column `"Raw Spectral Data File"` is evaluated instead.
 #'
 #' The backend uses the
 #' [BiocFileCache](https://bioconductor.org/packages/BiocFileCache) package for
 #' caching of the data files. These are stored in the default local
 #' *BiocFileCache* cache along with additional metadata that includes the
-#' MetaboLights ID, the assay file name with which the data file is associated
-#' with. Note that at present only MS data files in *mzML*, *CDF* and *mzXML*
-#' format are supported.
+#' MetaboLights ID and the assay file name with which the data file is
+#' associated with. Note that at present only MS data files in *mzML*, *CDF*
+#' and *mzXML* format are supported.
 #'
 #' The `MsBackendMetaboLights` backend defines and provides additional spectra
 #' variables `"mtbls_id"`, `"mtbls_assay_name"` and
 #' `"derived_spectral_data_file"` that list the MetaboLights ID, the name of
 #' the assay file and the original data file name on the MetaboLights ftp
 #' server for each individual spectrum. The `"derived_spectral_data_file"` can
-#' be used for the mapping between the experiment/data sets samples and the
+#' be used for the mapping between the experiment's samples and the
 #' individual data files, respective their spectra. This mapping is provided
-#' in the respective MetaboLights assay file.
+#' in the MetaboLights assay file.
 #'
-#' The `MsBackendMetaboLights()` is considered *read-only* and does thus not
-#' support changing *m/z* and intensity values directly.
+#' The `MsBackendMetaboLights` backend is considered *read-only* and does
+#' thus not support changing *m/z* and intensity values directly.
 #'
 #' Also, merging of MS data of `MsBackendMetaboLights` is not supported and
 #' thus `c()` of several `Spectra` with MS data represented by
@@ -93,6 +102,19 @@
 #'
 #' @author Philippine Louail, Johannes Rainer
 #'
+#' @examples
+#'
+#' library(MsBackendMetaboLights)
+#'
+#' ## List files of a MetaboLights data set
+#' mtbls_list_files("MTBLS39")
+#'
+#' ## Initialize a MsBackendMetaboLights representing all MS data files of
+#' ## the data set with the ID "MTBLS39". This will download and cache all
+#' ## files and subsequently load and represent them in R.
+#'
+#' be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
+#' be
 NULL
 
 setClass("MsBackendMetaboLights",
@@ -179,7 +201,7 @@ setMethod(
 #' MS/NMR data files) of an experiment are available through the repository's
 #' ftp server.
 #'
-#' The functions listed here allow to query and retrieve information of an
+#' The functions listed here allow to query and retrieve information of a
 #' data set/experiment from MetaboLights.
 #'
 #' - `mtbls_ftp_path`: returns the FTP path for a provided MetaboLights ID.
@@ -189,10 +211,11 @@ setMethod(
 #'   `character(1)` with the FTP path to the data set folder.
 #'
 #' - `mtbls_list_files`: returns the available files (and directories) for the
-#'   specified MetaboLights data set (i.e. the FTP directory content of the
+#'   specified MetaboLights data set (i.e., the FTP directory content of the
 #'   data set). The function returns a `character` vector with the relative
 #'   file names to the absolute FTP path (`mtbls_ftp_path()`) of the data set.
-#'   Parameter `pattern` allows to filter which file names should be returned.
+#'   Parameter `pattern` allows to filter the file names and define which
+#'   file names should be returned.
 #'
 #' @param x `character(1)` with the ID of the MetaboLights data set (usually
 #'     starting with a *MTBLS* followed by a number).
@@ -205,8 +228,16 @@ setMethod(
 #'
 #' @param pattern for `mtbls_list_files()`: `character(1)` defining a pattern
 #'     to filter the file names, such as `pattern = "^a_"` to retrieve the
-#'     file names of all assay files of the data set. This parameter is
-#'     passed to the [grepl()] function.
+#'     file names of all assay files of the data set (i.e., files with a name
+#'     starting with `"a_"`). This parameter is passed to the [grepl()]
+#'     function.
+#'
+#' @return
+#'
+#' - For `mtbls_ftp_path()`: `character(1)` with the ftp path to the specified
+#'   data set on the MetaboLights ftp server.
+#' - For `mtbls_list_files()`: `character` with the names of the files in the
+#'   data set's base ftp directory.
 #'
 #' @author Johannes Rainer, Philippine Louail
 #'

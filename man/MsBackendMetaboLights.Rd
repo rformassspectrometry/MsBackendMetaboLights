@@ -23,59 +23,69 @@ MsBackendMetaboLights()
 \arguments{
 \item{object}{an instance of \code{MsBackendMetaboLights}.}
 
-\item{mtblsId}{\code{character(1)} with the ID of the MetaboLights data
+\item{mtblsId}{\code{character(1)} with the ID of a single MetaboLights data
 set/experiment.}
 
 \item{assayName}{\code{character} with the file names of assay files of the data
 set. If not provided (\code{assayName = character()}, the default), MS data
-files of all data set's assays is loaded. Use
+files of all data set's assays are loaded. Use
 \verb{mtbls_list_files(<MetaboLights ID>, pattern = "^a_")} to list all
 available assay files of a data set \verb{<MetaboLights ID>}.}
 
 \item{filePattern}{\code{character} with the pattern defining the supported (or
 requested) file types. Defaults to
 \code{filePattern = "mzML$|CDF$|cdf$|mzXML$"} hence restricting to mzML,
-CDF and mzXML files supported by \emph{Spectra}'s \code{MsBackendMzR} backend.}
+CDF and mzXML files which are supported by \emph{Spectra}'s
+\code{MsBackendMzR} backend.}
 
 \item{offline}{\code{logical(1)} whether only locally cached content should be
 evaluated/loaded.}
 
 \item{...}{additional parameters; currently ignored.}
 }
+\value{
+\itemize{
+\item For \code{MsBackendMetaboLights()}: an instance of \code{MsBackendMetaboLights}.
+\item For \code{backendInitialize()}: an instance of \code{MsBackendMetaboLights} with
+the MS data of the specified MetaboLights data set.
+}
+}
 \description{
-The \code{MsBackendMetaboLights} retrieves and represents mass spectrometry (MS)
+\code{MsBackendMetaboLights} retrieves and represents mass spectrometry (MS)
 data from metabolomics experiments stored in the
 \href{https://www.ebi.ac.uk/metabolights/}{MetaboLights} repository. The backend
 directly extends the \link{MsBackendMzR} backend from the \emph{Spectra} package and
-hence supports MS data in mzML, netCDF and mzXML format. Upon initialization
+hence supports MS data in mzML, netCDF and mzXML format. Data in other
+formats can not be loaded with \code{MsBackendMetaboLights}. Upon initialization
 with the \code{backendInitialize()} method, the \code{MsBackendMetaboLights} backend
 downloads and caches the MS data files of an experiment locally avoiding
 hence repeated download of the data.
 }
 \details{
-Data files are by default extracted from the column \code{"Derived Spectral Data File"} of the MetaboLights data set's \emph{assay} table. If this column
-does not contain any supported file names, the assay's column
-\code{"Raw Spectral Data File"} is evaluated.
+File names for data files are by default extracted from the column
+\code{"Derived Spectral Data File"} of the MetaboLights data set's \emph{assay}
+table. If this column does not contain any supported file names, the
+assay's column \code{"Raw Spectral Data File"} is evaluated instead.
 
 The backend uses the
 \href{https://bioconductor.org/packages/BiocFileCache}{BiocFileCache} package for
 caching of the data files. These are stored in the default local
 \emph{BiocFileCache} cache along with additional metadata that includes the
-MetaboLights ID, the assay file name with which the data file is associated
-with. Note that at present only MS data files in \emph{mzML}, \emph{CDF} and \emph{mzXML}
-format are supported.
+MetaboLights ID and the assay file name with which the data file is
+associated with. Note that at present only MS data files in \emph{mzML}, \emph{CDF}
+and \emph{mzXML} format are supported.
 
 The \code{MsBackendMetaboLights} backend defines and provides additional spectra
 variables \code{"mtbls_id"}, \code{"mtbls_assay_name"} and
 \code{"derived_spectral_data_file"} that list the MetaboLights ID, the name of
 the assay file and the original data file name on the MetaboLights ftp
 server for each individual spectrum. The \code{"derived_spectral_data_file"} can
-be used for the mapping between the experiment/data sets samples and the
+be used for the mapping between the experiment's samples and the
 individual data files, respective their spectra. This mapping is provided
-in the respective MetaboLights assay file.
+in the MetaboLights assay file.
 
-The \code{MsBackendMetaboLights()} is considered \emph{read-only} and does thus not
-support changing \emph{m/z} and intensity values directly.
+The \code{MsBackendMetaboLights} backend is considered \emph{read-only} and does
+thus not support changing \emph{m/z} and intensity values directly.
 
 Also, merging of MS data of \code{MsBackendMetaboLights} is not supported and
 thus \code{c()} of several \code{Spectra} with MS data represented by
@@ -86,23 +96,38 @@ thus \code{c()} of several \code{Spectra} with MS data represented by
 
 New instances of the class can be created with the \code{MsBackendMetaboLights()}
 function. Data is loaded and initialized using the \code{backendInitialize()}
-function with parameters \code{mtblsId}, \code{assayName} and \code{filePattern}. \code{mtblsId}
-must be the ID of a \strong{single} (existing) MetaboLights data set. Parameter
-\code{assayName} allows to define specific \emph{assays} of the MetaboLights data set
-from which the data files should be loaded. If provided, it should be the
-file names of the respective assays in MetaboLights (use e.g.
+function which can be configured with parameters \code{mtblsId}, \code{assayName} and
+\code{filePattern}. \code{mtblsId} must be the ID of a \strong{single} (existing)
+MetaboLights data set. Parameter \code{assayName} allows to define specific
+\emph{assays} of the MetaboLights data set from which the data files should be
+loaded. If provided, it should be the file name(s) of the respective
+assay(s) in MetaboLights (use e.g.
 \verb{mtbls_list_files(<MetaboLights ID>, pattern = "^a_")} to list all available
-assay files for a given MetaboLights ID \verb{<MetaboLights ID>}. By default,
-with \code{assayName = character()} MS data files from all assays of a data set
-are loaded. Optional parameter \code{filePattern} defines the pattern that should
-be used to filter the file names. It defaults to data files with file
-endings of supported MS data files. \code{backendInitialize()} requires by
-default an active internet connection as the function first compares the
-remote file content to eventually synchronize changes/updates. This can be
-skipped with \code{offline = TRUE} in which case only locally cached content
-is considered.
+assay files for a given MetaboLights ID \verb{<MetaboLights ID>}). By default,
+with \code{assayName = character()} MS data files from \strong{all} assays of a data
+set are loaded. Optional parameter \code{filePattern} defines the pattern that
+should be used to filter the file names of the MS data files. It defaults
+to data files with file endings of supported MS data files.
+\code{backendInitialize()} requires an active internet connection as the
+function first compares the remote file content to the locally cached files
+and eventually synchronizes changes/updates. This can be skipped with
+\code{offline = TRUE} in which case only locally cached content is queried.
 }
 
+\examples{
+
+library(MsBackendMetaboLights)
+
+## List files of a MetaboLights data set
+mtbls_list_files("MTBLS39")
+
+## Initialize a MsBackendMetaboLights representing all MS data files of
+## the data set with the ID "MTBLS39". This will download and cache all
+## files and subsequently load and represent them in R.
+
+be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
+be
+}
 \author{
 Philippine Louail, Johannes Rainer
 }

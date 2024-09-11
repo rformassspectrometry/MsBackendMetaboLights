@@ -22,8 +22,17 @@ available).}
 
 \item{pattern}{for \code{mtbls_list_files()}: \code{character(1)} defining a pattern
 to filter the file names, such as \code{pattern = "^a_"} to retrieve the
-file names of all assay files of the data set. This parameter is
-passed to the \code{\link[=grepl]{grepl()}} function.}
+file names of all assay files of the data set (i.e., files with a name
+starting with \code{"a_"}). This parameter is passed to the \code{\link[=grepl]{grepl()}}
+function.}
+}
+\value{
+\itemize{
+\item For \code{mtbls_ftp_path()}: \code{character(1)} with the ftp path to the specified
+data set on the MetaboLights ftp server.
+\item For \code{mtbls_list_files()}: \code{character} with the names of the files in the
+data set's base ftp directory.
+}
 }
 \description{
 \href{https://www.ebi.ac.uk/metabolights/}{MetaboLights} is one of the main
@@ -40,7 +49,7 @@ starting with \emph{MTBLS} followed by a number. The data (metadata files and
 MS/NMR data files) of an experiment are available through the repository's
 ftp server.
 
-The functions listed here allow to query and retrieve information of an
+The functions listed here allow to query and retrieve information of a
 data set/experiment from MetaboLights.
 \itemize{
 \item \code{mtbls_ftp_path}: returns the FTP path for a provided MetaboLights ID.
@@ -49,10 +58,11 @@ the path is not accessible (either because the data set does not exist or
 no internet connection is available). The function returns a
 \code{character(1)} with the FTP path to the data set folder.
 \item \code{mtbls_list_files}: returns the available files (and directories) for the
-specified MetaboLights data set (i.e. the FTP directory content of the
+specified MetaboLights data set (i.e., the FTP directory content of the
 data set). The function returns a \code{character} vector with the relative
 file names to the absolute FTP path (\code{mtbls_ftp_path()}) of the data set.
-Parameter \code{pattern} allows to filter which file names should be returned.
+Parameter \code{pattern} allows to filter the file names and define which
+file names should be returned.
 }
 }
 \examples{

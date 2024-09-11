@@ -1,3 +1,9 @@
+# MsBackendMetaboLights 0.99
+
+## Changes in 0.99.0
+
+- Prepare package for submission to Bioconductor.
+
 # MsBackendMetabolights 0.0
 
 ## Changes in 0.0.3

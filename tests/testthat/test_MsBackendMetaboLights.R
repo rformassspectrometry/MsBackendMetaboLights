@@ -4,7 +4,7 @@
 ##             small data files. maybe use pattern sham-1-10.mzML
 ## MTBLS39: cdf files listed in Raw Spectral Data File column. Maybe use a
 ##          specific pattern to load/cache only some files.
-## MTBLS243: mzML.gz files. Can eventually use an additional filter.
+## MTBLS243: mzML.gz files. Can eventually use an additional filePattern?
 
 test_that("MsBackendMetaboLights works", {
     res <- MsBackendMetaboLights()
