@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Using Mass Spectrometry Data from MetaboLights • MsBackendMetaboLights</title>
+<title>Retrieve and Use Mass Spectrometry Data from MetaboLights • MsBackendMetaboLights</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Using Mass Spectrometry Data from MetaboLights">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Retrieve and Use Mass Spectrometry Data from MetaboLights">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Using Mass Spectrometry Data from MetaboLights</h1>
+      <h1>Retrieve and Use Mass Spectrometry Data from MetaboLights</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights/blob/main/vignettes/MsBackendMetaboLights.Rmd" class="external-link"><code>vignettes/MsBackendMetaboLights.Rmd</code></a></small>
@@ -72,16 +72,17 @@ document.addEventListener("DOMContentLoaded", function() {
       links[i].target = '_blank';
 });
 </script><p><strong>Package</strong>: <em><a href="https://bioconductor.org/packages/3.20/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></em><br><strong>Authors</strong>: Johannes Rainer [aut, cre] (<a href="https://orcid.org/0000-0002-6977-7147" class="external-link uri">https://orcid.org/0000-0002-6977-7147</a>), Philippine
-Louail [aut] (<a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2024-09-09 10:33:09.369035<br><strong>Compiled</strong>: Mon Sep 9 10:40:09 2024</p>
+Louail [aut] (<a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2024-09-11 06:12:06.957982<br><strong>Compiled</strong>: Wed Sep 11 06:24:30 2024</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.20/Spectra" class="external-link">Spectra</a></em>
 package provides a central infrastructure for the handling of Mass
-Spectrometry (MS) data. The package supports interchangeable use of
-different <em>backends</em> to import MS data from a variety of sources
-and data formats. The <em>MsBackendMetaboLights</em> package allows to
-retrieve MS data files directly from the <a href="https://www.ebi.ac.uk/metabolights/" class="external-link">MetaboLights</a> repository.
+Spectrometry (MS) data in Bioconductor. The package supports
+interchangeable use of different <em>backends</em> to import and
+represent MS data from a variety of sources and data formats. The
+<em>MsBackendMetaboLights</em> package allows to retrieve MS data files
+directly from the <a href="https://www.ebi.ac.uk/metabolights/" class="external-link">MetaboLights</a> repository.
 MetaboLights is one of the main public repositories for deposition of
 metabolomics experiments including (raw) MS and/or NMR data files and
 the related experimental and analytical results. The
@@ -92,8 +93,8 @@ this data directly in R.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The package can be installed directly from within R with the few
-commands below:</p>
+<p>The package can be installed from within R with the commands
+below:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -138,9 +139,9 @@ test data set.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/"</span></span></code></pre>
 <p>We could inspect the content of this folder also using a browser
-supporting the ftp file transfer protocol and also download the files.
-We can however access the files also directly from within R. Below we
-read the <em>assay</em> data file directly using the
+supporting the ftp file transfer protocol and download individual files
+manually. We can however access the files also directly from within R.
+Below we read the <em>assay</em> data file directly using the base R
 <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code> function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Get the assay files of the data set</span></span>
@@ -153,7 +154,8 @@ read the <em>assay</em> data file directly using the
 <span>                sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Each row in this assay table refers to one measurement (data file) of
 the data set, with columns providing information on that measurement.
-The number and content of columns can vary between data sets. Below we
+The number and content of columns can vary between data sets and depends
+on the information the original researcher (manually) provided. Below we
 list the columns available in the assay file of our test data set.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></code></pre></div>
@@ -199,10 +201,11 @@ list the columns available in the assay file of our test data set.</p>
 <span><span class="co">## [40] "Data Transformation Name"                  </span></span>
 <span><span class="co">## [41] "Metabolite Assignment File"</span></span></code></pre>
 <p>MS data files are generally provided in a column named
-<code>"Derived Spectral Data File"</code> or
-<code>"Raw Spectral Data File"</code>, depending into which data field
-the data set submitted entered the data. Below we list the content of
-these data columns.</p>
+<code>"Derived Spectral Data File"</code> but sometimes they are also
+listed in a column named <code>"Raw Spectral Data File"</code>. Note
+that providing MS data files is not absolutely mandatory, thus, for some
+data sets no MS data files might be available. Below we list the content
+of these data columns.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Raw Spectral Data File"</span>, <span class="st">"Derived Spectral Data File"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Raw Spectral Data File Derived Spectral Data File</span></span>
@@ -233,24 +236,22 @@ these data columns.</p>
 <span><span class="co">## 25       FILES/AM083A.cdf                         NA</span></span>
 <span><span class="co">## 26       FILES/AM083B.cdf                         NA</span></span>
 <span><span class="co">## 27       FILES/AM083C.cdf                         NA</span></span></code></pre>
-<p>Note that providing MS data files is not absolutely mandatory, thus,
-for some data sets no MS data files might be available. For this
-particular data set the MS data files are provided in the
+<p>For this particular data set the MS data files are provided in the
 <code>"Raw Spectral Data File"</code> column. These files are in CDF
 format and can hence be loaded using the
 <code>MsBackendMetaboLights</code> backend into R as a
 <code>Spectra</code> object (<code>MsBackendMetaboLights</code> directly
 extends <em>Spectra</em>’s <code>MsBackendMzR</code> backend and
-therefore supports import of MS data files in mzML, CDF or mzXML
-formats). By default, all MS data files of all assays would be
-retrieved, but in our example below we restrict to few files to reduce
-the amount of data that needs to be downloaded. We define for that a
-pattern matching the file name of only some data files using the
-<code>filePattern</code> parameter. Alternatively, for data sets with
-more than one assay, it would also be possible to select MS data files
-from one particular assay only using the <code>assayName</code>
-parameter. In our case we load all MS data files that end with
-<em>63A.cdf</em>.</p>
+therefore supports import of MS data files in <em>mzML</em>,
+<em>CDF</em> or <em>mzXML</em> formats). By default, all MS data files
+of all assays would be retrieved, but in our example below we restrict
+to few data files to reduce the amount of data that needs to be
+downloaded. To this end we define a pattern matching the file name of
+only some data files using the <code>filePattern</code> parameter.
+Alternatively, for data sets with more than one assay, it would also be
+possible to select MS data files from one particular assay only using
+the <code>assayName</code> parameter. In our case we load all MS data
+files that end with <em>63A.cdf</em>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RforMassSpectrometry/Spectra" class="external-link">Spectra</a></span><span class="op">)</span></span>
 <span></span>
@@ -283,19 +284,21 @@ parameter. In our case we load all MS data files that end with
 <p>This call now downloaded the files to the local cache and loaded
 these files as a <code>Spectra</code> object. The downloading and
 caching of the data is handled by Bioconductor’s <em><a href="https://bioconductor.org/packages/3.20/BiocFileCache" class="external-link">BiocFileCache</a></em>.
-Any subsequent loading of the same data files will load the locally
-cached versions avoiding thus repetitive download of the same data.</p>
+The local cache can thus be managed directly using functionality from
+that package. Any subsequent loading of the same data files will load
+the locally cached versions avoiding thus repetitive download of the
+same data.</p>
 <p>The message that is shown by the call above indicates that the MS
 data files were not provided in the expected column
 (<code>"Derived Spectral Data File"</code>) but in the column for raw
 data files.</p>
 <p>The <code>Spectra</code> object with the MS data files of the
-MetaboLights data set enables now any subsequent of the data that
-supports this type of data. On top of the spectra variables and mass
-peak data values that are provided by the MS data files also additional
-information related to the MetaboLights data set are available as
-specific <em>spectra variables</em>. We list all available spectra
-variables of the data set below.</p>
+MetaboLights data set enables now any subsequent analysis of the data in
+R. On top of the spectra variables and mass peak data values that are
+provided by the MS data files also additional information related to the
+MetaboLights data set are available as specific <em>spectra
+variables</em>. We list all available spectra variables of the data set
+below.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">spectraVariables</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "msLevel"                    "rtime"                     </span></span>
@@ -319,7 +322,10 @@ variables of the data set below.</p>
 <span><span class="co">## [37] "derived_spectral_data_file"</span></span></code></pre>
 <p>The MetaboLights-specific variables are <code>"mtbls_id"</code>,
 <code>"mtbls_assay_name"</code> and
-<code>"derived_spectral_data_file"</code>.</p>
+<code>"derived_spectral_data_file"</code> providing the MetaboLights ID
+of the data set, the assay/method with which the data files were
+generated and the original file path/name of the data files on the
+MetaboLights ftp server.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">spectraData</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mtbls_id"</span>, <span class="st">"mtbls_assay_name"</span>,</span>
 <span>                 <span class="st">"derived_spectral_data_file"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -337,9 +343,9 @@ variables of the data set below.</p>
 <span><span class="co">## 1662     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf</span></span>
 <span><span class="co">## 1663     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf</span></span>
 <span><span class="co">## 1664     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf</span></span></code></pre>
-<p>These variables can also be used to e.g. link the individual spectra
-back to the original sample (e.g. through the <em>assay</em> and
-<em>sample</em> tables of the MetaboLights data set.</p>
+<p>These variables can be used to link the individual spectra back to
+the original sample (e.g. through the <em>assay</em> and <em>sample</em>
+tables of the MetaboLights data set.</p>
 </div>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
@@ -370,10 +376,10 @@ back to the original sample (e.g. through the <em>assay</em> and
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MsBackendMetaboLights_0.0.3 Spectra_1.15.7             </span></span>
-<span><span class="co">## [3] ProtGenerics_1.37.1         BiocParallel_1.39.0        </span></span>
-<span><span class="co">## [5] S4Vectors_0.43.2            BiocGenerics_0.51.1        </span></span>
-<span><span class="co">## [7] BiocStyle_2.33.1           </span></span>
+<span><span class="co">## [1] MsBackendMetaboLights_0.99.0 Spectra_1.15.7              </span></span>
+<span><span class="co">## [3] ProtGenerics_1.37.1          BiocParallel_1.39.0         </span></span>
+<span><span class="co">## [5] S4Vectors_0.43.2             BiocGenerics_0.51.1         </span></span>
+<span><span class="co">## [7] BiocStyle_2.33.1            </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] sass_0.4.9             MsCoreUtils_1.17.1     utf8_1.2.4            </span></span>
