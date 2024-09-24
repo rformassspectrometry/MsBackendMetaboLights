@@ -98,6 +98,8 @@
 #'
 #' @importClassesFrom Spectra MsBackendMzR
 #'
+#' @importClassesFrom Spectra MsBackendDataFrame
+#'
 #' @exportClass MsBackendMetaboLights
 #'
 #' @author Philippine Louail, Johannes Rainer
