@@ -20,11 +20,11 @@ Description: MetaboLights is one of the main public repositories for storage
 	     R-based analysis workflows with the Spectra and
 	     MsBackendMetaboLights package.
 Depends:
-    R (>= 4.2.0)
+    R (>= 4.2.0),
+    Spectra
 Imports:
     curl,
     ProtGenerics,
-    Spectra,
     BiocFileCache,
     methods
 Suggests:
