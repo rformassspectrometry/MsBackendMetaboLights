@@ -70,6 +70,10 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(all(b$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, b$rpath)
 
+    ## with fileNames
+    expect_error(.mtbls_data_files("MTBLS39", pattern = "63A.cdf",
+                                   fileName = c("a", "b")), "None of the ")
+
     ## with assayName
     b <- .mtbls_data_files(
         "MTBLS39", pattern = "63A.cdf",
@@ -90,6 +94,25 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(nrow(a) == 3)
     expect_true(all(a$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, d$rpath)
+})
+
+test_that("mtbls_sync_data_files works", {
+    expect_error(mtbls_sync_data_files(), "No MetaboLights data")
+    res <- mtbls_sync_data_files("MTBLS39", pattern = "*",
+                                 fileName = c("AM063A.cdf"))
+    expect_true(is.data.frame(res))
+    expect_equal(nrow(res), 1L)
+    expect_equal(res$mtbls_id, "MTBLS39")
+})
+
+test_that("mtbls_cached_data_files works", {
+    res <- mtbls_cached_data_files()
+    expect_true(is.data.frame(res))
+    expect_true(nrow(res) > 0)
+
+    res <- mtbls_cached_data_files(fileName = "otehr")
+    expect_true(is.data.frame(res))
+    expect_true(nrow(res) == 0)
 })
 
 test_that("backendMerge,MsBackendMetaboLights fails", {

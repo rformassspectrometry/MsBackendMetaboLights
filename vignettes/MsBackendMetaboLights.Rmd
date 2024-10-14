@@ -183,6 +183,26 @@ These variables can be used to link the individual spectra back to the original
 sample (e.g. through the *assay* and *sample* tables of the MetaboLights data
 set.
 
+Also, it is possible to *manually* cache and download data files from
+MetaboLights using the `mtbls_sync_data_files()` function. This function
+evaluates if the respective data files are already cached and, if so, does not
+download them again. Below we use this retrieve the local storage information on
+one of the data files of the MetaboLights data set *MTBLS39*:
+
+```{r}
+res <- mtbls_sync_data_files("MTBLS39", fileName = "AM063A.cdf")
+res
+```
+
+The `mtbls_cached_data_files()` function can be used to inspect and list locally
+cached MetaboLights data files. This function does not require an active
+internet connection since only local content is queried. With the default
+settings, all
+
+```{r}
+mtbls_cached_data_files()
+```
+
 
 # Session information
 

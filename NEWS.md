@@ -1,5 +1,10 @@
 # MsBackendMetaboLights 0.99
 
+## Changes in 0.99.1
+
+- Add `mtbls_sync_data_files()` function to cache selected files and
+  `mtbls_cached_data_files()` to list all locally cached data files.
+
 ## Changes in 0.99.0
 
 - Prepare package for submission to Bioconductor.

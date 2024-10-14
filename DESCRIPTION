@@ -26,6 +26,7 @@ Imports:
     curl,
     ProtGenerics,
     BiocFileCache,
+    S4Vectors,
     methods
 Suggests:
     testthat,
