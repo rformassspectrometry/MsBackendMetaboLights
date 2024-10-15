@@ -5,6 +5,7 @@
 \alias{MsBackendMetaboLights-class}
 \alias{backendInitialize,MsBackendMetaboLights-method}
 \alias{backendMerge,MsBackendMetaboLights-method}
+\alias{mtbls_sync}
 \title{MsBackend representing MS data from MetaboLights}
 \usage{
 MsBackendMetaboLights()
@@ -19,6 +20,8 @@ MsBackendMetaboLights()
 )
 
 \S4method{backendMerge}{MsBackendMetaboLights}(object, ...)
+
+mtbls_sync(x, offline = FALSE)
 }
 \arguments{
 \item{object}{an instance of \code{MsBackendMetaboLights}.}
@@ -42,12 +45,16 @@ CDF and mzXML files which are supported by \emph{Spectra}'s
 evaluated/loaded.}
 
 \item{...}{additional parameters; currently ignored.}
+
+\item{x}{an instance of \code{MsBackendMetaboLights}.}
 }
 \value{
 \itemize{
 \item For \code{MsBackendMetaboLights()}: an instance of \code{MsBackendMetaboLights}.
 \item For \code{backendInitialize()}: an instance of \code{MsBackendMetaboLights} with
 the MS data of the specified MetaboLights data set.
+\item For \code{mtbls_sync()}: the input \code{MsBackendMetaboLights} with the paths to
+the locally cached data files being eventually updated.
 }
 }
 \description{
@@ -112,6 +119,11 @@ to data files with file endings of supported MS data files.
 function first compares the remote file content to the locally cached files
 and eventually synchronizes changes/updates. This can be skipped with
 \code{offline = TRUE} in which case only locally cached content is queried.
+
+The \code{mtbls_sync()} function can be used to \emph{synchronize} the local data
+cache and ensure that all data files are locally available. The function
+will check the local cache and eventually download missing data files from
+the MetaboLights repository.
 }
 
 \examples{
@@ -127,6 +139,11 @@ mtbls_list_files("MTBLS39")
 
 be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
 be
+
+## The `mtbls_sync()` function can be used to ensure that all data files are
+## available locally. This function will eventually download missing data
+## files or update their paths.
+be <- mtbls_sync(be)
 }
 \author{
 Philippine Louail, Johannes Rainer
