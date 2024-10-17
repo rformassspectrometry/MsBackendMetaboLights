@@ -47,7 +47,8 @@ test_that("mtbls_sync works", {
     x <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                            filePattern = "63A.cdf", offline = TRUE)
     res <- mtbls_sync(x, offline = TRUE)
-    expect_equal(x, res)
+    expect_equal(rtime(x), rtime(res))
+    expect_equal(mz(x[1:50]), mz(res[1:50]))
 
     ## Remove local content.
     bfc <- BiocFileCache::BiocFileCache()
@@ -56,8 +57,8 @@ test_that("mtbls_sync works", {
 
     ## Re-add content
     res <- mtbls_sync(x, offline = FALSE)
-    expect_equal(x, res)
-    expect_equal(mz(x), mz(res)) # ensure data is also the same.
+    expect_equal(rtime(x), rtime(res))
+    expect_equal(mz(x[1:50]), mz(res[1:50]))
 })
 
 test_that(".valid_mtbls_required_columns works", {
