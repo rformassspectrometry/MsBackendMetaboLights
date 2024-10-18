@@ -37,6 +37,9 @@
 #' and eventually synchronizes changes/updates. This can be skipped with
 #' `offline = TRUE` in which case only locally cached content is queried.
 #'
+#' The `backendRequiredSpectraVariables()` function returns the names of the
+#' spectra variables required for the backend to provide the MS data.
+#'
 #' The `mtbls_sync()` function can be used to *synchronize* the local data
 #' cache and ensure that all data files are locally available. The function
 #' will check the local cache and eventually download missing data files from
@@ -71,6 +74,8 @@
 #' - For `MsBackendMetaboLights()`: an instance of `MsBackendMetaboLights`.
 #' - For `backendInitialize()`: an instance of `MsBackendMetaboLights` with
 #'   the MS data of the specified MetaboLights data set.
+#' - For `backendRequiredSpectraVariables()`: `character` with spectra
+#'   variables that are needed for the backend to provide the MS data.
 #' - For `mtbls_sync()`: the input `MsBackendMetaboLights` with the paths to
 #'   the locally cached data files being eventually updated.
 #'
@@ -200,6 +205,18 @@ setMethod(
         stop("Merging of backends of type 'MsBackendMetaboLights' is not ",
              "supported. Use 'setBackend()' to change to a backend that ",
              "supports merging, such as the 'MsBackendMemory'.")
+    })
+
+#' @rdname MsBackendMetaboLights
+#'
+#' @importMethodsFrom Spectra backendRequiredSpectraVariables
+#'
+#' @exportMethod backendRequiredSpectraVariables
+setMethod(
+    "backendRequiredSpectraVariables", "MsBackendMetaboLights",
+    function(object, ...) {
+        c(callNextMethod(), "mtbls_id", "mtbls_assay_name",
+          "derived_spectral_data_file")
     })
 
 .valid_mtbls_required_columns <- function(object) {

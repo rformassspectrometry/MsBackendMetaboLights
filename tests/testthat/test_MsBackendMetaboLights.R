@@ -41,6 +41,12 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     expect_equal(Spectra::rtime(res), Spectra::rtime(res_o))
 })
 
+test_that("backendRequiredSpectraVariables,MsBackendMetaboLights works", {
+    expect_equal(backendRequiredSpectraVariables(MsBackendMetaboLights()),
+                 c("dataStorage", "scanIndex", "mtbls_id", "mtbls_assay_name",
+                   "derived_spectral_data_file"))
+})
+
 test_that("mtbls_sync works", {
     expect_error(mtbls_sync(3, offline = TRUE), "'x' is expected to be")
 

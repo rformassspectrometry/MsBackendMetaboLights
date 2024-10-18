@@ -5,6 +5,7 @@
 \alias{MsBackendMetaboLights-class}
 \alias{backendInitialize,MsBackendMetaboLights-method}
 \alias{backendMerge,MsBackendMetaboLights-method}
+\alias{backendRequiredSpectraVariables,MsBackendMetaboLights-method}
 \alias{mtbls_sync}
 \title{MsBackend representing MS data from MetaboLights}
 \usage{
@@ -20,6 +21,8 @@ MsBackendMetaboLights()
 )
 
 \S4method{backendMerge}{MsBackendMetaboLights}(object, ...)
+
+\S4method{backendRequiredSpectraVariables}{MsBackendMetaboLights}(object, ...)
 
 mtbls_sync(x, offline = FALSE)
 }
@@ -53,6 +56,8 @@ evaluated/loaded.}
 \item For \code{MsBackendMetaboLights()}: an instance of \code{MsBackendMetaboLights}.
 \item For \code{backendInitialize()}: an instance of \code{MsBackendMetaboLights} with
 the MS data of the specified MetaboLights data set.
+\item For \code{backendRequiredSpectraVariables()}: \code{character} with spectra
+variables that are needed for the backend to provide the MS data.
 \item For \code{mtbls_sync()}: the input \code{MsBackendMetaboLights} with the paths to
 the locally cached data files being eventually updated.
 }
@@ -119,6 +124,9 @@ to data files with file endings of supported MS data files.
 function first compares the remote file content to the locally cached files
 and eventually synchronizes changes/updates. This can be skipped with
 \code{offline = TRUE} in which case only locally cached content is queried.
+
+The \code{backendRequiredSpectraVariables()} function returns the names of the
+spectra variables required for the backend to provide the MS data.
 
 The \code{mtbls_sync()} function can be used to \emph{synchronize} the local data
 cache and ensure that all data files are locally available. The function
