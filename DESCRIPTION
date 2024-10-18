@@ -21,7 +21,7 @@ Description: MetaboLights is one of the main public repositories for storage
 	     MsBackendMetaboLights package.
 Depends:
     R (>= 4.2.0),
-    Spectra
+    Spectra (>= 1.15.12)
 Imports:
     curl,
     ProtGenerics,
