@@ -23,7 +23,7 @@ hence repeated download of the data."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,12 @@ hence repeated download of the data.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'MsBackendMetaboLights'</span></span>
-<span><span class="fu">backendMerge</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">backendMerge</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'MsBackendMetaboLights'</span></span>
+<span><span class="fu">backendRequiredSpectraVariables</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mtbls_sync</span><span class="op">(</span><span class="va">x</span>, offline <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -117,13 +122,21 @@ evaluated/loaded.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>additional parameters; currently ignored.</p></dd>
 
+
+<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+<dd><p>an instance of <code>MsBackendMetaboLights</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
 
 <ul><li><p>For <code>MsBackendMetaboLights()</code>: an instance of <code>MsBackendMetaboLights</code>.</p></li>
-<li><p>For <code>backendInitialize()</code>: an instance of <code>MsBackendMetaboLights</code> with
+<li><p>For <code><a href="https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html" class="external-link">backendInitialize()</a></code>: an instance of <code>MsBackendMetaboLights</code> with
 the MS data of the specified MetaboLights data set.</p></li>
+<li><p>For <code><a href="https://rdrr.io/pkg/Spectra/man/MsBackend.html" class="external-link">backendRequiredSpectraVariables()</a></code>: <code>character</code> with spectra
+variables that are needed for the backend to provide the MS data.</p></li>
+<li><p>For <code>mtbls_sync()</code>: the input <code>MsBackendMetaboLights</code> with the paths to
+the locally cached data files being eventually updated.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -158,7 +171,7 @@ thus <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a>
 
 
 <p>New instances of the class can be created with the <code>MsBackendMetaboLights()</code>
-function. Data is loaded and initialized using the <code>backendInitialize()</code>
+function. Data is loaded and initialized using the <code><a href="https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html" class="external-link">backendInitialize()</a></code>
 function which can be configured with parameters <code>mtblsId</code>, <code>assayName</code> and
 <code>filePattern</code>. <code>mtblsId</code> must be the ID of a <strong>single</strong> (existing)
 MetaboLights data set. Parameter <code>assayName</code> allows to define specific
@@ -171,10 +184,16 @@ with <code>assayName = character()</code> MS data files from <strong>all</strong
 set are loaded. Optional parameter <code>filePattern</code> defines the pattern that
 should be used to filter the file names of the MS data files. It defaults
 to data files with file endings of supported MS data files.
-<code>backendInitialize()</code> requires an active internet connection as the
+<code><a href="https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html" class="external-link">backendInitialize()</a></code> requires an active internet connection as the
 function first compares the remote file content to the locally cached files
 and eventually synchronizes changes/updates. This can be skipped with
 <code>offline = TRUE</code> in which case only locally cached content is queried.</p>
+<p>The <code><a href="https://rdrr.io/pkg/Spectra/man/MsBackend.html" class="external-link">backendRequiredSpectraVariables()</a></code> function returns the names of the
+spectra variables required for the backend to provide the MS data.</p>
+<p>The <code>mtbls_sync()</code> function can be used to <em>synchronize</em> the local data
+cache and ensure that all data files are locally available. The function
+will check the local cache and eventually download missing data files from
+the MetaboLights repository.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -199,7 +218,7 @@ and eventually synchronizes changes/updates. This can be skipped with
 <span class="r-in"><span><span class="co">## the data set with the ID "MTBLS39". This will download and cache all</span></span></span>
 <span class="r-in"><span><span class="co">## files and subsequently load and represent them in R.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">be</span> <span class="op">&lt;-</span> <span class="fu">backendInitialize</span><span class="op">(</span><span class="fu">MsBackendMetaboLights</span><span class="op">(</span><span class="op">)</span>, <span class="st">"MTBLS39"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">be</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html" class="external-link">backendInitialize</a></span><span class="op">(</span><span class="fu">MsBackendMetaboLights</span><span class="op">(</span><span class="op">)</span>, <span class="st">"MTBLS39"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> adding rname 'ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/FILES/MN063B.cdf'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> adding rname 'ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/FILES/MN063C.cdf'</span>
@@ -247,6 +266,12 @@ and eventually synchronizes changes/updates. This can be skipped with
 <span class="r-out co"><span class="r-pr">#&gt;</span> CS063A.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AM063A.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... 24 more files</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The `mtbls_sync()` function can be used to ensure that all data files are</span></span></span>
+<span class="r-in"><span><span class="co">## available locally. This function will eventually download missing data</span></span></span>
+<span class="r-in"><span><span class="co">## files or update their paths.</span></span></span>
+<span class="r-in"><span><span class="va">be</span> <span class="op">&lt;-</span> <span class="fu">mtbls_sync</span><span class="op">(</span><span class="va">be</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -258,7 +283,7 @@ and eventually synchronizes changes/updates. This can be skipped with
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
     </footer></div>
