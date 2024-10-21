@@ -37,6 +37,14 @@
 #' and eventually synchronizes changes/updates. This can be skipped with
 #' `offline = TRUE` in which case only locally cached content is queried.
 #'
+#' The `backendRequiredSpectraVariables()` function returns the names of the
+#' spectra variables required for the backend to provide the MS data.
+#'
+#' The `mtbls_sync()` function can be used to *synchronize* the local data
+#' cache and ensure that all data files are locally available. The function
+#' will check the local cache and eventually download missing data files from
+#' the MetaboLights repository.
+#'
 #' @param object an instance of `MsBackendMetaboLights`.
 #'
 #' @param mtblsId `character(1)` with the ID of a single MetaboLights data
@@ -57,6 +65,8 @@
 #' @param offline `logical(1)` whether only locally cached content should be
 #'     evaluated/loaded.
 #'
+#' @param x an instance of `MsBackendMetaboLights`.
+#'
 #' @param ... additional parameters; currently ignored.
 #'
 #' @return
@@ -64,6 +74,10 @@
 #' - For `MsBackendMetaboLights()`: an instance of `MsBackendMetaboLights`.
 #' - For `backendInitialize()`: an instance of `MsBackendMetaboLights` with
 #'   the MS data of the specified MetaboLights data set.
+#' - For `backendRequiredSpectraVariables()`: `character` with spectra
+#'   variables that are needed for the backend to provide the MS data.
+#' - For `mtbls_sync()`: the input `MsBackendMetaboLights` with the paths to
+#'   the locally cached data files being eventually updated.
 #'
 #' @details
 #'
@@ -98,6 +112,10 @@
 #'
 #' @importClassesFrom Spectra MsBackendMzR
 #'
+#' @importClassesFrom Spectra MsBackendDataFrame
+#'
+#' @importFrom S4Vectors DataFrame
+#'
 #' @exportClass MsBackendMetaboLights
 #'
 #' @author Philippine Louail, Johannes Rainer
@@ -115,6 +133,11 @@
 #'
 #' be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
 #' be
+#'
+#' ## The `mtbls_sync()` function can be used to ensure that all data files are
+#' ## available locally. This function will eventually download missing data
+#' ## files or update their paths.
+#' be <- mtbls_sync(be)
 NULL
 
 setClass("MsBackendMetaboLights",
@@ -133,9 +156,17 @@ MsBackendMetaboLights <- function() {
 #'
 #' @importMethodsFrom ProtGenerics backendInitialize
 #'
+#' @importMethodsFrom Spectra backendInitialize
+#'
+#' @importMethodsFrom Spectra [
+#'
 #' @importMethodsFrom ProtGenerics dataOrigin
 #'
 #' @importFrom methods callNextMethod
+#'
+#' @importFrom methods as
+#'
+#' @importFrom Spectra MsBackendMzR
 #'
 #' @exportMethod backendInitialize
 setMethod(
@@ -153,14 +184,14 @@ setMethod(
         if (offline)
             mdata <- .mtbls_data_files_offline(mtblsId, assayName, filePattern)
         else mdata <- .mtbls_data_files(mtblsId, assayName, filePattern)
-        object <- callNextMethod(object, files = mdata$rpath)
+        object <- backendInitialize(MsBackendMzR(), files = mdata$rpath)
         idx <- match(dataOrigin(object),
                      normalizePath(mdata$rpath, mustWork = FALSE))
         object@spectraData$mtbls_id <- mdata$mtbls_id[idx]
         object@spectraData$mtbls_assay_name <- mdata$mtbls_assay_name[idx]
         object@spectraData$derived_spectral_data_file <-
             mdata$derived_spectral_data_file[idx]
-        object
+        object <- as(object, "MsBackendMetaboLights")
     })
 
 #' @rdname MsBackendMetaboLights
@@ -175,6 +206,82 @@ setMethod(
              "supported. Use 'setBackend()' to change to a backend that ",
              "supports merging, such as the 'MsBackendMemory'.")
     })
+
+#' @rdname MsBackendMetaboLights
+#'
+#' @importMethodsFrom Spectra backendRequiredSpectraVariables
+#'
+#' @exportMethod backendRequiredSpectraVariables
+setMethod(
+    "backendRequiredSpectraVariables", "MsBackendMetaboLights",
+    function(object, ...) {
+        c(callNextMethod(), "mtbls_id", "mtbls_assay_name",
+          "derived_spectral_data_file")
+    })
+
+.valid_mtbls_required_columns <- function(object) {
+    if (nrow(object@spectraData)) {
+        if (!all(c("mtbls_id", "mtbls_assay_name",
+                   "derived_spectral_data_file") %in%
+                 colnames(object@spectraData)))
+            return(paste0("One or more of required spectra variable(s) ",
+                          "\"mtbls_id\", \"mtbls_assay_name\", \"derived_",
+                          "spectral_data_file\" is (are) missing"))
+    }
+    character()
+}
+
+.valid_files_local <- function(object) {
+    if (nrow(object@spectraData)) {
+        if (!all(file.exists(object@spectraData$dataStorage)))
+            return(paste0("One or more of the data files are not found in ",
+                          "the local cache. Please run `mtbls_sync()` on ",
+                          "the data object."))
+    }
+    character()
+}
+
+setValidity("MsBackendMetaboLights", function(object) {
+    msg <- .valid_mtbls_required_columns(object)
+    msg <- c(msg, .valid_files_local(object))
+    if (length(msg)) return(msg)
+    else TRUE
+})
+
+#' @importFrom methods validObject
+#'
+#' @rdname MsBackendMetaboLights
+#'
+#' @export
+mtbls_sync <- function(x, offline = FALSE) {
+    if (!inherits(x, "MsBackendMetaboLights"))
+        stop("'x' is expected to be an instance of 'MsBackendMetaboLights'")
+    sdata <- unique(
+        as.data.frame(x@spectraData[, c("mtbls_id", "mtbls_assay_name",
+                                        "derived_spectral_data_file")]))
+    cn <- c("derived_spectral_data_file", "rpath")
+    res <- lapply(split(sdata, sdata$mtbls_id), function(z, offline) {
+        if (offline)
+            mtbls_cached_data_files(
+                sdata$mtbls_id[1L], pattern = "*",
+                fileName = basename(sdata$derived_spectral_data_file))[, cn]
+        else
+            mtbls_sync_data_files(
+                 sdata$mtbls_id[1L], pattern = "*",
+                 fileName = basename(sdata$derived_spectral_data_file))[, cn]
+    }, offline = offline)
+    res <- do.call(rbind, res)
+    if (!all(sdata$derived_spectral_data_file %in%
+        res$derived_spectral_data_file))
+        stop("Some of the data files are not available. Please run with ",
+             "'offline = FALSE' to ensure data missing data files get ",
+             "downloaded.")
+    x@spectraData$dataStorage <- res[match(
+        x@spectraData$derived_spectral_data_file,
+        res$derived_spectral_data_file), "rpath"]
+    validObject(x)
+    x
+}
 
 ################################################################################
 ## Utility functions for MetaboLights
@@ -204,21 +311,40 @@ setMethod(
 #' The functions listed here allow to query and retrieve information of a
 #' data set/experiment from MetaboLights.
 #'
-#' - `mtbls_ftp_path`: returns the FTP path for a provided MetaboLights ID.
+#' - `mtbls_ftp_path()`: returns the FTP path for a provided MetaboLights ID.
 #'   With `mustWork = TRUE` (the default) the function throws an error if
 #'   the path is not accessible (either because the data set does not exist or
 #'   no internet connection is available). The function returns a
 #'   `character(1)` with the FTP path to the data set folder.
 #'
-#' - `mtbls_list_files`: returns the available files (and directories) for the
+#' - `mtbls_cached_data_files()`: lists locally cached data files from
+#'   MetaboLights. Since this function evaluates only local content it does not
+#'   require an internet connection. With the default parameters all available
+#'   data files are listed. The parameters can be used to restrict the lookup.
+#'
+#' - `mtbls_list_files()`: returns the available files (and directories) for the
 #'   specified MetaboLights data set (i.e., the FTP directory content of the
 #'   data set). The function returns a `character` vector with the relative
 #'   file names to the absolute FTP path (`mtbls_ftp_path()`) of the data set.
 #'   Parameter `pattern` allows to filter the file names and define which
 #'   file names should be returned.
 #'
+#' - `mtbls_sync_data_files()`: synchronize data files of a specifies
+#'   MetaboLights data set eventually downloading and locally caching them.
+#'   Parameter `fileName` allows to specify names of selected data files to
+#'   sync.
+#'
 #' @param x `character(1)` with the ID of the MetaboLights data set (usually
 #'     starting with a *MTBLS* followed by a number).
+#'
+#' @param mtblsId `character(1)` with the ID of a single MetaboLights data
+#'     set/experiment.
+#'
+#' @param assayName `character` with the file names of assay files of the data
+#'     set. If not provided (`assayName = character()`, the default), MS data
+#'     files of all data set's assays are loaded. Use
+#'     `mtbls_list_files(<MetaboLights ID>, pattern = "^a_")` to list all
+#'     available assay files of a data set `<MetaboLights ID>`.
 #'
 #' @param mustWork for `mtbls_ftp_path()`: `logical(1)` whether the validity of
 #'     the path should be verified or not. By default (with `mustWork = TRUE`)
@@ -226,11 +352,17 @@ setMethod(
 #'     if the folder can not be accessed (e.g. if no internet connection is
 #'     available).
 #'
-#' @param pattern for `mtbls_list_files()`: `character(1)` defining a pattern
+#' @param pattern for `mtbls_list_files()`, `mtbls_sync_data_files()` and
+#'     `mtbls_cached_data_files()`: `character(1)` defining a pattern
 #'     to filter the file names, such as `pattern = "^a_"` to retrieve the
 #'     file names of all assay files of the data set (i.e., files with a name
 #'     starting with `"a_"`). This parameter is passed to the [grepl()]
 #'     function.
+#'
+#' @param fileName for `mtbls_sync_data_files()` and
+#'     `mtbls_cached_data_files()`: optional `character`
+#'     defining the names of specific data files of a data set that should be
+#'     downloaded and cached.
 #'
 #' @return
 #'
@@ -238,6 +370,9 @@ setMethod(
 #'   data set on the MetaboLights ftp server.
 #' - For `mtbls_list_files()`: `character` with the names of the files in the
 #'   data set's base ftp directory.
+#' - For `mtbls_sync_data_files()` and `mtbls_cached_data_files()`: a
+#'   `data.frame` with the MetaboLights ID, the assay name(s) and remote and
+#'   local file names of the synchronized data files.
 #'
 #' @author Johannes Rainer, Philippine Louail
 #'
@@ -257,6 +392,9 @@ setMethod(
 #' a <- read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
 #'     header = TRUE, sep = "\t", check.names = FALSE)
 #' head(a)
+#'
+#' ## List all available files
+#' mtbls_cached_data_files()
 NULL
 
 #' @rdname MetaboLights-utils
@@ -350,6 +488,31 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
 ##
 ################################################################################
 
+#' @rdname MetaboLights-utils
+#'
+#' @export
+mtbls_sync_data_files <- function(mtblsId = character(),
+                                  assayName = character(),
+                                  pattern = "mzML$|CDF$|cdf$|mzXML$",
+                                  fileName = character()) {
+    if (!length(mtblsId))
+        stop("No MetaboLights data set ID provided with parameter 'mtblsId'")
+    .mtbls_data_files(mtblsId, assayName, pattern, fileName)
+}
+
+#' @rdname MetaboLights-utils
+#'
+#' @export
+mtbls_cached_data_files <- function(mtblsId = character(),
+                                    assayName = character(),
+                                    pattern = "*", fileName = character()) {
+    res <- .mtbls_data_files_offline(mtblsId = mtblsId, assayName = assayName,
+                                     pattern = pattern)
+    if (length(fileName))
+        res <- res[basename(res$derived_spectral_data_file) %in% fileName, ]
+    else res
+}
+
 #' Get information on data files for a given MTBLS ID/assay eventually
 #' downloading and caching them. This function needs an active internet
 #' connection as it queries the MTBLS ftp server for available data files
@@ -377,7 +540,8 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
 #'
 #' @noRd
 .mtbls_data_files <- function(mtblsId = character(), assayName = character(),
-                              pattern = "mzML$|CDF$|mzXML$") {
+                              pattern = "mzML$|CDF$|mzXML$",
+                              fileName = character()) {
     assays <- .mtbls_assay_list(mtblsId)
     anames <- names(assays)
     if (length(assayName)) {
@@ -402,6 +566,13 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
             message("Used data files from the assay's column \"Raw Spectral ",
                     "Data File\" since none were available in column ",
                     "\"Derived Spectral Data File\".")
+    }
+    if (length(fileName)) {
+        keep <- basename(ffiles) %in% fileName
+        if (!any(keep))
+            stop("None of the 'fileName' found in data set \"", mtblsId, "\"")
+        ffiles <- ffiles[keep]
+        dfiles <- lapply(dfiles, function(z) z[basename(z) %in% fileName])
     }
     ## Cache files
     bfc <- BiocFileCache()

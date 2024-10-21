@@ -41,6 +41,50 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     expect_equal(Spectra::rtime(res), Spectra::rtime(res_o))
 })
 
+test_that("backendRequiredSpectraVariables,MsBackendMetaboLights works", {
+    expect_equal(backendRequiredSpectraVariables(MsBackendMetaboLights()),
+                 c("dataStorage", "scanIndex", "mtbls_id", "mtbls_assay_name",
+                   "derived_spectral_data_file"))
+})
+
+test_that("mtbls_sync works", {
+    expect_error(mtbls_sync(3, offline = TRUE), "'x' is expected to be")
+
+    x <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                           filePattern = "63A.cdf", offline = TRUE)
+    res <- mtbls_sync(x, offline = TRUE)
+    expect_equal(rtime(x), rtime(res))
+    expect_equal(mz(x[1:50]), mz(res[1:50]))
+
+    ## Remove local content.
+    bfc <- BiocFileCache::BiocFileCache()
+    BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
+    expect_error(mtbls_sync(x, offline = TRUE), "No locally cached data files")
+
+    ## Re-add content
+    res <- mtbls_sync(x, offline = FALSE)
+    expect_equal(rtime(x), rtime(res))
+    expect_equal(mz(x[1:50]), mz(res[1:50]))
+})
+
+test_that(".valid_mtbls_required_columns works", {
+    x <- MsBackendMetaboLights()
+    expect_equal(.valid_mtbls_required_columns(x), character())
+    x@spectraData <- DataFrame(a = 1:4, b = "c")
+    expect_match(.valid_mtbls_required_columns(x), "One or more")
+    x@spectraData$mtbls_id <- 3
+    x@spectraData$mtbls_assay_name <- "a"
+    x@spectraData$derived_spectral_data_file <- "b"
+    expect_equal(.valid_mtbls_required_columns(x), character())
+})
+
+test_that(".valid_files_local works", {
+    x <- MsBackendMetaboLights()
+    expect_equal(.valid_files_local(x), character())
+    x@spectraData <- DataFrame(a = 1:4, b = "c", dataStorage = "d")
+    expect_match(.valid_files_local(x), "One or more of the data files")
+})
+
 test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     ## error
     expect_error(.mtbls_data_files(mtblsId = "MTBLS2",
@@ -70,6 +114,10 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(all(b$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, b$rpath)
 
+    ## with fileNames
+    expect_error(.mtbls_data_files("MTBLS39", pattern = "63A.cdf",
+                                   fileName = c("a", "b")), "None of the ")
+
     ## with assayName
     b <- .mtbls_data_files(
         "MTBLS39", pattern = "63A.cdf",
@@ -90,6 +138,25 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(nrow(a) == 3)
     expect_true(all(a$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, d$rpath)
+})
+
+test_that("mtbls_sync_data_files works", {
+    expect_error(mtbls_sync_data_files(), "No MetaboLights data")
+    res <- mtbls_sync_data_files("MTBLS39", pattern = "*",
+                                 fileName = c("AM063A.cdf"))
+    expect_true(is.data.frame(res))
+    expect_equal(nrow(res), 1L)
+    expect_equal(res$mtbls_id, "MTBLS39")
+})
+
+test_that("mtbls_cached_data_files works", {
+    res <- mtbls_cached_data_files()
+    expect_true(is.data.frame(res))
+    expect_true(nrow(res) > 0)
+
+    res <- mtbls_cached_data_files(fileName = "otehr")
+    expect_true(is.data.frame(res))
+    expect_true(nrow(res) == 0)
 })
 
 test_that("backendMerge,MsBackendMetaboLights fails", {

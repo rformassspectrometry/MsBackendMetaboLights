@@ -4,11 +4,27 @@
 \alias{MetaboLights-utils}
 \alias{mtbls_ftp_path}
 \alias{mtbls_list_files}
+\alias{mtbls_sync_data_files}
+\alias{mtbls_cached_data_files}
 \title{Utility functions for the MetaboLights repository}
 \usage{
 mtbls_ftp_path(x = character(), mustWork = TRUE)
 
 mtbls_list_files(x = character(), pattern = NULL)
+
+mtbls_sync_data_files(
+  mtblsId = character(),
+  assayName = character(),
+  pattern = "mzML$|CDF$|cdf$|mzXML$",
+  fileName = character()
+)
+
+mtbls_cached_data_files(
+  mtblsId = character(),
+  assayName = character(),
+  pattern = "*",
+  fileName = character()
+)
 }
 \arguments{
 \item{x}{\code{character(1)} with the ID of the MetaboLights data set (usually
@@ -20,11 +36,26 @@ the function throws an error if either the data set does not exist or
 if the folder can not be accessed (e.g. if no internet connection is
 available).}
 
-\item{pattern}{for \code{mtbls_list_files()}: \code{character(1)} defining a pattern
+\item{pattern}{for \code{mtbls_list_files()}, \code{mtbls_sync_data_files()} and
+\code{mtbls_cached_data_files()}: \code{character(1)} defining a pattern
 to filter the file names, such as \code{pattern = "^a_"} to retrieve the
 file names of all assay files of the data set (i.e., files with a name
 starting with \code{"a_"}). This parameter is passed to the \code{\link[=grepl]{grepl()}}
 function.}
+
+\item{mtblsId}{\code{character(1)} with the ID of a single MetaboLights data
+set/experiment.}
+
+\item{assayName}{\code{character} with the file names of assay files of the data
+set. If not provided (\code{assayName = character()}, the default), MS data
+files of all data set's assays are loaded. Use
+\verb{mtbls_list_files(<MetaboLights ID>, pattern = "^a_")} to list all
+available assay files of a data set \verb{<MetaboLights ID>}.}
+
+\item{fileName}{for \code{mtbls_sync_data_files()} and
+\code{mtbls_cached_data_files()}: optional \code{character}
+defining the names of specific data files of a data set that should be
+downloaded and cached.}
 }
 \value{
 \itemize{
@@ -32,6 +63,9 @@ function.}
 data set on the MetaboLights ftp server.
 \item For \code{mtbls_list_files()}: \code{character} with the names of the files in the
 data set's base ftp directory.
+\item For \code{mtbls_sync_data_files()} and \code{mtbls_cached_data_files()}: a
+\code{data.frame} with the MetaboLights ID, the assay name(s) and remote and
+local file names of the synchronized data files.
 }
 }
 \description{
@@ -52,17 +86,25 @@ ftp server.
 The functions listed here allow to query and retrieve information of a
 data set/experiment from MetaboLights.
 \itemize{
-\item \code{mtbls_ftp_path}: returns the FTP path for a provided MetaboLights ID.
+\item \code{mtbls_ftp_path()}: returns the FTP path for a provided MetaboLights ID.
 With \code{mustWork = TRUE} (the default) the function throws an error if
 the path is not accessible (either because the data set does not exist or
 no internet connection is available). The function returns a
 \code{character(1)} with the FTP path to the data set folder.
-\item \code{mtbls_list_files}: returns the available files (and directories) for the
+\item \code{mtbls_cached_data_files()}: lists locally cached data files from
+MetaboLights. Since this function evaluates only local content it does not
+require an internet connection. With the default parameters all available
+data files are listed. The parameters can be used to restrict the lookup.
+\item \code{mtbls_list_files()}: returns the available files (and directories) for the
 specified MetaboLights data set (i.e., the FTP directory content of the
 data set). The function returns a \code{character} vector with the relative
 file names to the absolute FTP path (\code{mtbls_ftp_path()}) of the data set.
 Parameter \code{pattern} allows to filter the file names and define which
 file names should be returned.
+\item \code{mtbls_sync_data_files()}: synchronize data files of a specifies
+MetaboLights data set eventually downloading and locally caching them.
+Parameter \code{fileName} allows to specify names of selected data files to
+sync.
 }
 }
 \examples{
@@ -81,6 +123,9 @@ afiles
 a <- read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
     header = TRUE, sep = "\t", check.names = FALSE)
 head(a)
+
+## List all available files
+mtbls_cached_data_files()
 }
 \author{
 Johannes Rainer, Philippine Louail
