@@ -1,3 +1,9 @@
+# MsBackendMetaboLights 1.0
+
+## Changes in 1.0.1
+
+- Complete unit test coverage.
+
 # MsBackendMetaboLights 0.99
 
 ## Changes in 0.99.1

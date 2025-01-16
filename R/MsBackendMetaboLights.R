@@ -9,12 +9,12 @@
 #' `MsBackendMetaboLights` retrieves and represents mass spectrometry (MS)
 #' data from metabolomics experiments stored in the
 #' [MetaboLights](https://www.ebi.ac.uk/metabolights/) repository. The backend
-#' directly extends the [MsBackendMzR] backend from the *Spectra* package and
-#' hence supports MS data in mzML, netCDF and mzXML format. Data in other
-#' formats can not be loaded with `MsBackendMetaboLights`. Upon initialization
-#' with the `backendInitialize()` method, the `MsBackendMetaboLights` backend
-#' downloads and caches the MS data files of an experiment locally avoiding
-#' hence repeated download of the data.
+#' directly extends the [Spectra::MsBackendMzR] backend from the *Spectra*
+#' package and hence supports MS data in mzML, netCDF and mzXML format. Data
+#' in other formats can not be loaded with `MsBackendMetaboLights`.
+#' Upon initialization with the `backendInitialize()` method, the
+#' `MsBackendMetaboLights` backend downloads and caches the MS data files of
+#' an experiment locally avoiding hence repeated download of the data.
 #'
 #' @section Initialization and loading of data:
 #'

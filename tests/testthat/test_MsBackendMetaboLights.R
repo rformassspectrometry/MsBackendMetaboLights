@@ -65,6 +65,16 @@ test_that("mtbls_sync works", {
     res <- mtbls_sync(x, offline = FALSE)
     expect_equal(rtime(x), rtime(res))
     expect_equal(mz(x[1:50]), mz(res[1:50]))
+
+    ## Error.
+    with_mocked_bindings(
+        "mtbls_cached_data_files" = function(mtblsId, ...) {
+            data.frame(rid = c("1", "2"),
+                       derived_spectral_data_file = c("a", "b"),
+                       rpath = "tmp")
+        },
+        code = expect_error(mtbls_sync(x, offline = TRUE), "not available")
+    )
 })
 
 test_that(".valid_mtbls_required_columns works", {
