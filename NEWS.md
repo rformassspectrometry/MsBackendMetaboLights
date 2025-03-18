@@ -1,3 +1,11 @@
+# MsBackendMetaboLights 1.1
+
+## Changes in 1.1.2
+
+- Fetch and cache each data file individually.
+- Retry retrieval of data from MetaboLights up to 3 times before throwing an
+  error message, with an increasing time period between attempts.
+
 # MsBackendMetaboLights 1.0
 
 ## Changes in 1.0.1

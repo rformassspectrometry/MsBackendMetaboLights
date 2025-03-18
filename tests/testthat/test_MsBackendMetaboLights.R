@@ -61,6 +61,8 @@ test_that("mtbls_sync works", {
     BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
     expect_error(mtbls_sync(x, offline = TRUE), "No locally cached data files")
 
+    Sys.sleep(4)
+
     ## Re-add content
     res <- mtbls_sync(x, offline = FALSE)
     expect_equal(rtime(x), rtime(res))
@@ -118,6 +120,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(nrow(a) == 3)
     expect_true(all(a$mtbls_id == "MTBLS39"))
     ## Re-call function the data.
+    Sys.sleep(4)
     b <- .mtbls_data_files("MTBLS39", pattern = "63A.cdf")
     expect_true(is.data.frame(b))
     expect_true(nrow(b) == 3)
@@ -129,6 +132,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
                                    fileName = c("a", "b")), "None of the ")
 
     ## with assayName
+    Sys.sleep(4)
     b <- .mtbls_data_files(
         "MTBLS39", pattern = "63A.cdf",
         assayName = paste0("a_MTBLS39_the_plasticity_of_the_grapevine_berry",
@@ -175,6 +179,7 @@ test_that("backendMerge,MsBackendMetaboLights fails", {
 })
 
 alist_ms <- .mtbls_assay_list("MTBLS2")
+Sys.sleep(4)
 alist_nmr <- .mtbls_assay_list("MTBLS123")
 
 test_that("mtbls_ftp_path works", {
@@ -191,12 +196,14 @@ test_that("mtbls_ftp_path works", {
 })
 
 test_that("mtbls_list_files works", {
+    Sys.sleep(4)
     res <- mtbls_list_files("MTBLS8735", pattern = "^a_")
     expect_true(length(res) == 2)
     expect_error(mtbls_list_files("AAA"), "Failed to connect")
 })
 
 test_that(".mtbls_assay_list works", {
+    Sys.sleep(4)
     res <- .mtbls_assay_list("MTBLS8735")
     expect_true(is.list(res))
     expect_true(length(res) == 2L)
