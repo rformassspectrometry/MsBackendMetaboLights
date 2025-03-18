@@ -103,6 +103,16 @@ Also, merging of MS data of \code{MsBackendMetaboLights} is not supported and
 thus \code{c()} of several \code{Spectra} with MS data represented by
 \code{MsBackendMetaboLights} will throw an error.
 }
+\note{
+To account for high server load and eventually failing or rejected
+downloads from the MetaboLights ftp server, the download functions
+repeatedly retry to download a file. An error is thrown if download fails
+for 3 consecutive attempts. Between each attemp, the function waits
+for an increasing time period (5 seconds between the first and second
+and 10 seconds between the 2nd and 3rd attempt). This time period can
+also be configured with the \code{"metabolights.sleep_mult"} option, which
+defines the \emph{sleep time multiplicator} (defaults to 5).
+}
 \section{Initialization and loading of data}{
 
 

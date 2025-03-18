@@ -45,6 +45,17 @@
 #' will check the local cache and eventually download missing data files from
 #' the MetaboLights repository.
 #'
+#' @note
+#'
+#' To account for high server load and eventually failing or rejected
+#' downloads from the MetaboLights ftp server, the download functions
+#' repeatedly retry to download a file. An error is thrown if download fails
+#' for 3 consecutive attempts. Between each attemp, the function waits
+#' for an increasing time period (5 seconds between the first and second
+#' and 10 seconds between the 2nd and 3rd attempt). This time period can
+#' also be configured with the `"metabolights.sleep_mult"` option, which
+#' defines the *sleep time multiplicator* (defaults to 5).
+#'
 #' @param object an instance of `MsBackendMetaboLights`.
 #'
 #' @param mtblsId `character(1)` with the ID of a single MetaboLights data
@@ -419,13 +430,15 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
     cu <- new_handle()
     handle_setopt(cu, ftp_use_epsv = TRUE, dirlistonly = TRUE)
     tryCatch({
-        con <- curl(url = mtbls_ftp_path(x, mustWork = FALSE), "r", handle = cu)
+        con <- .retry(
+            curl(url = mtbls_ftp_path(x, mustWork = FALSE), "r", handle = cu),
+            sleep_mult = .sleep_mult())
     }, error = function(e) {
         stop("Failed to connect to MetaboLights. No internet connection? ",
              "Does the data set \"", x, "\" exist?\n - ", e$message,
              call. = FALSE)
     })
-    fls <- readLines(con)
+    fls <- .retry(readLines(con), sleep_mult = .sleep_mult())
     close(con)
     if (length(pattern))
         fls[grepl(pattern, fls)]
@@ -446,9 +459,10 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
     fpath <- mtbls_ftp_path(x, mustWork = FALSE)
     a_fls <- mtbls_list_files(x, pattern = "^a_")
     res <- lapply(a_fls, function(z) {
-        read.table(paste0(fpath, z),
-                   sep = "\t", header = TRUE,
-                   check.names = FALSE)
+        .retry(read.table(paste0(fpath, z),
+                          sep = "\t", header = TRUE,
+                          check.names = FALSE),
+               sleep_mult = .sleep_mult())
     })
     names(res) <- a_fls
     res
@@ -534,9 +548,19 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #'   file/table
 #' - `"rpath"`: the name of the cached data file (full local path)
 #'
+#' @note
+#'
+#' Download from MsBackendMetaboLights is tried 3 times with an increasing time
+#' delay between tries that can be configured using the
+#' `"metabolights.sleep_mult"` option.
+#'
 #' @importFrom BiocFileCache BiocFileCache
 #'
+#' @importFrom progress progress_bar
+#'
 #' @importMethodsFrom BiocFileCache bfcrpath bfcmeta<-
+#'
+#' @importFrom utils capture.output
 #'
 #' @noRd
 .mtbls_data_files <- function(mtblsId = character(), assayName = character(),
@@ -576,7 +600,20 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    lfiles <- bfcrpath(bfc, paste0(fpath, ffiles), fname = "exact")
+    pb <- progress_bar$new(format = paste0("[:bar] :current/:",
+                                           "total (:percent) in ",
+                                           ":elapsed"),
+                           total = length(ffiles), clear = FALSE)
+    lfiles <- unlist(lapply(ffiles, function(z) {
+        pb$tick()
+        invisible(capture.output(suppressMessages(
+            f <- .retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact",
+                                 progress = list()),
+                        sleep_mult = .sleep_mult()))))
+        f
+    }))
+
+    ## lfiles <- bfcrpath(bfc, paste0(fpath, ffiles), fname = "exact")
     ## Add and store metadata to the cached files
     mdata <- data.frame(
         rid = names(lfiles),
