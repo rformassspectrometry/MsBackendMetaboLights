@@ -6,6 +6,7 @@
 \alias{mtbls_list_files}
 \alias{mtbls_sync_data_files}
 \alias{mtbls_cached_data_files}
+\alias{mtbls_delete_cache}
 \title{Utility functions for the MetaboLights repository}
 \usage{
 mtbls_ftp_path(x = character(), mustWork = TRUE)
@@ -25,6 +26,8 @@ mtbls_cached_data_files(
   pattern = "*",
   fileName = character()
 )
+
+mtbls_delete_cache(mtblsId = character())
 }
 \arguments{
 \item{x}{\code{character(1)} with the ID of the MetaboLights data set (usually
@@ -105,6 +108,10 @@ file names should be returned.
 MetaboLights data set eventually downloading and locally caching them.
 Parameter \code{fileName} allows to specify names of selected data files to
 sync.
+\item \code{mtbls_delete_cache()}: removes all local content for the MetaboLights
+data set with ID \code{mtblsId}. This will delete eventually present
+locally cached data files for the specified data set. This does not
+change any other data eventually present in the local \code{BiocFileCache}.
 }
 }
 \examples{

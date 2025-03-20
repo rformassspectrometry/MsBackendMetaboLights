@@ -219,6 +219,10 @@ settings, a `data.frame` with all available data files is returned.
 mtbls_cached_data_files()
 ```
 
+Locally cached files for a MetaboLights data set can be removed using the
+`mtbls_delete_cache()` function providing the ID of the MetaboLights data set
+for which local data files should be removed.
+
 
 # Session information
 

@@ -1,5 +1,12 @@
 # MsBackendMetaboLights 1.1
 
+## Changes in 1.1.3
+
+- Add `mtbls_delete_cache()` to delete locally cached files for a specified
+  MetaboLights ID.
+- Change unit tests to only remove selected content instead of wiping the full
+  cache.
+
 ## Changes in 1.1.2
 
 - Fetch and cache each data file individually.

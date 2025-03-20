@@ -345,6 +345,11 @@ mtbls_sync <- function(x, offline = FALSE) {
 #'   Parameter `fileName` allows to specify names of selected data files to
 #'   sync.
 #'
+#' - `mtbls_delete_cache()`: removes all local content for the MetaboLights
+#'   data set with ID `mtblsId`. This will delete eventually present
+#'   locally cached data files for the specified data set. This does not
+#'   change any other data eventually present in the local `BiocFileCache`.
+#'
 #' @param x `character(1)` with the ID of the MetaboLights data set (usually
 #'     starting with a *MTBLS* followed by a number).
 #'
@@ -633,14 +638,14 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' returned `data.frame` has the same format as the one returned by
 #' `.mtbls_data_files()`.
 #'
-#' @importMethodsFrom BiocFileCache bfcmetalist bfcquery
+#' @importMethodsFrom BiocFileCache bfcquery
 #'
 #' @noRd
 .mtbls_data_files_offline <- function(mtblsId = character(),
                                       assayName = character(),
                                       pattern = "mzML$|CDF$|mzXML$") {
     bfc <- BiocFileCache()
-    if (!any(bfcmetalist(bfc) == "MTBLS"))
+    if (!.mtbls_has_mtbls_table())
         stop("No local MetaboLights cache available. Please re-run with ",
              "'offline = FALSE' first.", call. = FALSE)
     res <- as.data.frame(bfcquery(bfc, mtblsId, field = "mtbls_id"))
@@ -653,4 +658,28 @@ mtbls_cached_data_files <- function(mtblsId = character(),
              "parameters.", call. = FALSE)
     res[, c("rid", "mtbls_id", "mtbls_assay_name",
             "derived_spectral_data_file", "rpath")]
+}
+
+#' @importMethodsFrom BiocFileCache bfcmetalist
+#'
+#' @noRd
+.mtbls_has_mtbls_table <- function() {
+    bfc <- BiocFileCache()
+    any(bfcmetalist(bfc) == "MTBLS")
+}
+
+#' @rdname MetaboLights-utils
+#'
+#' @importFrom BiocFileCache bfcremove bfcinfo
+#'
+#' @export
+mtbls_delete_cache <- function(mtblsId = character()) {
+    bfc <- BiocFileCache()
+    b <- as.data.frame(bfcinfo(bfc))
+    if (nrow(b) && any(colnames(b) == "mtbls_id")) {
+        if (length(mtblsId)) {
+            rem <- b[b$mtbls_id %in% mtblsId, ]
+            bfcremove(bfc, rids = rem$rid)
+        }
+    }
 }

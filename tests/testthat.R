@@ -9,7 +9,7 @@ test_check("MsBackendMetaboLights")
 ## Run tests with the unit test suite defined in the Spectra package to ensure
 ## compliance with the definitions of the MsBackend interface/class.
 be <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
-                        filePattern = "63A.cdf", offline = TRUE)
+                        filePattern = "63A.cdf")
 
 library(Spectra)
 test_suite <- system.file("test_backends", "test_MsBackend",
