@@ -1,4 +1,3 @@
-## Note: clean BiocFileCache with cleanbfc(days = -10, ask = FALSE)
 ## MTBLS10555: lists files in assay column that don't exist. Will result in an
 ##             error when we try to download the data. The data set contains
 ##             small data files. maybe use pattern sham-1-10.mzML
@@ -57,8 +56,7 @@ test_that("mtbls_sync works", {
     expect_equal(mz(x[1:50]), mz(res[1:50]))
 
     ## Remove local content.
-    bfc <- BiocFileCache::BiocFileCache()
-    BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
+    mtbls_delete_cache("MTBLS39")
     expect_error(mtbls_sync(x, offline = TRUE), "No locally cached data files")
 
     Sys.sleep(4)
@@ -104,13 +102,17 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
                  "Not all assay names")
     expect_error(.mtbls_data_files(mtblsId = "MTBLS100"), "No files matching")
 
-    bfc <- BiocFileCache::BiocFileCache()
-    BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
-    BiocFileCache::bfcmetaremove(bfc, "MTBLS")
+    mtbls_delete_cache("MTBLS39")
+    ## bfc <- BiocFileCache::BiocFileCache()
+    ## BiocFileCache::cleanbfc(bfc, days = -10, ask = FALSE)
+    ## BiocFileCache::bfcmetaremove(bfc, "MTBLS")
 
     ## Error if no cache available
-    expect_error(.mtbls_data_files_offline("MTBLS39"),
-                 "No local MetaboLights cache")
+    with_mocked_bindings(
+        ".mtbls_has_mtbls_table" = function() FALSE,
+        code = expect_error(.mtbls_data_files_offline("MTBLS39"),
+                            "No local MetaboLights cache")
+    )
 
     ## Cache the data: MTBLS39 contains small cdf files, but they are listed
     ## in the Raw Spectral Data File column. Will use a specfic pattern to
@@ -142,6 +144,8 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(nrow(b) == 3)
     expect_true(all(b$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, b$rpath)
+
+    expect_true(.mtbls_has_mtbls_table())
 
     ## Use offline
     expect_error(.mtbls_data_files_offline("MTBLS39", assayName = "something"),
@@ -223,4 +227,15 @@ test_that(".mtbls_data_file_from_assay works", {
     res <- .mtbls_data_file_from_assay(alist_nmr[[1L]])
     expect_true(is.character(res))
     expect_true(length(res) == 0)
+})
+
+test_that("mtbls_delete_cache works", {
+    bfc <- BiocFileCache()
+    l <- length(bfc)
+    mtbls_delete_cache()
+    expect_equal(length(bfc), l)
+
+    mtbls_delete_cache("MTBLS39")
+    i <- bfcinfo(bfc)
+    expect_true(!any(i$mtbls_id %in% "MTBLS39"))
 })
