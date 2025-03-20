@@ -124,6 +124,7 @@ jobs:
       - name: Install macOS system dependencies
         if: matrix.config.os == 'macOS-latest'
         run: |
+          brew install netcdf
         shell: Rscript {0}
 
       - name: Install Windows system dependencies
