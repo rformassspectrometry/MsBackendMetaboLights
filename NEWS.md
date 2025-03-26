@@ -1,5 +1,9 @@
 # MsBackendMetaboLights 1.1
 
+## Changes in 1.1.4
+
+- Remove debug message.
+
 ## Changes in 1.1.3
 
 - Add `mtbls_delete_cache()` to delete locally cached files for a specified

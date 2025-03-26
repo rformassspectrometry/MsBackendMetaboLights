@@ -72,6 +72,11 @@ in other formats can not be loaded with \code{MsBackendMetaboLights}.
 Upon initialization with the \code{backendInitialize()} method, the
 \code{MsBackendMetaboLights} backend downloads and caches the MS data files of
 an experiment locally avoiding hence repeated download of the data.
+The local data cache is managed by Bioconductor's \emph{BiocFileCache} package.
+See the help and vignettes from that package for details on cached data
+resources. Additional utility function for management of cached files are
+also provided by \emph{MsBackendMetaboLights}. See help for
+\code{\link[=mtbls_cached_data_files]{mtbls_cached_data_files()}} for more information.
 }
 \details{
 File names for data files are by default extracted from the column
