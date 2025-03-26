@@ -25,7 +25,6 @@
         if (is(res, "simpleError")) {
             if (i == ntimes)
                 stop(res)
-            message("i: ", i)
             Sys.sleep(i * sleep_mult)
         } else break
     }
