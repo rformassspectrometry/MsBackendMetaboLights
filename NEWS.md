@@ -1,3 +1,9 @@
+# MsBackendMetaboLights 1.3
+
+## Changes in 1.3.1
+
+- Fix download/sync of files with *BiocFileCache*.
+
 # MsBackendMetaboLights 1.1
 
 ## Changes in 1.1.4

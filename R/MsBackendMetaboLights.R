@@ -617,8 +617,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     lfiles <- unlist(lapply(ffiles, function(z) {
         pb$tick()
         invisible(capture.output(suppressMessages(
-            f <- .retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact",
-                                 progress = list()),
+            f <- .retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact"),
                         sleep_mult = .sleep_mult()))))
         f
     }))
