@@ -4,7 +4,6 @@
 \alias{MsBackendMetaboLights}
 \alias{MsBackendMetaboLights-class}
 \alias{backendInitialize,MsBackendMetaboLights-method}
-\alias{backendMerge,MsBackendMetaboLights-method}
 \alias{backendRequiredSpectraVariables,MsBackendMetaboLights-method}
 \alias{mtbls_sync}
 \title{MsBackend representing MS data from MetaboLights}
@@ -19,8 +18,6 @@ MsBackendMetaboLights()
   offline = FALSE,
   ...
 )
-
-\S4method{backendMerge}{MsBackendMetaboLights}(object, ...)
 
 \S4method{backendRequiredSpectraVariables}{MsBackendMetaboLights}(object, ...)
 
@@ -103,10 +100,6 @@ in the MetaboLights assay file.
 
 The \code{MsBackendMetaboLights} backend is considered \emph{read-only} and does
 thus not support changing \emph{m/z} and intensity values directly.
-
-Also, merging of MS data of \code{MsBackendMetaboLights} is not supported and
-thus \code{c()} of several \code{Spectra} with MS data represented by
-\code{MsBackendMetaboLights} will throw an error.
 }
 \note{
 To account for high server load and eventually failing or rejected

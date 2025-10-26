@@ -1,5 +1,11 @@
 # MsBackendMetaboLights 1.3
 
+## Changes in 1.3.2
+
+- Support `backendMerge()` (issue
+  [#10](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/10)).
+
+
 ## Changes in 1.3.1
 
 - Fix download/sync of files with *BiocFileCache*.
