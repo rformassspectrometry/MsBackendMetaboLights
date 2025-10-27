@@ -1,6 +1,6 @@
 Package: MsBackendMetaboLights
 Title: Retrieve Mass Spectrometry Data from MetaboLights
-Version: 1.3.1
+Version: 1.3.2
 Authors@R:
     c(person(given = "Johannes", family = "Rainer",
              email = "Johannes.Rainer@eurac.edu",
@@ -42,4 +42,4 @@ BugReports: https://github.com/RforMassSpectrometry/MsBackendMetaboLights/issues
 URL: https://github.com/RforMassSpectrometry/MsBackendMetaboLights
 biocViews: Infrastructure, MassSpectrometry, Metabolomics, DataImport, Proteomics
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

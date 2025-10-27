@@ -177,11 +177,6 @@ test_that("mtbls_cached_data_files works", {
     expect_true(nrow(res) == 0)
 })
 
-test_that("backendMerge,MsBackendMetaboLights fails", {
-    b <- MsBackendMetaboLights()
-    expect_error(backendMerge(b, b), "Merging of backends")
-})
-
 alist_ms <- .mtbls_assay_list("MTBLS2")
 Sys.sleep(4)
 alist_nmr <- .mtbls_assay_list("MTBLS123")
@@ -238,4 +233,26 @@ test_that("mtbls_delete_cache works", {
     mtbls_delete_cache("MTBLS39")
     i <- bfcinfo(bfc)
     expect_true(!any(i$mtbls_id %in% "MTBLS39"))
+})
+
+test_that("backendMerge,MsBackendMetaboLights works", {
+    ## Online mode
+    be <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                            filePattern = "A.cdf")
+    l <- split(be, factor(be$dataOrigin, levels = unique(be$dataOrigin)))
+    res <- backendMerge(l)
+
+    expect_equal(rtime(be), rtime(res))
+    expect_equal(dataOrigin(be), dataOrigin(res))
+    expect_equal(mz(be), mz(res))
+
+    ## Offline data
+    a <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                           filePattern = "63A.cdf", offline = TRUE)
+    b <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS8735",
+                           filePattern = "2_E_POS.mzML")
+
+    d <- backendMerge(a, b)
+    expect_true(length(d) == (length(a) + length(b)))
+    expect_equal(rtime(d), c(rtime(a), rtime(b)))
 })
