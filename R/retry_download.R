@@ -18,7 +18,7 @@
 #' @importFrom methods is
 #'
 #' @noRd
-.retry <- function(expr, ntimes = 3, sleep_mult = 0) {
+.retry <- function(expr, ntimes = 5, sleep_mult = 0) {
     res <- NULL
     for (i in seq_len(ntimes)) {
         res <- suppressWarnings(tryCatch(expr, error = function(e) e))
@@ -32,5 +32,5 @@
 }
 
 .sleep_mult <- function() {
-    as.integer(getOption("metabolights.sleep_mult", default = 5))
+    as.integer(getOption("metabolights.sleep_mult", default = 7))
 }

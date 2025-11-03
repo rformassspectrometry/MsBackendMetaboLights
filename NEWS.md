@@ -1,3 +1,7 @@
+# MsBackendMetaboLights 1.5
+
+- Increase number of download retries and increase waiting time in between.
+
 # MsBackendMetaboLights 1.3
 
 ## Changes in 1.3.2
