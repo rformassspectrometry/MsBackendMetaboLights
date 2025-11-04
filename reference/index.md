@@ -13,3 +13,5 @@
   [`backendRequiredSpectraVariables(`*`<MsBackendMetaboLights>`*`)`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MsBackendMetaboLights.md)
   [`mtbls_sync()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MsBackendMetaboLights.md)
   : MsBackend representing MS data from MetaboLights
+- [`retry()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/retry.md)
+  : Retry expression on failure

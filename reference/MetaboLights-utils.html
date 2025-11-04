@@ -83,7 +83,7 @@ change any other data eventually present in the local BiocFileCache.
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -255,9 +255,13 @@ local file names of the synchronized data files.</p></li>
 <span class="r-in"><span><span class="va">afiles</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a_MTBLS2_metabolite_profiling_mass_spectrometry.txt"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Read the content of one file</span></span></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">mtbls_ftp_path</span><span class="op">(</span><span class="st">"MTBLS2"</span><span class="op">)</span>, <span class="va">afiles</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    header <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Read the content of one file. Connections to the MetaboLights ftp server</span></span></span>
+<span class="r-in"><span><span class="co">## are limited and might fail, thus we use the `retry()` function to</span></span></span>
+<span class="r-in"><span><span class="co">## retry on failure for 5 times (waiting `i * sleep_mult` seconds in between)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="retry.html">retry</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">mtbls_ftp_path</span><span class="op">(</span><span class="st">"MTBLS2"</span><span class="op">)</span>, <span class="va">afiles</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    header <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    ntimes <span class="op">=</span> <span class="fl">5</span>, sleep_mult <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Sample Name Protocol REF   Parameter Value[Post Extraction]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Ex1-Col0-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)</span>
@@ -424,9 +428,9 @@ local file names of the synchronized data files.</p></li>
 <span class="r-in"><span><span class="co">## List all available files</span></span></span>
 <span class="r-in"><span><span class="fu">mtbls_cached_data_files</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      rid mtbls_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 BFC43  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 BFC44  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 BFC47  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 BFC51  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 BFC52  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 BFC55  MTBLS39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            mtbls_assay_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>

@@ -14,13 +14,13 @@ Source:
 [`DESCRIPTION`](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/blob/main/DESCRIPTION)
 
 Rainer J, Louail P (2025). *MsBackendMetaboLights: Retrieve Mass
-Spectrometry Data from MetaboLights*. R package version 1.5.0,
+Spectrometry Data from MetaboLights*. R package version 1.5.1,
 <https://github.com/RforMassSpectrometry/MsBackendMetaboLights>.
 
     @Manual{,
       title = {MsBackendMetaboLights: Retrieve Mass Spectrometry Data from MetaboLights},
       author = {Johannes Rainer and Philippine Louail},
       year = {2025},
-      note = {R package version 1.5.0},
+      note = {R package version 1.5.1},
       url = {https://github.com/RforMassSpectrometry/MsBackendMetaboLights},
     }

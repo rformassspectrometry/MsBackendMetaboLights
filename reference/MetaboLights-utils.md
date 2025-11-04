@@ -153,9 +153,13 @@ afiles <- mtbls_list_files("MTBLS2", pattern = "^a_")
 afiles
 #> [1] "a_MTBLS2_metabolite_profiling_mass_spectrometry.txt"
 
-## Read the content of one file
-a <- read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
-    header = TRUE, sep = "\t", check.names = FALSE)
+## Read the content of one file. Connections to the MetaboLights ftp server
+## are limited and might fail, thus we use the `retry()` function to
+## retry on failure for 5 times (waiting `i * sleep_mult` seconds in between)
+a <- retry(
+    read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
+    header = TRUE, sep = "\t", check.names = FALSE),
+    ntimes = 5, sleep_mult = 4)
 head(a)
 #>          Sample Name Protocol REF   Parameter Value[Post Extraction]
 #> 1  Ex1-Col0-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)
@@ -322,9 +326,9 @@ head(a)
 ## List all available files
 mtbls_cached_data_files()
 #>      rid mtbls_id
-#> 26 BFC43  MTBLS39
-#> 27 BFC44  MTBLS39
-#> 28 BFC47  MTBLS39
+#> 26 BFC51  MTBLS39
+#> 27 BFC52  MTBLS39
+#> 28 BFC55  MTBLS39
 #>                                                                                            mtbls_assay_name
 #> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
 #> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt

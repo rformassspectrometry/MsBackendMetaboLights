@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
       links[i].target = '_blank';
 });
 </script><p><strong>Package</strong>: <em><a href="https://bioconductor.org/packages/3.23/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></em><br><strong>Authors</strong>: Johannes Rainer [aut, cre] (ORCID: <a href="https://orcid.org/0000-0002-6977-7147" class="external-link uri">https://orcid.org/0000-0002-6977-7147</a>), Philippine
-Louail [aut] (ORCID: <a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2025-11-03 10:20:18.387441<br><strong>Compiled</strong>: Mon Nov 3 10:44:02 2025</p>
+Louail [aut] (ORCID: <a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2025-11-04 07:36:47.786149<br><strong>Compiled</strong>: Tue Nov 4 08:15:42 2025</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -146,16 +146,21 @@ test data set.</p>
 supporting the ftp file transfer protocol and download individual files
 manually. We can however access the files also directly from within R.
 Below we read the <em>assay</em> data file directly using the base R
-<code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code> function.</p>
+<code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code> function. Note that connections to the
+MetaboLights FTP server are rate-limited and might thus fail. We use
+below the <code><a href="../reference/retry.html">retry()</a></code> function to retry reading from the FTP
+server if the connection fails or gets closed before the data is fully
+read.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Get the assay files of the data set</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Read the assay file</span></span>
-<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span>,</span>
-<span>                       <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retry.html">retry</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span>,</span>
+<span>                             <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>           ntimes <span class="op">=</span> <span class="fl">5</span>, sleep_mult <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <p>Each row in this assay table refers to one measurement (data file) of
 the data set, with columns providing information on that measurement.
 The number and content of columns can vary between data sets and depends
@@ -390,7 +395,7 @@ the MetaboLights data set <em>MTBLS39</em>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span></span></code></pre></div>
 <pre><code><span><span class="co">##     rid mtbls_id</span></span>
-<span><span class="co">## 1 BFC47  MTBLS39</span></span>
+<span><span class="co">## 1 BFC55  MTBLS39</span></span>
 <span><span class="co">##                                                                                           mtbls_assay_name</span></span>
 <span><span class="co">## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span></span>
 <span><span class="co">##   derived_spectral_data_file                                          rpath</span></span>
@@ -403,7 +408,7 @@ all available data files is returned.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_cached_data_files</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      rid mtbls_id</span></span>
-<span><span class="co">## 28 BFC47  MTBLS39</span></span>
+<span><span class="co">## 28 BFC55  MTBLS39</span></span>
 <span><span class="co">##                                                                                            mtbls_assay_name</span></span>
 <span><span class="co">## 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span></span>
 <span><span class="co">##    derived_spectral_data_file                                          rpath</span></span>
@@ -441,7 +446,7 @@ MetaboLights data set for which local data files should be removed.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MsBackendMetaboLights_1.5.0 Spectra_1.21.0             </span></span>
+<span><span class="co">## [1] MsBackendMetaboLights_1.5.1 Spectra_1.21.0             </span></span>
 <span><span class="co">## [3] BiocParallel_1.45.0         S4Vectors_0.49.0           </span></span>
 <span><span class="co">## [5] BiocGenerics_0.57.0         generics_0.1.4             </span></span>
 <span><span class="co">## [7] BiocStyle_2.39.0           </span></span>

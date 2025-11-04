@@ -5,8 +5,8 @@
 **Authors**: Johannes Rainer \[aut, cre\] (ORCID:
 <https://orcid.org/0000-0002-6977-7147>), Philippine Louail \[aut\]
 (ORCID: <https://orcid.org/0009-0007-5429-6846>)  
-**Last modified:** 2025-11-03 10:20:18.387441  
-**Compiled**: Mon Nov 3 10:44:02 2025
+**Last modified:** 2025-11-04 07:36:47.786149  
+**Compiled**: Tue Nov 4 08:15:42 2025
 
 ## Introduction
 
@@ -86,7 +86,12 @@ We could inspect the content of this folder also using a browser
 supporting the ftp file transfer protocol and download individual files
 manually. We can however access the files also directly from within R.
 Below we read the *assay* data file directly using the base R
-[`read.table()`](https://rdrr.io/r/utils/read.table.html) function.
+[`read.table()`](https://rdrr.io/r/utils/read.table.html) function. Note
+that connections to the MetaboLights FTP server are rate-limited and
+might thus fail. We use below the
+[`retry()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/retry.md)
+function to retry reading from the FTP server if the connection fails or
+gets closed before the data is fully read.
 
 ``` r
 
@@ -99,9 +104,10 @@ grep("^a_", all_files, value = TRUE)
 ``` r
 
 #' Read the assay file
-a <- read.table(paste0(mtbls_ftp_path("MTBLS39"),
-                       grep("^a_", all_files, value = TRUE)),
-                sep = "\t", header = TRUE, check.names = FALSE)
+a <- retry(read.table(paste0(mtbls_ftp_path("MTBLS39"),
+                             grep("^a_", all_files, value = TRUE)),
+                      sep = "\t", header = TRUE, check.names = FALSE),
+           ntimes = 5, sleep_mult = 7)
 ```
 
 Each row in this assay table refers to one measurement (data file) of
@@ -381,7 +387,7 @@ res
 ```
 
     ##     rid mtbls_id
-    ## 1 BFC47  MTBLS39
+    ## 1 BFC55  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##   derived_spectral_data_file                                          rpath
@@ -400,7 +406,7 @@ mtbls_cached_data_files()
 ```
 
     ##      rid mtbls_id
-    ## 28 BFC47  MTBLS39
+    ## 28 BFC55  MTBLS39
     ##                                                                                            mtbls_assay_name
     ## 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##    derived_spectral_data_file                                          rpath
@@ -443,7 +449,7 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.5.0 Spectra_1.21.0             
+    ## [1] MsBackendMetaboLights_1.5.1 Spectra_1.21.0             
     ## [3] BiocParallel_1.45.0         S4Vectors_0.49.0           
     ## [5] BiocGenerics_0.57.0         generics_0.1.4             
     ## [7] BiocStyle_2.39.0           
