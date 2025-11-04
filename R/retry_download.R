@@ -1,5 +1,5 @@
 #' Retry an expression `ntimes` times waiting an increasing amount of time
-#' between tries, i.e. waiting for `Sys.sleep(i * sleep_mult)` seconds between
+#' between tries, i.e., waiting for `Sys.sleep(i * sleep_mult)` seconds between
 #' each try. If `expr` fails for `ntimes` times the error will be thrown.
 #'
 #' @param expr Expression to be evaluated.
@@ -18,7 +18,7 @@
 #' @importFrom methods is
 #'
 #' @noRd
-.retry <- function(expr, ntimes = 5, sleep_mult = 0) {
+.retry <- function(expr, ntimes = 5L, sleep_mult = 0L) {
     res <- NULL
     for (i in seq_len(ntimes)) {
         res <- suppressWarnings(tryCatch(expr, error = function(e) e))
@@ -32,5 +32,5 @@
 }
 
 .sleep_mult <- function() {
-    as.integer(getOption("metabolights.sleep_mult", default = 7))
+    as.integer(getOption("metabolights.sleep_mult", default = 7L))
 }
