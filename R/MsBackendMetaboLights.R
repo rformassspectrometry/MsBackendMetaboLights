@@ -392,9 +392,13 @@ mtbls_sync <- function(x, offline = FALSE) {
 #' afiles <- mtbls_list_files("MTBLS2", pattern = "^a_")
 #' afiles
 #'
-#' ## Read the content of one file
-#' a <- read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
-#'     header = TRUE, sep = "\t", check.names = FALSE)
+#' ## Read the content of one file. Connections to the MetaboLights ftp server
+#' ## are limited and might fail, thus we use the `retry()` function to
+#' ## retry on failure for 5 times (waiting `i * sleep_mult` seconds in between)
+#' a <- retry(
+#'     read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
+#'     header = TRUE, sep = "\t", check.names = FALSE),
+#'     ntimes = 5, sleep_mult = 4)
 #' head(a)
 #'
 #' ## List all available files
@@ -423,7 +427,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
     cu <- new_handle()
     handle_setopt(cu, ftp_use_epsv = TRUE, dirlistonly = TRUE)
     tryCatch({
-        con <- .retry(
+        con <- retry(
             curl(url = mtbls_ftp_path(x, mustWork = FALSE), "r", handle = cu),
             sleep_mult = .sleep_mult())
     }, error = function(e) {
@@ -431,7 +435,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
              "Does the data set \"", x, "\" exist?\n - ", e$message,
              call. = FALSE)
     })
-    fls <- .retry(readLines(con), sleep_mult = .sleep_mult())
+    fls <- retry(readLines(con), sleep_mult = .sleep_mult())
     close(con)
     if (length(pattern))
         fls[grepl(pattern, fls)]
@@ -452,7 +456,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
     fpath <- mtbls_ftp_path(x, mustWork = FALSE)
     a_fls <- mtbls_list_files(x, pattern = "^a_")
     res <- lapply(a_fls, function(z) {
-        .retry(read.table(paste0(fpath, z),
+        retry(read.table(paste0(fpath, z),
                           sep = "\t", header = TRUE,
                           check.names = FALSE),
                sleep_mult = .sleep_mult())
@@ -600,7 +604,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     lfiles <- unlist(lapply(ffiles, function(z) {
         pb$tick()
         invisible(capture.output(suppressMessages(
-            f <- .retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact"),
+            f <- retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact"),
                         sleep_mult = .sleep_mult()))))
         f
     }))
