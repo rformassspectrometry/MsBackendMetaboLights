@@ -97,16 +97,20 @@ Sys.sleep(4)
 We could inspect the content of this folder also using a browser supporting the
 ftp file transfer protocol and download individual files manually. We can
 however access the files also directly from within R. Below we read the *assay*
-data file directly using the base R `read.table()` function.
+data file directly using the base R `read.table()` function. Note that
+connections to the MetaboLights FTP server are rate-limited and might thus
+fail. We use below the `retry()` function to retry reading from the FTP server
+if the connection fails or gets closed before the data is fully read.
 
 ```{r}
 #' Get the assay files of the data set
 grep("^a_", all_files, value = TRUE)
 
 #' Read the assay file
-a <- read.table(paste0(mtbls_ftp_path("MTBLS39"),
-                       grep("^a_", all_files, value = TRUE)),
-                sep = "\t", header = TRUE, check.names = FALSE)
+a <- retry(read.table(paste0(mtbls_ftp_path("MTBLS39"),
+                             grep("^a_", all_files, value = TRUE)),
+                      sep = "\t", header = TRUE, check.names = FALSE),
+           ntimes = 5, sleep_mult = 7)
 ```
 
 Each row in this assay table refers to one measurement (data file) of the data

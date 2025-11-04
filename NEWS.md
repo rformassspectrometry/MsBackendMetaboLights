@@ -1,6 +1,9 @@
 # MsBackendMetaboLights 1.5
 
+# MsBackendMetaboLights 1.5.1
+
 - Increase number of download retries and increase waiting time in between.
+- Export the `retry()` function.
 
 # MsBackendMetaboLights 1.3
 
