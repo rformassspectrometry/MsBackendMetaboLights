@@ -6,10 +6,10 @@ Authors@R:
              email = "Johannes.Rainer@eurac.edu",
              role = c("aut", "cre"),
              comment = c(ORCID = "0000-0002-6977-7147")),
-             person(given = "Philippine", family = "Louail",
-                    email = "philippine.louail@eurac.edu",
-                    role = c("aut"),
-                    comment = c(ORCID = "0009-0007-5429-6846")))
+      person(given = "Philippine", family = "Louail",
+             email = "philippine.louail@eurac.edu",
+             role = c("aut"),
+             comment = c(ORCID = "0009-0007-5429-6846")))
 Description: MetaboLights is one of the main public repositories for storage
              of metabolomics experiments, which includes analysis results as
 	     well as raw data. The MsBackendMetaboLights package provides
