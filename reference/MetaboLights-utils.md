@@ -326,9 +326,9 @@ head(a)
 ## List all available files
 mtbls_cached_data_files()
 #>      rid mtbls_id
-#> 26 BFC51  MTBLS39
-#> 27 BFC52  MTBLS39
-#> 28 BFC55  MTBLS39
+#> 26 BFC39  MTBLS39
+#> 27 BFC40  MTBLS39
+#> 28 BFC42  MTBLS39
 #>                                                                                            mtbls_assay_name
 #> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
 #> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
