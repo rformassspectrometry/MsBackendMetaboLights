@@ -1,6 +1,6 @@
 Package: MsBackendMetaboLights
 Title: Retrieve Mass Spectrometry Data from MetaboLights
-Version: 1.5.1
+Version: 1.5.2
 Authors@R:
     c(person(given = "Johannes", family = "Rainer",
              email = "Johannes.Rainer@eurac.edu",
@@ -28,7 +28,8 @@ Imports:
     BiocFileCache,
     S4Vectors,
     methods,
-    progress
+    progress,
+    utils
 Suggests:
     testthat,
     rmarkdown,

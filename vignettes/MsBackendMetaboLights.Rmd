@@ -227,6 +227,41 @@ Locally cached files for a MetaboLights data set can be removed using the
 `mtbls_delete_cache()` function providing the ID of the MetaboLights data set
 for which local data files should be removed.
 
+# General information for a MetaboLights data set
+
+Next to the code to cache and download MS data files, *MsBackendMetaboLights*
+provides also utility functions to retrieve general data and information for a
+data set from the MetaboLights repository. These functions are listed on the
+`?Metabolites-utils` help page. The `mtbls_list_files()` for example allows to
+list all available files in the data set's base FTP folder.
+
+```{r}
+mtbls_list_files("MTBLS39")
+```
+
+The `mtbls_assay_data()` retrieves information on the, or one of the possibly
+multiple, used assay(s).
+
+```{r}
+adat <- mtbls_assay_data("MTBLS39")
+head(adat)
+```
+
+The `mtbls_sample_data()` retrieves the sample information for a data set.
+
+```{r}
+sdat <- mtbls_sample_data("MTBLS39")
+head(sdat)
+```
+
+And the `mtbls_metadata()` combines the sample and assay information into a
+single `data.frame` from which individual sample information for the respective
+MS data files could be extracted.
+
+```{r}
+mdat <- mtbls_metadata("MTBLS39")
+dim(mdat)
+```
 
 # Session information
 

@@ -1,5 +1,10 @@
 # MsBackendMetaboLights 1.5
 
+# MsBackendMetaboLights 1.5.2
+
+- Add helper functions `mtbls_assay_data()`, `mtbls_sample_data()` and
+  `mtbls_metadata()`.
+
 # MsBackendMetaboLights 1.5.1
 
 - Increase number of download retries and increase waiting time in between.
