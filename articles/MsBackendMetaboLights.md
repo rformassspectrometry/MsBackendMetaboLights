@@ -5,8 +5,8 @@
 **Authors**: Johannes Rainer \[aut, cre\] (ORCID:
 <https://orcid.org/0000-0002-6977-7147>), Philippine Louail \[aut\]
 (ORCID: <https://orcid.org/0009-0007-5429-6846>)\
-**Last modified:** 2026-03-03 06:18:02.955554\
-**Compiled**: Tue Mar 3 06:48:14 2026
+**Last modified:** 2026-03-25 10:36:26.075991\
+**Compiled**: Wed Mar 25 11:15:26 2026
 
 ## Introduction
 
@@ -65,6 +65,13 @@ Below we list all files from the MetaboLights data set with the ID
 ``` r
 
 library(MsBackendMetaboLights)
+```
+
+    ## Registered S3 method overwritten by 'bit64':
+    ##   method          from 
+    ##   print.bitstring tools
+
+``` r
 
 #' List files of a MetaboLights data set
 all_files <- mtbls_list_files("MTBLS39")
@@ -387,7 +394,7 @@ res
 ```
 
     ##     rid mtbls_id
-    ## 1 BFC42  MTBLS39
+    ## 1 BFC36  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##   derived_spectral_data_file                                          rpath
@@ -406,7 +413,7 @@ mtbls_cached_data_files()
 ```
 
     ##      rid mtbls_id
-    ## 28 BFC42  MTBLS39
+    ## 28 BFC36  MTBLS39
     ##                                                                                            mtbls_assay_name
     ## 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##    derived_spectral_data_file                                          rpath
@@ -418,6 +425,242 @@ the
 function providing the ID of the MetaboLights data set for which local
 data files should be removed.
 
+## General information for a MetaboLights data set
+
+Next to the code to cache and download MS data files,
+*MsBackendMetaboLights* provides also utility functions to retrieve
+general data and information for a data set from the MetaboLights
+repository. These functions are listed on the `?Metabolites-utils` help
+page. The
+[`mtbls_list_files()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
+for example allows to list all available files in the data set’s base
+FTP folder.
+
+``` r
+
+mtbls_list_files("MTBLS39")
+```
+
+    ## [1] "FILES"                                                                                                          
+    ## [2] "HASHES"                                                                                                         
+    ## [3] "METADATA_REVISIONS"                                                                                             
+    ## [4] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       
+    ## [5] "i_Investigation.txt"                                                                                            
+    ## [6] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
+    ## [7] "s_MTBLS39.txt"
+
+The
+[`mtbls_assay_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
+retrieves information on the, or one of the possibly multiple, used
+assay(s).
+
+``` r
+
+adat <- mtbls_assay_data("MTBLS39")
+head(adat)
+```
+
+    ##   Sample Name Protocol REF Parameter Value[Post Extraction]
+    ## 1      MN063A   Extraction             methanol/formic acid
+    ## 2      MN063B   Extraction             methanol/formic acid
+    ## 3      MN063C   Extraction             methanol/formic acid
+    ## 4      CS063A   Extraction             methanol/formic acid
+    ## 5      CS063B   Extraction             methanol/formic acid
+    ## 6      CS063C   Extraction             methanol/formic acid
+    ##   Parameter Value[Derivatization] Extract Name   Protocol REF
+    ## 1                              NA       MN063A Chromatography
+    ## 2                              NA       MN063B Chromatography
+    ## 3                              NA       MN063C Chromatography
+    ## 4                              NA       CS063A Chromatography
+    ## 5                              NA       CS063B Chromatography
+    ## 6                              NA       CS063C Chromatography
+    ##   Parameter Value[Chromatography Instrument] Term Source REF
+    ## 1  Beckman Coulter System Gold HPLC 127 pump              NA
+    ## 2  Beckman Coulter System Gold HPLC 127 pump              NA
+    ## 3  Beckman Coulter System Gold HPLC 127 pump              NA
+    ## 4  Beckman Coulter System Gold HPLC 127 pump              NA
+    ## 5  Beckman Coulter System Gold HPLC 127 pump              NA
+    ## 6  Beckman Coulter System Gold HPLC 127 pump              NA
+    ##   Term Accession Number Parameter Value[Autosampler model] Term Source REF
+    ## 1                    NA   System Gold HPLC 508 autosampler              NA
+    ## 2                    NA   System Gold HPLC 508 autosampler              NA
+    ## 3                    NA   System Gold HPLC 508 autosampler              NA
+    ## 4                    NA   System Gold HPLC 508 autosampler              NA
+    ## 5                    NA   System Gold HPLC 508 autosampler              NA
+    ## 6                    NA   System Gold HPLC 508 autosampler              NA
+    ##   Term Accession Number                   Parameter Value[Column model]
+    ## 1                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ## 2                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ## 3                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ## 4                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ## 5                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ## 6                    NA Alltima HP C18 (3 μm, 2.1 mm x 150 mm; Alltech)
+    ##   Parameter Value[Column type]                Parameter Value[Guard column]
+    ## 1                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ## 2                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ## 3                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ## 4                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ## 5                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ## 6                reverse phase Alltima HP-Guard C18 (2.1 x 7.5 mm; Alltech)
+    ##   Term Source REF Term Accession Number Labeled Extract Name Label
+    ## 1              NA                    NA                   NA    NA
+    ## 2              NA                    NA                   NA    NA
+    ## 3              NA                    NA                   NA    NA
+    ## 4              NA                    NA                   NA    NA
+    ## 5              NA                    NA                   NA    NA
+    ## 6              NA                    NA                   NA    NA
+    ##   Term Source REF Term Accession Number      Protocol REF
+    ## 1              NA                    NA Mass spectrometry
+    ## 2              NA                    NA Mass spectrometry
+    ## 3              NA                    NA Mass spectrometry
+    ## 4              NA                    NA Mass spectrometry
+    ## 5              NA                    NA Mass spectrometry
+    ## 6              NA                    NA Mass spectrometry
+    ##   Parameter Value[Scan polarity] Parameter Value[Scan m/z range]
+    ## 1                    alternating                         50–1500
+    ## 2                    alternating                         50–1500
+    ## 3                    alternating                         50–1500
+    ## 4                    alternating                         50–1500
+    ## 5                    alternating                         50–1500
+    ## 6                    alternating                         50–1500
+    ##   Parameter Value[Instrument] Term Source REF Term Accession Number
+    ## 1         Bruker Esquire 6000              NA                    NA
+    ## 2         Bruker Esquire 6000              NA                    NA
+    ## 3         Bruker Esquire 6000              NA                    NA
+    ## 4         Bruker Esquire 6000              NA                    NA
+    ## 5         Bruker Esquire 6000              NA                    NA
+    ## 6         Bruker Esquire 6000              NA                    NA
+    ##   Parameter Value[Ion source] Term Source REF Term Accession Number
+    ## 1     electrospray ionization              MS                    NA
+    ## 2     electrospray ionization              MS                    NA
+    ## 3     electrospray ionization              MS                    NA
+    ## 4     electrospray ionization              MS                    NA
+    ## 5     electrospray ionization              MS                    NA
+    ## 6     electrospray ionization              MS                    NA
+    ##   Parameter Value[Mass analyzer] Term Source REF
+    ## 1            quadrupole ion trap              MS
+    ## 2            quadrupole ion trap              MS
+    ## 3            quadrupole ion trap              MS
+    ## 4            quadrupole ion trap              MS
+    ## 5            quadrupole ion trap              MS
+    ## 6            quadrupole ion trap              MS
+    ##                       Term Accession Number MS Assay Name
+    ## 1 http://purl.obolibrary.org/obo/MS_1000082        MN063A
+    ## 2 http://purl.obolibrary.org/obo/MS_1000082        MN063B
+    ## 3 http://purl.obolibrary.org/obo/MS_1000082        MN063C
+    ## 4 http://purl.obolibrary.org/obo/MS_1000082        CS063A
+    ## 5 http://purl.obolibrary.org/obo/MS_1000082        CS063B
+    ## 6 http://purl.obolibrary.org/obo/MS_1000082        CS063C
+    ##   Raw Spectral Data File        Protocol REF Normalization Name
+    ## 1       FILES/MN063A.cdf Data transformation             MN063A
+    ## 2       FILES/MN063B.cdf Data transformation             MN063B
+    ## 3       FILES/MN063C.cdf Data transformation             MN063C
+    ## 4       FILES/CS063A.cdf Data transformation             CS063A
+    ## 5       FILES/CS063B.cdf Data transformation             CS063B
+    ## 6       FILES/CS063C.cdf Data transformation             CS063C
+    ##   Derived Spectral Data File              Protocol REF Data Transformation Name
+    ## 1                         NA Metabolite identification                   MN063A
+    ## 2                         NA Metabolite identification                   MN063B
+    ## 3                         NA Metabolite identification                   MN063C
+    ## 4                         NA Metabolite identification                   CS063A
+    ## 5                         NA Metabolite identification                   CS063B
+    ## 6                         NA Metabolite identification                   CS063C
+    ##                                                                                        Metabolite Assignment File
+    ## 1 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+    ## 2 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+    ## 3 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+    ## 4 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+    ## 5 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+    ## 6 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv
+
+The
+[`mtbls_sample_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
+retrieves the sample information for a data set.
+
+``` r
+
+sdat <- mtbls_sample_data("MTBLS39")
+head(sdat)
+```
+
+    ##                            Source Name Characteristics[Organism]
+    ## 1 Vineyard MN,Year 2006,Stage 3,Rep. A            Vitis vinifera
+    ## 2 Vineyard MN,Year 2006,Stage 3,Rep. B            Vitis vinifera
+    ## 3 Vineyard MN,Year 2006,Stage 3,Rep. C            Vitis vinifera
+    ## 4 Vineyard CS,Year 2006,Stage 3,Rep. A            Vitis vinifera
+    ## 5 Vineyard CS,Year 2006,Stage 3,Rep. B            Vitis vinifera
+    ## 6 Vineyard CS,Year 2006,Stage 3,Rep. C            Vitis vinifera
+    ##   Term Source REF                                Term Accession Number
+    ## 1       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ## 2       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ## 3       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ## 4       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ## 5       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ## 6       NCBITAXON http://purl.bioontology.org/ontology/NCBITAXON/29760
+    ##   Characteristics[Organism part] Term Source REF
+    ## 1                          berry             BTO
+    ## 2                          berry             BTO
+    ## 3                          berry             BTO
+    ## 4                          berry             BTO
+    ## 5                          berry             BTO
+    ## 6                          berry             BTO
+    ##                        Term Accession Number Characteristics[Variant]
+    ## 1 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ## 2 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ## 3 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ## 4 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ## 5 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ## 6 http://purl.obolibrary.org/obo/BTO_0000119                       NA
+    ##   Term Source REF Term Accession Number Characteristics[Sample type]
+    ## 1              NA                    NA                           NA
+    ## 2              NA                    NA                           NA
+    ## 3              NA                    NA                           NA
+    ## 4              NA                    NA                           NA
+    ## 5              NA                    NA                           NA
+    ## 6              NA                    NA                           NA
+    ##   Term Source REF Term Accession Number      Protocol REF Sample Name
+    ## 1              NA                    NA Sample collection      MN063A
+    ## 2              NA                    NA Sample collection      MN063B
+    ## 3              NA                    NA Sample collection      MN063C
+    ## 4              NA                    NA Sample collection      CS063A
+    ## 5              NA                    NA Sample collection      CS063B
+    ## 6              NA                    NA Sample collection      CS063C
+    ##   Factor Value[Year of Harvesting] Term Source REF Term Accession Number
+    ## 1                             2006              NA                    NA
+    ## 2                             2006              NA                    NA
+    ## 3                             2006              NA                    NA
+    ## 4                             2006              NA                    NA
+    ## 5                             2006              NA                    NA
+    ## 6                             2006              NA                    NA
+    ##   Factor Value[Vineyard] Term Source REF Term Accession Number
+    ## 1            Vineyard MN              NA                    NA
+    ## 2            Vineyard MN              NA                    NA
+    ## 3            Vineyard MN              NA                    NA
+    ## 4            Vineyard CS              NA                    NA
+    ## 5            Vineyard CS              NA                    NA
+    ## 6            Vineyard CS              NA                    NA
+    ##   Factor Value[Replicate] Term Source REF Term Accession Number
+    ## 1                       A              NA                    NA
+    ## 2                       B              NA                    NA
+    ## 3                       C              NA                    NA
+    ## 4                       A              NA                    NA
+    ## 5                       B              NA                    NA
+    ## 6                       C              NA                    NA
+
+And the
+[`mtbls_metadata()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
+combines the sample and assay information into a single `data.frame`
+from which individual sample information for the respective MS data
+files could be extracted.
+
+``` r
+
+mdat <- mtbls_metadata("MTBLS39")
+dim(mdat)
+```
+
+    ## [1] 27 65
+
 ## Session information
 
 ``` r
@@ -425,7 +668,7 @@ data files should be removed.
 sessionInfo()
 ```
 
-    ## R Under development (unstable) (2026-03-01 r89508)
+    ## R Under development (unstable) (2026-03-22 r89674)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.4 LTS
     ## 
@@ -449,32 +692,32 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.5.1 Spectra_1.21.1             
+    ## [1] MsBackendMetaboLights_1.5.2 Spectra_1.21.5             
     ## [3] BiocParallel_1.45.0         S4Vectors_0.49.0           
     ## [5] BiocGenerics_0.57.0         generics_0.1.4             
     ## [7] BiocStyle_2.39.0           
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.56              bslib_0.10.0           httr2_1.2.2           
-    ##  [4] htmlwidgets_1.6.4      Biobase_2.71.0         vctrs_0.7.1           
+    ##  [1] xfun_0.57              bslib_0.10.0           httr2_1.2.2           
+    ##  [4] htmlwidgets_1.6.4      Biobase_2.71.0         vctrs_0.7.2           
     ##  [7] tools_4.6.0            curl_7.0.0             parallel_4.6.0        
     ## [10] tibble_3.3.1           RSQLite_2.4.6          cluster_2.1.8.2       
-    ## [13] blob_1.3.0             pkgconfig_2.0.3        dbplyr_2.5.2          
-    ## [16] desc_1.4.3             lifecycle_1.0.5        compiler_4.6.0        
-    ## [19] textshaping_1.0.4      progress_1.2.3         codetools_0.2-20      
-    ## [22] ncdf4_1.24             clue_0.3-67            htmltools_0.5.9       
-    ## [25] sass_0.4.10            yaml_2.3.12            pkgdown_2.2.0.9000    
-    ## [28] pillar_1.11.1          crayon_1.5.3           jquerylib_0.1.4       
-    ## [31] MASS_7.3-65            cachem_1.1.0           MetaboCoreUtils_1.19.2
-    ## [34] tidyselect_1.2.1       digest_0.6.39          dplyr_1.2.0           
-    ## [37] purrr_1.2.1            bookdown_0.46          fastmap_1.2.0         
-    ## [40] cli_3.6.5              magrittr_2.0.4         withr_3.0.2           
-    ## [43] prettyunits_1.2.0      filelock_1.0.3         rappdirs_0.3.4        
-    ## [46] bit64_4.6.0-1          rmarkdown_2.30         bit_4.6.0             
-    ## [49] otel_0.2.0             ragg_1.5.0             hms_1.1.4             
-    ## [52] memoise_2.0.1          evaluate_1.0.5         knitr_1.51            
-    ## [55] IRanges_2.45.0         BiocFileCache_3.1.0    rlang_1.1.7           
-    ## [58] Rcpp_1.1.1             glue_1.8.0             DBI_1.3.0             
-    ## [61] mzR_2.45.0             BiocManager_1.30.27    jsonlite_2.0.0        
-    ## [64] R6_2.6.1               systemfonts_1.3.1      fs_1.6.6              
-    ## [67] ProtGenerics_1.43.0    MsCoreUtils_1.23.2
+    ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.2.1   
+    ## [16] dbplyr_2.5.2           desc_1.4.3             lifecycle_1.0.5       
+    ## [19] compiler_4.6.0         textshaping_1.0.5      progress_1.2.3        
+    ## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-67           
+    ## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           
+    ## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          
+    ## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          
+    ## [34] MetaboCoreUtils_1.19.2 tidyselect_1.2.1       digest_0.6.39         
+    ## [37] dplyr_1.2.0            purrr_1.2.1            bookdown_0.46         
+    ## [40] fastmap_1.2.0          cli_3.6.5              magrittr_2.0.4        
+    ## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        
+    ## [46] rappdirs_0.3.4         bit64_4.6.0-1          rmarkdown_2.30        
+    ## [49] bit_4.6.0              otel_0.2.0             ragg_1.5.2            
+    ## [52] hms_1.1.4              memoise_2.0.1          evaluate_1.0.5        
+    ## [55] knitr_1.51             IRanges_2.45.0         BiocFileCache_3.1.0   
+    ## [58] rlang_1.1.7            Rcpp_1.1.1             glue_1.8.0            
+    ## [61] DBI_1.3.0              mzR_2.45.1             BiocManager_1.30.27   
+    ## [64] jsonlite_2.0.0         R6_2.6.1               systemfonts_1.3.2     
+    ## [67] fs_2.0.1               ProtGenerics_1.43.0    MsCoreUtils_1.23.6

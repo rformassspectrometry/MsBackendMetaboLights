@@ -18,16 +18,27 @@ With mustWork = TRUE (the default) the function throws an error if
 the path is not accessible (either because the data set does not exist or
 no internet connection is available). The function returns a
 character(1) with the FTP path to the data set folder.
-mtbls_cached_data_files(): lists locally cached data files from
-MetaboLights. Since this function evaluates only local content it does not
-require an internet connection. With the default parameters all available
-data files are listed. The parameters can be used to restrict the lookup.
 mtbls_list_files(): returns the available files (and directories) for the
 specified MetaboLights data set (i.e., the FTP directory content of the
 data set). The function returns a character vector with the relative
 file names to the absolute FTP path (mtbls_ftp_path()) of the data set.
 Parameter pattern allows to filter the file names and define which
 file names should be returned.
+mtbls_assay_data(): retrieves one of the assay files for a
+MetaboLights data set (parameter mtblsId) returning its content as a
+data.frame. Parameter assayName allows to specify which assay file to
+load (if multiple are available).
+mtbls_sample_data(): gets the sample file for a MetaboLights data set
+(parameter mtblsId) and returns its content as a data.frame.
+mtbls_metadata(): gets one assay file for the specified MetaboLights
+data set (parameter mtblsId) and merges it with the respective sample
+information returning the content as a data.frame. Optional parameters
+keepOntology, keepProtocol and simplify allow to restrict the
+returned content to fewer columns.
+mtbls_cached_data_files(): lists locally cached data files from
+MetaboLights. Since this function evaluates only local content it does not
+require an internet connection. With the default parameters all available
+data files are listed. The parameters can be used to restrict the lookup.
 mtbls_sync_data_files(): synchronize data files of a specifies
 MetaboLights data set eventually downloading and locally caching them.
 Parameter fileName allows to specify names of selected data files to
@@ -56,16 +67,27 @@ With mustWork = TRUE (the default) the function throws an error if
 the path is not accessible (either because the data set does not exist or
 no internet connection is available). The function returns a
 character(1) with the FTP path to the data set folder.
-mtbls_cached_data_files(): lists locally cached data files from
-MetaboLights. Since this function evaluates only local content it does not
-require an internet connection. With the default parameters all available
-data files are listed. The parameters can be used to restrict the lookup.
 mtbls_list_files(): returns the available files (and directories) for the
 specified MetaboLights data set (i.e., the FTP directory content of the
 data set). The function returns a character vector with the relative
 file names to the absolute FTP path (mtbls_ftp_path()) of the data set.
 Parameter pattern allows to filter the file names and define which
 file names should be returned.
+mtbls_assay_data(): retrieves one of the assay files for a
+MetaboLights data set (parameter mtblsId) returning its content as a
+data.frame. Parameter assayName allows to specify which assay file to
+load (if multiple are available).
+mtbls_sample_data(): gets the sample file for a MetaboLights data set
+(parameter mtblsId) and returns its content as a data.frame.
+mtbls_metadata(): gets one assay file for the specified MetaboLights
+data set (parameter mtblsId) and merges it with the respective sample
+information returning the content as a data.frame. Optional parameters
+keepOntology, keepProtocol and simplify allow to restrict the
+returned content to fewer columns.
+mtbls_cached_data_files(): lists locally cached data files from
+MetaboLights. Since this function evaluates only local content it does not
+require an internet connection. With the default parameters all available
+data files are listed. The parameters can be used to restrict the lookup.
 mtbls_sync_data_files(): synchronize data files of a specifies
 MetaboLights data set eventually downloading and locally caching them.
 Parameter fileName allows to specify names of selected data files to
@@ -83,7 +105,7 @@ change any other data eventually present in the local BiocFileCache.
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +127,7 @@ change any other data eventually present in the local BiocFileCache.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Utility functions for the MetaboLights repository</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights/blob/main/R/MsBackendMetaboLights.R" class="external-link"><code>R/MsBackendMetaboLights.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights/blob/main/R/mtbls_utils.R" class="external-link"><code>R/mtbls_utils.R</code></a></small>
       <div class="d-none name"><code>MetaboLights-utils.Rd</code></div>
     </div>
 
@@ -128,16 +150,27 @@ With <code>mustWork = TRUE</code> (the default) the function throws an error if
 the path is not accessible (either because the data set does not exist or
 no internet connection is available). The function returns a
 <code>character(1)</code> with the FTP path to the data set folder.</p></li>
-<li><p><code>mtbls_cached_data_files()</code>: lists locally cached data files from
-MetaboLights. Since this function evaluates only local content it does not
-require an internet connection. With the default parameters all available
-data files are listed. The parameters can be used to restrict the lookup.</p></li>
 <li><p><code>mtbls_list_files()</code>: returns the available files (and directories) for the
 specified MetaboLights data set (i.e., the FTP directory content of the
 data set). The function returns a <code>character</code> vector with the relative
 file names to the absolute FTP path (<code>mtbls_ftp_path()</code>) of the data set.
 Parameter <code>pattern</code> allows to filter the file names and define which
 file names should be returned.</p></li>
+<li><p><code>mtbls_assay_data()</code>: retrieves one of the <em>assay</em> files for a
+MetaboLights data set (parameter <code>mtblsId</code>) returning its content as a
+<code>data.frame</code>. Parameter <code>assayName</code> allows to specify which assay file to
+load (if multiple are available).</p></li>
+<li><p><code>mtbls_sample_data()</code>: gets the <em>sample</em> file for a MetaboLights data set
+(parameter <code>mtblsId</code>) and returns its content as a <code>data.frame</code>.</p></li>
+<li><p><code>mtbls_metadata()</code>: gets one <em>assay</em> file for the specified MetaboLights
+data set (parameter <code>mtblsId</code>) and merges it with the respective <em>sample</em>
+information returning the content as a <code>data.frame</code>. Optional parameters
+<code>keepOntology</code>, <code>keepProtocol</code> and <code>simplify</code> allow to restrict the
+returned content to fewer columns.</p></li>
+<li><p><code>mtbls_cached_data_files()</code>: lists locally cached data files from
+MetaboLights. Since this function evaluates only local content it does not
+require an internet connection. With the default parameters all available
+data files are listed. The parameters can be used to restrict the lookup.</p></li>
 <li><p><code>mtbls_sync_data_files()</code>: synchronize data files of a specifies
 MetaboLights data set eventually downloading and locally caching them.
 Parameter <code>fileName</code> allows to specify names of selected data files to
@@ -168,7 +201,19 @@ change any other data eventually present in the local <code>BiocFileCache</code>
 <span>  fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">mtbls_delete_cache</span><span class="op">(</span>mtblsId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">mtbls_delete_cache</span><span class="op">(</span>mtblsId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mtbls_assay_data</span><span class="op">(</span>mtblsId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, assayName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mtbls_sample_data</span><span class="op">(</span>mtblsId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mtbls_metadata</span><span class="op">(</span></span>
+<span>  mtblsId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  assayName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  keepOntology <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  keepProtocol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  simplify <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -215,6 +260,22 @@ available assay files of a data set <code>&lt;MetaboLights ID&gt;</code>.</p></d
 <code>mtbls_cached_data_files()</code>: optional <code>character</code>
 defining the names of specific data files of a data set that should be
 downloaded and cached.</p></dd>
+
+
+<dt id="arg-keepontology">keepOntology<a class="anchor" aria-label="anchor" href="#arg-keepontology"></a></dt>
+<dd><p>for <code>mtbls_metadata()</code>: <code>logical(1)</code> whether to keep
+columns related to ontology. Default is <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-keepprotocol">keepProtocol<a class="anchor" aria-label="anchor" href="#arg-keepprotocol"></a></dt>
+<dd><p>for <code>mtbls_metadata()</code>: <code>logical(1)</code> whether to keep
+columns with information related to protocols. Default is <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-simplify">simplify<a class="anchor" aria-label="anchor" href="#arg-simplify"></a></dt>
+<dd><p>for <code>mtbls_metadata()</code>: <code>logical(1)</code> whether to simplify
+the result removing columns with only missing data or duplicated content.
+Default is <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -425,12 +486,562 @@ local file names of the synchronized data files.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                    Exp1              NA                    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                    Exp1              NA                    NA</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the assay information for one MTBLS data set</span></span></span>
+<span class="r-in"><span><span class="fu">mtbls_assay_data</span><span class="op">(</span><span class="st">"MTBLS2"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Sample Name Protocol REF   Parameter Value[Post Extraction]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ex1-Col0-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Ex1-Col0-48h-Ag-2   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Ex1-Col0-48h-Ag-3   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Ex1-Col0-48h-Ag-4   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Ex1-cyp79-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Ex1-cyp79-48h-Ag-2   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Ex1-cyp79-48h-Ag-3   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Ex1-cyp79-48h-Ag-4   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   Ex2-Col0-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Ex2-Col0-48h-Ag-2   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  Ex2-Col0-48h-Ag-3   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  Ex2-Col0-48h-Ag-4   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Ex2-cyp79-48h-Ag-1   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Ex2-cyp79-48h-Ag-2   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Ex2-cyp79-48h-Ag-3   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Ex2-cyp79-48h-Ag-4   Extraction 200 µL methanol:water (30:70, v/v)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Derivatization]       Extract Name   Protocol REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                               NA  Ex1-Col0-48h-Ag-1 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                               NA  Ex1-Col0-48h-Ag-2 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                               NA  Ex1-Col0-48h-Ag-3 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                               NA  Ex1-Col0-48h-Ag-4 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                               NA Ex1-cyp79-48h-Ag-1 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                               NA Ex1-cyp79-48h-Ag-2 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                               NA Ex1-cyp79-48h-Ag-3 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                               NA Ex1-cyp79-48h-Ag-4 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                               NA  Ex2-Col0-48h-Ag-1 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                              NA  Ex2-Col0-48h-Ag-2 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                              NA  Ex2-Col0-48h-Ag-3 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                              NA  Ex2-Col0-48h-Ag-4 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                              NA Ex2-cyp79-48h-Ag-1 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                              NA Ex2-cyp79-48h-Ag-2 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                              NA Ex2-cyp79-48h-Ag-3 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                              NA Ex2-cyp79-48h-Ag-4 Chromatography</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Chromatography Instrument] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                  Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                 Waters ACQUITY UPLC system           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Autosampler model]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Parameter Value[Column model]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 ACQUITY UPLC HSS T3 (1.8 µm, 1 mm x 100 mm; Waters)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Column type] Parameter Value[Guard column]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                reverse phase                            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Labeled Extract Name Label Term Source REF Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                    NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                   NA    NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Protocol REF Parameter Value[Scan polarity]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Mass spectrometry                       positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Scan m/z range] Parameter Value[Instrument] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                         100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                        100-1000        Bruker micrOTOF-Q II           MTBLS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Value[Ion source] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     electrospray ionization              MS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Term Accession Number Parameter Value[Mass analyzer]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 http://purl.obolibrary.org/obo/MS_1000073      quadrupole time-of-flight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Term Source REF                                   Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9            MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16           MTBLS http://www.ebi.ac.uk/metabolights/ontology/MTBLS_000699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       MS Assay Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ex1-Col0-48h-Ag-1_1-A,1_01_9818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Ex1-Col0-48h-Ag-2_1-A,1_01_9820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Ex1-Col0-48h-Ag-3_1-A,1_01_9822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Ex1-Col0-48h-Ag-4_1-A,1_01_9824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Ex1-cyp79-48h-Ag-1_1-B,1_01_9819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Ex1-cyp79-48h-Ag-2_1-B,2_01_9821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Ex1-cyp79-48h-Ag-3_1-B,1_01_9823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Ex1-cyp79-48h-Ag-4_1-B,2_01_9825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   Ex2-Col0-48h-Ag-1_1-A,2_01_9827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Ex2-Col0-48h-Ag-2_1-A,3_01_9829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  Ex2-Col0-48h-Ag-3_1-A,4_01_9831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  Ex2-Col0-48h-Ag-4_1-A,2_01_9833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Ex2-cyp79-48h-Ag-1_1-B,3_01_9828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Ex2-cyp79-48h-Ag-2_1-B,4_01_9830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Ex2-cyp79-48h-Ag-3_1-B,3_01_9832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Ex2-cyp79-48h-Ag-4_1-B,4_01_9834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            Raw Spectral Data File        Protocol REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   FILES/MSpos-Ex1-Col0-48h-Ag-1_1-A,1_01_9818.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   FILES/MSpos-Ex1-Col0-48h-Ag-2_1-A,1_01_9820.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   FILES/MSpos-Ex1-Col0-48h-Ag-3_1-A,1_01_9822.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   FILES/MSpos-Ex1-Col0-48h-Ag-4_1-A,1_01_9824.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  FILES/MSpos-Ex1-cyp79-48h-Ag-1_1-B,1_01_9819.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  FILES/MSpos-Ex1-cyp79-48h-Ag-2_1-B,2_01_9821.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  FILES/MSpos-Ex1-cyp79-48h-Ag-3_1-B,1_01_9823.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  FILES/MSpos-Ex1-cyp79-48h-Ag-4_1-B,2_01_9825.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   FILES/MSpos-Ex2-Col0-48h-Ag-1_1-A,2_01_9827.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  FILES/MSpos-Ex2-Col0-48h-Ag-2_1-A,3_01_9829.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  FILES/MSpos-Ex2-Col0-48h-Ag-3_1-A,4_01_9831.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  FILES/MSpos-Ex2-Col0-48h-Ag-4_1-A,2_01_9833.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 FILES/MSpos-Ex2-cyp79-48h-Ag-1_1-B,3_01_9828.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 FILES/MSpos-Ex2-cyp79-48h-Ag-2_1-B,4_01_9830.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 FILES/MSpos-Ex2-cyp79-48h-Ag-3_1-B,3_01_9832.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 FILES/MSpos-Ex2-cyp79-48h-Ag-4_1-B,4_01_9834.d Data transformation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  Normalization Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ex1-Col0-48h-Ag-1_1-A,1_01_9818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Ex1-Col0-48h-Ag-2_1-A,1_01_9820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Ex1-Col0-48h-Ag-3_1-A,1_01_9822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Ex1-Col0-48h-Ag-4_1-A,1_01_9824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Ex1-cyp79-48h-Ag-1_1-B,1_01_9819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Ex1-cyp79-48h-Ag-2_1-B,2_01_9821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Ex1-cyp79-48h-Ag-3_1-B,1_01_9823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Ex1-cyp79-48h-Ag-4_1-B,2_01_9825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   Ex2-Col0-48h-Ag-1_1-A,2_01_9827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Ex2-Col0-48h-Ag-2_1-A,3_01_9829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  Ex2-Col0-48h-Ag-3_1-A,4_01_9831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  Ex2-Col0-48h-Ag-4_1-A,2_01_9833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Ex2-cyp79-48h-Ag-1_1-B,3_01_9828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Ex2-cyp79-48h-Ag-2_1-B,4_01_9830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Ex2-cyp79-48h-Ag-3_1-B,3_01_9832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Ex2-cyp79-48h-Ag-4_1-B,4_01_9834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Derived Spectral Data File</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   FILES/mzML/MSpos-Ex1-Col0-48h-Ag-1_1-A__1_01_9818.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   FILES/mzML/MSpos-Ex1-Col0-48h-Ag-2_1-A__1_01_9820.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   FILES/mzML/MSpos-Ex1-Col0-48h-Ag-3_1-A__1_01_9822.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   FILES/mzML/MSpos-Ex1-Col0-48h-Ag-4_1-A__1_01_9824.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  FILES/mzML/MSpos-Ex1-cyp79-48h-Ag-1_1-B__1_01_9819.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  FILES/mzML/MSpos-Ex1-cyp79-48h-Ag-2_1-B__2_01_9821.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  FILES/mzML/MSpos-Ex1-cyp79-48h-Ag-3_1-B__1_01_9823.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  FILES/mzML/MSpos-Ex1-cyp79-48h-Ag-4_1-B__2_01_9825.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   FILES/mzML/MSpos-Ex2-Col0-48h-Ag-1_1-A__2_01_9827.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  FILES/mzML/MSpos-Ex2-Col0-48h-Ag-2_1-A__3_01_9829.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  FILES/mzML/MSpos-Ex2-Col0-48h-Ag-3_1-A__4_01_9831.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  FILES/mzML/MSpos-Ex2-Col0-48h-Ag-4_1-A__2_01_9833.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 FILES/mzML/MSpos-Ex2-cyp79-48h-Ag-1_1-B__3_01_9828.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 FILES/mzML/MSpos-Ex2-cyp79-48h-Ag-2_1-B__4_01_9830.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 FILES/mzML/MSpos-Ex2-cyp79-48h-Ag-3_1-B__3_01_9832.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 FILES/mzML/MSpos-Ex2-cyp79-48h-Ag-4_1-B__4_01_9834.mzML</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                    Derived Spectral Data File</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   FILES/mzData/MSpos-Ex1-Col0-48h-Ag-1_1-A,1_01_9818.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   FILES/mzData/MSpos-Ex1-Col0-48h-Ag-2_1-A,1_01_9820.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   FILES/mzData/MSpos-Ex1-Col0-48h-Ag-3_1-A,1_01_9822.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   FILES/mzData/MSpos-Ex1-Col0-48h-Ag-4_1-A,1_01_9824.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  FILES/mzData/MSpos-Ex1-cyp79-48h-Ag-1_1-B,1_01_9819.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  FILES/mzData/MSpos-Ex1-cyp79-48h-Ag-2_1-B,2_01_9821.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  FILES/mzData/MSpos-Ex1-cyp79-48h-Ag-3_1-B,1_01_9823.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  FILES/mzData/MSpos-Ex1-cyp79-48h-Ag-4_1-B,2_01_9825.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   FILES/mzData/MSpos-Ex2-Col0-48h-Ag-1_1-A,2_01_9827.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  FILES/mzData/MSpos-Ex2-Col0-48h-Ag-2_1-A,3_01_9829.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  FILES/mzData/MSpos-Ex2-Col0-48h-Ag-3_1-A,4_01_9831.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  FILES/mzData/MSpos-Ex2-Col0-48h-Ag-4_1-A,2_01_9833.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 FILES/mzData/MSpos-Ex2-cyp79-48h-Ag-1_1-B,3_01_9828.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 FILES/mzData/MSpos-Ex2-cyp79-48h-Ag-2_1-B,4_01_9830.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 FILES/mzData/MSpos-Ex2-cyp79-48h-Ag-3_1-B,3_01_9832.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 FILES/mzData/MSpos-Ex2-cyp79-48h-Ag-4_1-B,4_01_9834.mzData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Protocol REF         Data Transformation Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Metabolite identification  Ex1-Col0-48h-Ag-1_1-A,1_01_9818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Metabolite identification  Ex1-Col0-48h-Ag-2_1-A,1_01_9820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Metabolite identification  Ex1-Col0-48h-Ag-3_1-A,1_01_9822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Metabolite identification  Ex1-Col0-48h-Ag-4_1-A,1_01_9824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Metabolite identification Ex1-cyp79-48h-Ag-1_1-B,1_01_9819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Metabolite identification Ex1-cyp79-48h-Ag-2_1-B,2_01_9821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Metabolite identification Ex1-cyp79-48h-Ag-3_1-B,1_01_9823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Metabolite identification Ex1-cyp79-48h-Ag-4_1-B,2_01_9825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Metabolite identification  Ex2-Col0-48h-Ag-1_1-A,2_01_9827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Metabolite identification  Ex2-Col0-48h-Ag-2_1-A,3_01_9829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Metabolite identification  Ex2-Col0-48h-Ag-3_1-A,4_01_9831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Metabolite identification  Ex2-Col0-48h-Ag-4_1-A,2_01_9833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Metabolite identification Ex2-cyp79-48h-Ag-1_1-B,3_01_9828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Metabolite identification Ex2-cyp79-48h-Ag-2_1-B,4_01_9830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Metabolite identification Ex2-cyp79-48h-Ag-3_1-B,3_01_9832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Metabolite identification Ex2-cyp79-48h-Ag-4_1-B,4_01_9834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                    Metabolite Assignment File</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Factor Value[genotype] Term Source REF Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                   cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                   cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                   cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                   Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                  Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                  Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                  Col-0              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                  cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                  cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                  cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                  cyp79              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Factor Value[replicate] Term Source REF Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                     Exp1              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                     Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                    Exp2              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                    Exp2              NA                    NA</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the sample information for one data set</span></span></span>
+<span class="r-in"><span><span class="fu">mtbls_sample_data</span><span class="op">(</span><span class="st">"MTBLS2"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    Source Name Characteristics[Organism] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  IPB Halle.Group-1.Subject-1      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  IPB Halle.Group-1.Subject-2      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  IPB Halle.Group-1.Subject-3      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  IPB Halle.Group-1.Subject-4      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  IPB Halle.Group-2.Subject-1      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  IPB Halle.Group-2.Subject-2      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  IPB Halle.Group-2.Subject-3      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  IPB Halle.Group-2.Subject-4      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  IPB Halle.Group-3.Subject-1      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 IPB Halle.Group-3.Subject-2      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 IPB Halle.Group-3.Subject-3      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 IPB Halle.Group-3.Subject-4      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 IPB Halle.Group-4.Subject-1      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 IPB Halle.Group-4.Subject-2      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 IPB Halle.Group-4.Subject-3      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 IPB Halle.Group-4.Subject-4      Arabidopsis thaliana       NCBITaxon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            Term Accession Number Characteristics[Organism part]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 http://purl.obolibrary.org/obo/NCBITaxon_3702                   rosette leaf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Term Source REF                      Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9              BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16             BTO http://purl.obolibrary.org/obo/BTO_0003086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Characteristics[Variant] Term Source REF Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                        NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                       NA              NA                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Characteristics[Sample type] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16          experimental sample            CHMO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          Term Accession Number      Protocol REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 http://purl.obolibrary.org/obo/CHMO_0002746 Sample collection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Sample Name Factor Value[Genotype] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ex1-Col0-48h-Ag-1                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Ex1-Col0-48h-Ag-2                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Ex1-Col0-48h-Ag-3                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Ex1-Col0-48h-Ag-4                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Ex1-cyp79-48h-Ag-1                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Ex1-cyp79-48h-Ag-2                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Ex1-cyp79-48h-Ag-3                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Ex1-cyp79-48h-Ag-4                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   Ex2-Col0-48h-Ag-1                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  Ex2-Col0-48h-Ag-2                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  Ex2-Col0-48h-Ag-3                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  Ex2-Col0-48h-Ag-4                  Col-0              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Ex2-cyp79-48h-Ag-1                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Ex2-cyp79-48h-Ag-2                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Ex2-cyp79-48h-Ag-3                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Ex2-cyp79-48h-Ag-4                  cyp79              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Term Accession Number Factor Value[Replicate] Term Source REF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                     NA                    Exp1              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                     NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                    NA                    Exp2              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Term Accession Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                    NA</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## List all available files</span></span></span>
 <span class="r-in"><span><span class="fu">mtbls_cached_data_files</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      rid mtbls_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 BFC39  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 BFC40  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 BFC42  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 BFC33  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 BFC34  MTBLS39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 BFC36  MTBLS39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            mtbls_assay_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>

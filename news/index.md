@@ -2,6 +2,14 @@
 
 ## MsBackendMetaboLights 1.5
 
+## MsBackendMetaboLights 1.5.2
+
+- Add helper functions
+  [`mtbls_assay_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md),
+  [`mtbls_sample_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
+  and
+  [`mtbls_metadata()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md).
+
 ## MsBackendMetaboLights 1.5.1
 
 - Increase number of download retries and increase waiting time in
