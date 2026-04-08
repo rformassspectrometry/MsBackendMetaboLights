@@ -211,3 +211,7 @@ test_that(".clean_merged function works correctly", {
                             simplify = TRUE)
     expect_equal(names(result), "Duplicate_F")
 })
+
+test_that(".sleep_mult works", {
+    expect_equal(.sleep_mult(), 7L)
+})
