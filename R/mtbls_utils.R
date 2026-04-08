@@ -509,4 +509,6 @@ mtbls_metadata <- function(mtblsId = character(), assayName = character(),
     as.integer(getOption("metabolights.sleep_mult", default = 7L))
 }
 
-.RETRY_PATTERN <- "temporary"
+## (not all): BiocFileCache throws that error if something happened during
+##            download
+.RETRY_PATTERN <- "temp|(not all)"
