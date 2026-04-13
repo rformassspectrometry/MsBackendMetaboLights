@@ -30,7 +30,7 @@ Imports:
     methods,
     progress,
     utils,
-    MsCoreUtils (>= 1.23.7)
+    MsCoreUtils (>= 1.23.8)
 Suggests:
     testthat,
     rmarkdown,

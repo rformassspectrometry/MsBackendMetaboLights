@@ -1,5 +1,10 @@
 # MsBackendMetaboLights 1.5
 
+# MsBackendMetaboLights 1.5.3
+
+- Use `MsCoreUtils::retry()` instead of the internal implementation.
+- Improve fail-safe mechanism when caching MS data from MetaboLights.
+
 # MsBackendMetaboLights 1.5.2
 
 - Add helper functions `mtbls_assay_data()`, `mtbls_sample_data()` and

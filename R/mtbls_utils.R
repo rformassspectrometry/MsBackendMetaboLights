@@ -177,7 +177,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
     tryCatch({
         con <- retry(
             curl(url = mtbls_ftp_path(x, mustWork = FALSE), "r", handle = cu),
-            sleep_mult = .sleep_mult(),
+            sleep_mult = .sleep_mult(), verbose = TRUE,
             retry_on = .RETRY_PATTERN)
     }, error = function(e) {
         stop("Failed to connect to MetaboLights. No internet connection? ",
@@ -185,7 +185,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
              call. = FALSE)
     })
     fls <- retry(readLines(con), sleep_mult = .sleep_mult(),
-                 retry_on = .RETRY_PATTERN)
+                 retry_on = .RETRY_PATTERN, verbose = TRUE)
     close(con)
     if (length(pattern))
         fls[grepl(pattern, fls)]
@@ -210,7 +210,7 @@ mtbls_list_files <- function(x = character(), pattern = NULL) {
                          sep = "\t", header = TRUE,
                          check.names = FALSE),
               sleep_mult = .sleep_mult(),
-              retry_on = .RETRY_PATTERN)
+              retry_on = .RETRY_PATTERN, verbose = TRUE)
     })
     names(res) <- a_fls
     res
@@ -348,20 +348,20 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    pb <- progress_bar$new(format = paste0("[:bar] :current/:",
-                                           "total (:percent) in ",
-                                           ":elapsed"),
-                           total = length(ffiles), clear = FALSE)
-    lfiles <- unlist(lapply(ffiles, function(z) {
-        pb$tick()
-        invisible(capture.output(suppressMessages(
-            f <- retry(bfcrpath(bfc, paste0(fpath, z), fname = "exact"),
-                       sleep_mult = .sleep_mult(),
-                       retry_on = .RETRY_PATTERN))))
-        f
-    }))
-
-    ## lfiles <- bfcrpath(bfc, paste0(fpath, ffiles), fname = "exact")
+    lfiles <- .bfc_cache_files(paste0(fpath, ffiles), bfc)
+    ## Remove 0 size files and re-run
+    fsize <- file.size(lfiles)
+    fsize[is.na(fsize)] <- 0
+    unlink(lfiles[fsize == 0])
+    if (any(fsize == 0)) {
+        message("Resuming failed downloads")
+        ## Remove from file cache
+        b <- as.data.frame(bfcinfo(bfc))
+        rid <- b$rid[b$rpath %in% lfiles[fsize == 0]]
+        if (length(rid)) bfcremove(bfc, rids = rid)
+        mis <- .bfc_cache_files(paste0(fpath, ffiles[fsize == 0]), bfc)
+        names(lfiles)[match(mis, lfiles)] <- names(mis)
+    }
     ## Add and store metadata to the cached files
     mdata <- data.frame(
         rid = names(lfiles),
@@ -371,6 +371,25 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     bfcmeta(bfc, name = "MTBLS", overwrite = TRUE) <- mdata
     mdata$rpath <- lfiles
     mdata
+}
+
+#' Helper's helper to just run the caching operation on a provided set of
+#' files.
+#'
+#' @noRd
+.bfc_cache_files <- function(x, bfc) {
+    pb <- progress_bar$new(format = paste0("[:bar] :current/:",
+                                           "total (:percent) in ",
+                                           ":elapsed"),
+                           total = length(x), clear = FALSE)
+    unlist(lapply(x, function(z) {
+        pb$tick()
+        invisible(capture.output(suppressMessages(
+            f <- retry(bfcrpath(bfc, z, fname = "exact"),
+                       sleep_mult = .sleep_mult(), verbose = TRUE,
+                       retry_on = .RETRY_PATTERN, warningsAsErrors = TRUE))))
+        f
+    }))
 }
 
 #' Check for a given MTBLS ID and assay IDs/file names if we have cached data
@@ -451,7 +470,8 @@ mtbls_assay_data <- function(mtblsId = character(), assayName = character()) {
     fpath <- mtbls_ftp_path(mtblsId, mustWork = FALSE)
     retry(read.table(paste0(fpath, assays), header = TRUE, sep = "\t",
                      check.names = FALSE, comment.char = "", quote = ""),
-          sleep_mult = .sleep_mult(), retry_on = .RETRY_PATTERN)
+          sleep_mult = .sleep_mult(), retry_on = .RETRY_PATTERN,
+          verbose = TRUE)
 }
 
 #' @rdname MetaboLights-utils
@@ -465,7 +485,8 @@ mtbls_sample_data <- function(mtblsId = character()) {
     fpath <- mtbls_ftp_path(mtblsId, mustWork = FALSE)
     retry(read.table(paste0(fpath, x), header = TRUE, sep = "\t",
                      check.names = FALSE, comment.char = "", quote = ""),
-          sleep_mult = .sleep_mult(), retry_on = .RETRY_PATTERN)
+          sleep_mult = .sleep_mult(), retry_on = .RETRY_PATTERN,
+          verbose = TRUE)
 }
 
 #' @rdname MetaboLights-utils
@@ -509,8 +530,7 @@ mtbls_metadata <- function(mtblsId = character(), assayName = character(),
     as.integer(getOption("metabolights.sleep_mult", default = 7L))
 }
 
-## "temp":    To catch any errors possibly related to *temporary* connection
-##            issues
-## "not all": BiocFileCache throws an error with that message if something
-##            happened during download
-.RETRY_PATTERN <- "temp|(not all)"
+## "download" download failed
+## "imeout"   Timeout was reached
+## "request"  Failed to performm HTTP request.
+.RETRY_PATTERN <- "download|imeout|request"
