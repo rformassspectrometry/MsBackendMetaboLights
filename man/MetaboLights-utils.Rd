@@ -165,7 +165,7 @@ afiles
 ## Read the content of one file. Connections to the MetaboLights ftp server
 ## are limited and might fail, thus we use the `retry()` function to
 ## retry on failure for 5 times (waiting `i * sleep_mult` seconds in between)
-a <- retry(
+a <- MsCoreUtils::retry(
     read.table(paste0(mtbls_ftp_path("MTBLS2"), afiles[1L]),
     header = TRUE, sep = "\t", check.names = FALSE),
     ntimes = 5, sleep_mult = 4)

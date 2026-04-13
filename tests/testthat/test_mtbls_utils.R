@@ -211,3 +211,15 @@ test_that(".clean_merged function works correctly", {
                             simplify = TRUE)
     expect_equal(names(result), "Duplicate_F")
 })
+
+test_that(".sleep_mult works", {
+    expect_equal(.sleep_mult(), 7L)
+})
+
+test_that(".bfc_cache_files works", {
+    bfc <- BiocFileCache()
+    p <- "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/"
+    fls <- c("FILES/CS073B.cdf", "FILES/MN063A.cdf")
+    res <- .bfc_cache_files(paste0(p, fls), bfc)
+    expect_true(all(file.exists(res)))
+})
