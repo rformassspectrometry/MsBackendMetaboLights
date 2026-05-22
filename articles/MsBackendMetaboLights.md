@@ -4,9 +4,13 @@
 *[MsBackendMetaboLights](https://bioconductor.org/packages/3.24/MsBackendMetaboLights)*\
 **Authors**: Johannes Rainer \[aut, cre\] (ORCID:
 <https://orcid.org/0000-0002-6977-7147>), Philippine Louail \[aut\]
-(ORCID: <https://orcid.org/0009-0007-5429-6846>)\
-**Last modified:** 2026-05-22 12:22:31.240641\
-**Compiled**: Fri May 22 12:40:02 2026
+(ORCID: <https://orcid.org/0009-0007-5429-6846>), Gabriele Tomè \[aut\]
+(ORCID: <https://orcid.org/0000-0002-3976-6068>, fnd:
+MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
+Autonomous Province of Bolzano under the Joint Projects South
+Tyrol–Germany 2025 program.)\
+**Last modified:** 2026-05-22 12:29:38.968994\
+**Compiled**: Fri May 22 12:49:47 2026
 
 ## Introduction
 
