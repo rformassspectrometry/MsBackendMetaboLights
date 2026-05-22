@@ -2,6 +2,18 @@
 
 ## MsBackendMetaboLights 1.5
 
+## MsBackendMetaboLights 1.5.4
+
+- Fix issue white spaces in ftp link (issue
+  \[[\#16](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/16)\]).
+
+## MsBackendMetaboLights 1.5.3
+
+- Use
+  [`MsCoreUtils::retry()`](https://rdrr.io/pkg/MsCoreUtils/man/retry.html)
+  instead of the internal implementation.
+- Improve fail-safe mechanism when caching MS data from MetaboLights.
+
 ## MsBackendMetaboLights 1.5.2
 
 - Add helper functions
@@ -14,9 +26,7 @@
 
 - Increase number of download retries and increase waiting time in
   between.
-- Export the
-  [`retry()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/retry.md)
-  function.
+- Export the `retry()` function.
 
 ## MsBackendMetaboLights 1.3
 

@@ -1,16 +1,16 @@
 # Retrieve and Use Mass Spectrometry Data from MetaboLights
 
 **Package**:
-*[MsBackendMetaboLights](https://bioconductor.org/packages/3.23/MsBackendMetaboLights)*\
+*[MsBackendMetaboLights](https://bioconductor.org/packages/3.24/MsBackendMetaboLights)*\
 **Authors**: Johannes Rainer \[aut, cre\] (ORCID:
 <https://orcid.org/0000-0002-6977-7147>), Philippine Louail \[aut\]
 (ORCID: <https://orcid.org/0009-0007-5429-6846>)\
-**Last modified:** 2026-03-25 10:36:26.075991\
-**Compiled**: Wed Mar 25 11:15:26 2026
+**Last modified:** 2026-05-22 12:22:31.240641\
+**Compiled**: Fri May 22 12:40:02 2026
 
 ## Introduction
 
-The *[Spectra](https://bioconductor.org/packages/3.23/Spectra)* package
+The *[Spectra](https://bioconductor.org/packages/3.24/Spectra)* package
 provides a central infrastructure for the handling of Mass Spectrometry
 (MS) data in Bioconductor. The package supports interchangeable use of
 different *backends* to import and represent MS data from a variety of
@@ -65,13 +65,6 @@ Below we list all files from the MetaboLights data set with the ID
 ``` r
 
 library(MsBackendMetaboLights)
-```
-
-    ## Registered S3 method overwritten by 'bit64':
-    ##   method          from 
-    ##   print.bitstring tools
-
-``` r
 
 #' List files of a MetaboLights data set
 all_files <- mtbls_list_files("MTBLS39")
@@ -95,9 +88,9 @@ manually. We can however access the files also directly from within R.
 Below we read the *assay* data file directly using the base R
 [`read.table()`](https://rdrr.io/r/utils/read.table.html) function. Note
 that connections to the MetaboLights FTP server are rate-limited and
-might thus fail. We use below the
-[`retry()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/retry.md)
-function to retry reading from the FTP server if the connection fails or
+might thus fail. We use below the `retry()` function from the
+*[MsCoreUtils](https://bioconductor.org/packages/3.24/MsCoreUtils)*
+package to retry reading from the FTP server if the connection fails or
 gets closed before the data is fully read.
 
 ``` r
@@ -111,10 +104,11 @@ grep("^a_", all_files, value = TRUE)
 ``` r
 
 #' Read the assay file
-a <- retry(read.table(paste0(mtbls_ftp_path("MTBLS39"),
-                             grep("^a_", all_files, value = TRUE)),
-                      sep = "\t", header = TRUE, check.names = FALSE),
-           ntimes = 5, sleep_mult = 7)
+a <- MsCoreUtils::retry(
+    read.table(paste0(mtbls_ftp_path("MTBLS39"),
+                      grep("^a_", all_files, value = TRUE)),
+               sep = "\t", header = TRUE, check.names = FALSE),
+    ntimes = 5, sleep_mult = 7)
 ```
 
 Each row in this assay table refers to one measurement (data file) of
@@ -265,7 +259,7 @@ s
 This call now downloaded the files to the local cache and loaded these
 files as a `Spectra` object. The downloading and caching of the data is
 handled by Bioconductor’s
-*[BiocFileCache](https://bioconductor.org/packages/3.23/BiocFileCache)*.
+*[BiocFileCache](https://bioconductor.org/packages/3.24/BiocFileCache)*.
 The local cache can thus be managed directly using functionality from
 that package. Any subsequent loading of the same data files will load
 the locally cached versions avoiding thus repetitive download of the
@@ -668,7 +662,7 @@ dim(mdat)
 sessionInfo()
 ```
 
-    ## R Under development (unstable) (2026-03-22 r89674)
+    ## R version 4.6.0 (2026-04-24)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.4 LTS
     ## 
@@ -692,32 +686,32 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.5.2 Spectra_1.21.5             
-    ## [3] BiocParallel_1.45.0         S4Vectors_0.49.0           
-    ## [5] BiocGenerics_0.57.0         generics_0.1.4             
-    ## [7] BiocStyle_2.39.0           
+    ## [1] MsBackendMetaboLights_1.5.4 Spectra_1.23.0             
+    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.2           
+    ## [5] BiocGenerics_0.59.2         generics_0.1.4             
+    ## [7] BiocStyle_2.41.0           
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.57              bslib_0.10.0           httr2_1.2.2           
-    ##  [4] htmlwidgets_1.6.4      Biobase_2.71.0         vctrs_0.7.2           
-    ##  [7] tools_4.6.0            curl_7.0.0             parallel_4.6.0        
-    ## [10] tibble_3.3.1           RSQLite_2.4.6          cluster_2.1.8.2       
-    ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.2.1   
+    ##  [1] xfun_0.57              bslib_0.11.0           httr2_1.2.2           
+    ##  [4] htmlwidgets_1.6.4      Biobase_2.73.1         vctrs_0.7.3           
+    ##  [7] tools_4.6.0            curl_7.1.0             parallel_4.6.0        
+    ## [10] tibble_3.3.1           RSQLite_3.52.0         cluster_2.1.8.2       
+    ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.4     
     ## [16] dbplyr_2.5.2           desc_1.4.3             lifecycle_1.0.5       
     ## [19] compiler_4.6.0         textshaping_1.0.5      progress_1.2.3        
-    ## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-67           
+    ## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-68           
     ## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           
     ## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          
     ## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          
-    ## [34] MetaboCoreUtils_1.19.2 tidyselect_1.2.1       digest_0.6.39         
-    ## [37] dplyr_1.2.0            purrr_1.2.1            bookdown_0.46         
-    ## [40] fastmap_1.2.0          cli_3.6.5              magrittr_2.0.4        
+    ## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         
+    ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.46         
+    ## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        
     ## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        
-    ## [46] rappdirs_0.3.4         bit64_4.6.0-1          rmarkdown_2.30        
+    ## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        
     ## [49] bit_4.6.0              otel_0.2.0             ragg_1.5.2            
     ## [52] hms_1.1.4              memoise_2.0.1          evaluate_1.0.5        
-    ## [55] knitr_1.51             IRanges_2.45.0         BiocFileCache_3.1.0   
-    ## [58] rlang_1.1.7            Rcpp_1.1.1             glue_1.8.0            
-    ## [61] DBI_1.3.0              mzR_2.45.1             BiocManager_1.30.27   
+    ## [55] knitr_1.51             IRanges_2.47.1         BiocFileCache_3.3.0   
+    ## [58] rlang_1.2.0            Rcpp_1.1.1-1.1         glue_1.8.1            
+    ## [61] DBI_1.3.0              mzR_2.47.0             BiocManager_1.30.27   
     ## [64] jsonlite_2.0.0         R6_2.6.1               systemfonts_1.3.2     
-    ## [67] fs_2.0.1               ProtGenerics_1.43.0    MsCoreUtils_1.23.6
+    ## [67] fs_2.1.0               ProtGenerics_1.45.0    MsCoreUtils_1.25.4

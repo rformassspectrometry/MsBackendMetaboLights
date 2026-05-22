@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Retrieve and Use Mass Spectrometry Data from MetaboLights">
 </head>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,12 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if (links[i].hostname != window.location.hostname)
       links[i].target = '_blank';
 });
-</script><p><strong>Package</strong>: <em><a href="https://bioconductor.org/packages/3.23/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></em><br><strong>Authors</strong>: Johannes Rainer [aut, cre] (ORCID: <a href="https://orcid.org/0000-0002-6977-7147" class="external-link uri">https://orcid.org/0000-0002-6977-7147</a>), Philippine
-Louail [aut] (ORCID: <a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2026-03-25 10:36:26.075991<br><strong>Compiled</strong>: Wed Mar 25 11:15:26 2026</p>
+</script><p><strong>Package</strong>: <em><a href="https://bioconductor.org/packages/3.24/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></em><br><strong>Authors</strong>: Johannes Rainer [aut, cre] (ORCID: <a href="https://orcid.org/0000-0002-6977-7147" class="external-link uri">https://orcid.org/0000-0002-6977-7147</a>), Philippine
+Louail [aut] (ORCID: <a href="https://orcid.org/0009-0007-5429-6846" class="external-link uri">https://orcid.org/0009-0007-5429-6846</a>)<br><strong>Last modified:</strong> 2026-05-22 12:22:31.240641<br><strong>Compiled</strong>: Fri May 22 12:40:02 2026</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <em><a href="https://bioconductor.org/packages/3.23/Spectra" class="external-link">Spectra</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.24/Spectra" class="external-link">Spectra</a></em>
 package provides a central infrastructure for the handling of Mass
 Spectrometry (MS) data in Bioconductor. The package supports
 interchangeable use of different <em>backends</em> to import and
@@ -131,18 +131,15 @@ assay file.</p>
 <p>Below we list all files from the MetaboLights data set with the ID
 <em>MTBLS39</em>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Registered S3 method overwritten by 'bit64':</span></span>
-<span><span class="co">##   method          from </span></span>
-<span><span class="co">##   print.bitstring tools</span></span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#' List files of a MetaboLights data set</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' List files of a MetaboLights data set</span></span>
 <span><span class="va">all_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_list_files</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span></code></pre></div>
 <p>All these files are directly accessible in the ftp folder associated
 with the MetaboLights data set. Below we use the
 <code><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path()</a></code> function to return the ftp path for our
 test data set.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/"</span></span></code></pre>
 <p>We could inspect the content of this folder also using a browser
@@ -151,25 +148,26 @@ manually. We can however access the files also directly from within R.
 Below we read the <em>assay</em> data file directly using the base R
 <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code> function. Note that connections to the
 MetaboLights FTP server are rate-limited and might thus fail. We use
-below the <code><a href="../reference/retry.html">retry()</a></code> function to retry reading from the FTP
-server if the connection fails or gets closed before the data is fully
-read.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+below the <code>retry()</code> function from the <em><a href="https://bioconductor.org/packages/3.24/MsCoreUtils" class="external-link">MsCoreUtils</a></em>
+package to retry reading from the FTP server if the connection fails or
+gets closed before the data is fully read.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Get the assay files of the data set</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Read the assay file</span></span>
-<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retry.html">retry</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span>,</span>
-<span>                             <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                      sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>           ntimes <span class="op">=</span> <span class="fl">5</span>, sleep_mult <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">MsCoreUtils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/retry.html" class="external-link">retry</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_ftp_path</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^a_"</span>, <span class="va">all_files</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>               sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    ntimes <span class="op">=</span> <span class="fl">5</span>, sleep_mult <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <p>Each row in this assay table refers to one measurement (data file) of
 the data set, with columns providing information on that measurement.
 The number and content of columns can vary between data sets and depends
 on the information the original researcher (manually) provided. Below we
 list the columns available in the assay file of our test data set.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "Sample Name"                               </span></span>
 <span><span class="co">##  [2] "Protocol REF"                              </span></span>
@@ -218,7 +216,7 @@ listed in a column named <code>"Raw Spectral Data File"</code>. Note
 that providing MS data files is not absolutely mandatory, thus, for some
 data sets no MS data files might be available. Below we list the content
 of these data columns.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Raw Spectral Data File"</span>, <span class="st">"Derived Spectral Data File"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Raw Spectral Data File Derived Spectral Data File</span></span>
 <span><span class="co">## 1        FILES/MN063A.cdf                         NA</span></span>
@@ -264,14 +262,14 @@ Alternatively, for data sets with more than one assay, it would also be
 possible to select MS data files from one particular assay only using
 the <code>assayName</code> parameter. In our case we load all MS data
 files that end with <em>63A.cdf</em>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RforMassSpectrometry/Spectra" class="external-link">Spectra</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#' Load MS data files of one data set</span></span>
 <span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Spectra/man/Spectra.html" class="external-link">Spectra</a></span><span class="op">(</span><span class="st">"MTBLS39"</span>, filePattern <span class="op">=</span> <span class="st">"63A.cdf"</span>,</span>
 <span>             source <span class="op">=</span> <span class="fu"><a href="../reference/MsBackendMetaboLights.html">MsBackendMetaboLights</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s</span></span></code></pre></div>
 <pre><code><span><span class="co">## MSn data (Spectra) with 1664 spectra in a MsBackendMetaboLights backend:</span></span>
 <span><span class="co">##        msLevel     rtime scanIndex</span></span>
@@ -295,7 +293,7 @@ files that end with <em>63A.cdf</em>.</p>
 <span><span class="co">## AM063A.cdf</span></span></code></pre>
 <p>This call now downloaded the files to the local cache and loaded
 these files as a <code>Spectra</code> object. The downloading and
-caching of the data is handled by Bioconductor’s <em><a href="https://bioconductor.org/packages/3.23/BiocFileCache" class="external-link">BiocFileCache</a></em>.
+caching of the data is handled by Bioconductor’s <em><a href="https://bioconductor.org/packages/3.24/BiocFileCache" class="external-link">BiocFileCache</a></em>.
 The local cache can thus be managed directly using functionality from
 that package. Any subsequent loading of the same data files will load
 the locally cached versions avoiding thus repetitive download of the
@@ -311,7 +309,7 @@ provided by the MS data files also additional information related to the
 MetaboLights data set are available as specific <em>spectra
 variables</em>. We list all available spectra variables of the data set
 below.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">spectraVariables</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "msLevel"                    "rtime"                     </span></span>
 <span><span class="co">##  [3] "acquisitionNum"             "scanIndex"                 </span></span>
@@ -338,7 +336,7 @@ below.</p>
 of the data set, the assay/method with which the data files were
 generated and the original file path/name of the data files on the
 MetaboLights ftp server.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">spectraData</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mtbls_id"</span>, <span class="st">"mtbls_assay_name"</span>,</span>
 <span>                 <span class="st">"derived_spectral_data_file"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DataFrame with 1664 rows and 3 columns</span></span>
@@ -363,7 +361,7 @@ tables of the MetaboLights data set.</p>
 <code>MsBackendMetaboLights</code>. This function checks if all data
 files of the backend are available locally and eventually downloads and
 caches missing files.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MsBackendMetaboLights.html">mtbls_sync</a></span><span class="op">(</span><span class="va">s</span><span class="op">@</span><span class="va">backend</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".</span></span></code></pre>
 <pre><code><span><span class="co">## MsBackendMetaboLights with 1664 spectra</span></span>
@@ -392,10 +390,10 @@ function. This function evaluates if the respective data files are
 already cached and, if so, does not download them again. Below we use
 this retrieve the local storage information on one of the data files of
 the MetaboLights data set <em>MTBLS39</em>:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_sync_data_files</a></span><span class="op">(</span><span class="st">"MTBLS39"</span>, fileName <span class="op">=</span> <span class="st">"AM063A.cdf"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".</span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span></span></code></pre></div>
 <pre><code><span><span class="co">##     rid mtbls_id</span></span>
 <span><span class="co">## 1 BFC36  MTBLS39</span></span>
@@ -408,7 +406,7 @@ inspect and list locally cached MetaboLights data files. This function
 does not require an active internet connection since only local content
 is queried. With the default settings, a <code>data.frame</code> with
 all available data files is returned.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_cached_data_files</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      rid mtbls_id</span></span>
 <span><span class="co">## 28 BFC36  MTBLS39</span></span>
@@ -430,7 +428,7 @@ MetaboLights repository. These functions are listed on the
 <code>?Metabolites-utils</code> help page. The
 <code><a href="../reference/MetaboLights-utils.html">mtbls_list_files()</a></code> for example allows to list all available
 files in the data set’s base FTP folder.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_list_files</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "FILES"                                                                                                          </span></span>
 <span><span class="co">## [2] "HASHES"                                                                                                         </span></span>
@@ -441,7 +439,7 @@ files in the data set’s base FTP folder.</p>
 <span><span class="co">## [7] "s_MTBLS39.txt"</span></span></code></pre>
 <p>The <code><a href="../reference/MetaboLights-utils.html">mtbls_assay_data()</a></code> retrieves information on the, or
 one of the possibly multiple, used assay(s).</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_assay_data</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">adat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Sample Name Protocol REF Parameter Value[Post Extraction]</span></span>
@@ -558,7 +556,7 @@ one of the possibly multiple, used assay(s).</p>
 <span><span class="co">## 6 m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv</span></span></code></pre>
 <p>The <code><a href="../reference/MetaboLights-utils.html">mtbls_sample_data()</a></code> retrieves the sample information
 for a data set.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_sample_data</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sdat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            Source Name Characteristics[Organism]</span></span>
@@ -628,7 +626,7 @@ for a data set.</p>
 information into a single <code>data.frame</code> from which individual
 sample information for the respective MS data files could be
 extracted.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_metadata</a></span><span class="op">(</span><span class="st">"MTBLS39"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">mdat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 27 65</span></span></code></pre>
@@ -636,9 +634,9 @@ extracted.</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R Under development (unstable) (2026-03-22 r89674)</span></span>
+<pre><code><span><span class="co">## R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
 <span><span class="co">## Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">## </span></span>
@@ -662,35 +660,35 @@ extracted.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MsBackendMetaboLights_1.5.2 Spectra_1.21.5             </span></span>
-<span><span class="co">## [3] BiocParallel_1.45.0         S4Vectors_0.49.0           </span></span>
-<span><span class="co">## [5] BiocGenerics_0.57.0         generics_0.1.4             </span></span>
-<span><span class="co">## [7] BiocStyle_2.39.0           </span></span>
+<span><span class="co">## [1] MsBackendMetaboLights_1.5.4 Spectra_1.23.0             </span></span>
+<span><span class="co">## [3] BiocParallel_1.47.0         S4Vectors_0.51.2           </span></span>
+<span><span class="co">## [5] BiocGenerics_0.59.2         generics_0.1.4             </span></span>
+<span><span class="co">## [7] BiocStyle_2.41.0           </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] xfun_0.57              bslib_0.10.0           httr2_1.2.2           </span></span>
-<span><span class="co">##  [4] htmlwidgets_1.6.4      Biobase_2.71.0         vctrs_0.7.2           </span></span>
-<span><span class="co">##  [7] tools_4.6.0            curl_7.0.0             parallel_4.6.0        </span></span>
-<span><span class="co">## [10] tibble_3.3.1           RSQLite_2.4.6          cluster_2.1.8.2       </span></span>
-<span><span class="co">## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.2.1   </span></span>
+<span><span class="co">##  [1] xfun_0.57              bslib_0.11.0           httr2_1.2.2           </span></span>
+<span><span class="co">##  [4] htmlwidgets_1.6.4      Biobase_2.73.1         vctrs_0.7.3           </span></span>
+<span><span class="co">##  [7] tools_4.6.0            curl_7.1.0             parallel_4.6.0        </span></span>
+<span><span class="co">## [10] tibble_3.3.1           RSQLite_3.52.0         cluster_2.1.8.2       </span></span>
+<span><span class="co">## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.4     </span></span>
 <span><span class="co">## [16] dbplyr_2.5.2           desc_1.4.3             lifecycle_1.0.5       </span></span>
 <span><span class="co">## [19] compiler_4.6.0         textshaping_1.0.5      progress_1.2.3        </span></span>
-<span><span class="co">## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-67           </span></span>
+<span><span class="co">## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-68           </span></span>
 <span><span class="co">## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           </span></span>
 <span><span class="co">## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          </span></span>
 <span><span class="co">## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          </span></span>
-<span><span class="co">## [34] MetaboCoreUtils_1.19.2 tidyselect_1.2.1       digest_0.6.39         </span></span>
-<span><span class="co">## [37] dplyr_1.2.0            purrr_1.2.1            bookdown_0.46         </span></span>
-<span><span class="co">## [40] fastmap_1.2.0          cli_3.6.5              magrittr_2.0.4        </span></span>
+<span><span class="co">## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         </span></span>
+<span><span class="co">## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.46         </span></span>
+<span><span class="co">## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        </span></span>
 <span><span class="co">## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        </span></span>
-<span><span class="co">## [46] rappdirs_0.3.4         bit64_4.6.0-1          rmarkdown_2.30        </span></span>
+<span><span class="co">## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        </span></span>
 <span><span class="co">## [49] bit_4.6.0              otel_0.2.0             ragg_1.5.2            </span></span>
 <span><span class="co">## [52] hms_1.1.4              memoise_2.0.1          evaluate_1.0.5        </span></span>
-<span><span class="co">## [55] knitr_1.51             IRanges_2.45.0         BiocFileCache_3.1.0   </span></span>
-<span><span class="co">## [58] rlang_1.1.7            Rcpp_1.1.1             glue_1.8.0            </span></span>
-<span><span class="co">## [61] DBI_1.3.0              mzR_2.45.1             BiocManager_1.30.27   </span></span>
+<span><span class="co">## [55] knitr_1.51             IRanges_2.47.1         BiocFileCache_3.3.0   </span></span>
+<span><span class="co">## [58] rlang_1.2.0            Rcpp_1.1.1-1.1         glue_1.8.1            </span></span>
+<span><span class="co">## [61] DBI_1.3.0              mzR_2.47.0             BiocManager_1.30.27   </span></span>
 <span><span class="co">## [64] jsonlite_2.0.0         R6_2.6.1               systemfonts_1.3.2     </span></span>
-<span><span class="co">## [67] fs_2.0.1               ProtGenerics_1.43.0    MsCoreUtils_1.23.6</span></span></code></pre>
+<span><span class="co">## [67] fs_2.1.0               ProtGenerics_1.45.0    MsCoreUtils_1.25.4</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
