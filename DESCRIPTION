@@ -9,7 +9,13 @@ Authors@R:
       person(given = "Philippine", family = "Louail",
              email = "philippine.louail@eurac.edu",
              role = c("aut"),
-             comment = c(ORCID = "0009-0007-5429-6846")))
+             comment = c(ORCID = "0009-0007-5429-6846")),
+      person(given = "Gabriele", family = "Tomè",
+             email = "gabriele.tome@eurac.edu",
+             role = c("aut"),
+             comment = c(ORCID = "0000-0002-3976-6068",
+             fnd = "MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the Autonomous Province of Bolzano under the Joint Projects South Tyrol–Germany 2025 program."))
+	     )
 Description: MetaboLights is one of the main public repositories for storage
              of metabolomics experiments, which includes analysis results as
 	     well as raw data. The MsBackendMetaboLights package provides

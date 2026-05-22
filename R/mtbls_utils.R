@@ -348,7 +348,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    lfiles <- .bfc_cache_files(paste0(fpath, ffiles), bfc)
+    lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc)
     ## Remove 0 size files and re-run
     fsize <- file.size(lfiles)
     fsize[is.na(fsize)] <- 0
