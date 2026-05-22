@@ -1,11 +1,13 @@
 # Changelog
 
-## MsBackendMetaboLights 1.5
+## MsBackendMetaboLights 1.7
 
-## MsBackendMetaboLights 1.5.4
+## MsBackendMetaboLights 1.7.1
 
 - Fix issue white spaces in ftp link (issue
   \[[\#16](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/16)\]).
+
+## MsBackendMetaboLights 1.5
 
 ## MsBackendMetaboLights 1.5.3
 

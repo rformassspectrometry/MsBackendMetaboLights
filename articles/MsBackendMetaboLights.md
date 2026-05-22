@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-05-22 12:29:38.968994\
-**Compiled**: Fri May 22 12:49:47 2026
+**Last modified:** 2026-05-22 13:27:42.890182\
+**Compiled**: Fri May 22 13:48:56 2026
 
 ## Introduction
 
@@ -690,7 +690,7 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.5.4 Spectra_1.23.0             
+    ## [1] MsBackendMetaboLights_1.7.1 Spectra_1.23.0             
     ## [3] BiocParallel_1.47.0         S4Vectors_0.51.2           
     ## [5] BiocGenerics_0.59.2         generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
