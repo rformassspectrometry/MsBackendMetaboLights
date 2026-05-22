@@ -63,7 +63,7 @@ the locally cached data files being eventually updated.
 \code{MsBackendMetaboLights} retrieves and represents mass spectrometry (MS)
 data from metabolomics experiments stored in the
 \href{https://www.ebi.ac.uk/metabolights/}{MetaboLights} repository. The backend
-directly extends the \link[Spectra:MsBackend]{Spectra::MsBackendMzR} backend from the \emph{Spectra}
+directly extends the \link[Spectra:MsBackendMzR]{Spectra::MsBackendMzR} backend from the \emph{Spectra}
 package and hence supports MS data in mzML, netCDF and mzXML format. Data
 in other formats can not be loaded with \code{MsBackendMetaboLights}.
 Upon initialization with the \code{backendInitialize()} method, the

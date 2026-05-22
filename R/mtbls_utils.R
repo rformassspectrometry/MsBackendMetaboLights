@@ -308,7 +308,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #'
 #' @importMethodsFrom BiocFileCache bfcrpath bfcmeta<-
 #'
-#' @importFrom utils capture.output
+#' @importFrom utils capture.output URLencode
 #'
 #' @noRd
 .mtbls_data_files <- function(mtblsId = character(), assayName = character(),
@@ -359,7 +359,8 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         b <- as.data.frame(bfcinfo(bfc))
         rid <- b$rid[b$rpath %in% lfiles[fsize == 0]]
         if (length(rid)) bfcremove(bfc, rids = rid)
-        mis <- .bfc_cache_files(paste0(fpath, ffiles[fsize == 0]), bfc)
+        mis <- .bfc_cache_files(URLencode(paste0(fpath, ffiles[fsize == 0])),
+                                bfc)
         names(lfiles)[match(mis, lfiles)] <- names(mis)
     }
     ## Add and store metadata to the cached files
