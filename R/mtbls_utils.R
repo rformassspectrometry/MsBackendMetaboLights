@@ -68,6 +68,10 @@
 #'   locally cached data files for the specified data set. This does not
 #'   change any other data eventually present in the local `BiocFileCache`.
 #'
+#' @details
+#'
+#' File names are returned in **alphabetic order**.
+#'
 #' @param x `character(1)` with the ID of the MetaboLights data set (usually
 #'     starting with a *MTBLS* followed by a number).
 #'
@@ -378,7 +382,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         derived_spectral_data_file = unlist(dfiles, use.names = FALSE))
     bfcmeta(bfc, name = "MTBLS", overwrite = TRUE) <- mdata
     mdata$rpath <- lfiles
-    mdata
+    mdata[order(mdata$rpath), , drop = FALSE]
 }
 
 #' Helper's helper to just run the caching operation on a provided set of
@@ -439,8 +443,9 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     if (!nrow(res))
         stop("No locally cached data files found for the specified ",
              "parameters.", call. = FALSE)
-    res[, c("rid", "mtbls_id", "mtbls_assay_name",
-            "derived_spectral_data_file", "rpath")]
+    res <- res[, c("rid", "mtbls_id", "mtbls_assay_name",
+                   "derived_spectral_data_file", "rpath")]
+    res[order(res$rpath), , drop = FALSE]
 }
 
 #' @importMethodsFrom BiocFileCache bfcmetalist

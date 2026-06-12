@@ -14,7 +14,8 @@
 #' in other formats can not be loaded with `MsBackendMetaboLights`.
 #' Upon initialization with the `backendInitialize()` method, the
 #' `MsBackendMetaboLights` backend downloads and caches the MS data files of
-#' an experiment locally avoiding hence repeated download of the data.
+#' an experiment locally avoiding hence repeated download of the data. Data
+#' files are listed and returned in **alphabetic order**.
 #' The local data cache is managed by Bioconductor's *BiocFileCache* package.
 #' See the help and vignettes from that package for details on cached data
 #' resources. Additional utility function for management of cached files are

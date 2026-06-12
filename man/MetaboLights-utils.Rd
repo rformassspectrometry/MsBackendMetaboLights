@@ -150,6 +150,9 @@ locally cached data files for the specified data set. This does not
 change any other data eventually present in the local \code{BiocFileCache}.
 }
 }
+\details{
+File names are returned in \strong{alphabetic order}.
+}
 \examples{
 
 ## Get the FTP path to the data set MTBLS2
