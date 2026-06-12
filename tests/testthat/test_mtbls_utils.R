@@ -110,6 +110,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
 
 test_that("mtbls_sync_data_files works", {
     expect_error(mtbls_sync_data_files(), "No MetaboLights data")
+    expect_error(mtbls_sync_data_files(c("a", "b")), "single")
     res <- mtbls_sync_data_files("MTBLS39", pattern = "*",
                                  fileName = c("AM063A.cdf"))
     expect_true(is.data.frame(res))
@@ -222,4 +223,8 @@ test_that(".bfc_cache_files works", {
     fls <- c("FILES/CS073B.cdf", "FILES/MN063A.cdf")
     res <- .bfc_cache_files(paste0(p, fls), bfc)
     expect_true(all(file.exists(res)))
+    ## Clean up
+    tmp <- bfcinfo(bfc)
+    ids <- tmp$rid[tmp$rpath %in% res]
+    bfcremove(bfc, rids = ids)
 })

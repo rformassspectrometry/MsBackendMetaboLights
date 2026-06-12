@@ -61,7 +61,7 @@ file names of all assay files of the data set (i.e., files with a name
 starting with \code{"a_"}). This parameter is passed to the \code{\link[=grepl]{grepl()}}
 function.}
 
-\item{mtblsId}{\code{character(1)} with the ID of a single MetaboLights data
+\item{mtblsId}{\code{character(1)} with the ID of a \strong{single} MetaboLights data
 set/experiment.}
 
 \item{assayName}{\code{character} with the file names of assay files of the data

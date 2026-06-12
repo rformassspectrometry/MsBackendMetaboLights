@@ -71,7 +71,7 @@
 #' @param x `character(1)` with the ID of the MetaboLights data set (usually
 #'     starting with a *MTBLS* followed by a number).
 #'
-#' @param mtblsId `character(1)` with the ID of a single MetaboLights data
+#' @param mtblsId `character(1)` with the ID of a **single** MetaboLights data
 #'     set/experiment.
 #'
 #' @param assayName `character` with the file names of assay files of the data
@@ -259,6 +259,8 @@ mtbls_sync_data_files <- function(mtblsId = character(),
                                   fileName = character()) {
     if (!length(mtblsId))
         stop("No MetaboLights data set ID provided with parameter 'mtblsId'")
+    if (length(mtblsId) > 1)
+        stop("Only a single MetaboLights ID can be submitted at a time")
     .mtbls_data_files(mtblsId, assayName, pattern, fileName)
 }
 
@@ -273,6 +275,11 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     if (length(fileName))
         res <- res[basename(res$derived_spectral_data_file) %in% fileName, ]
     else res
+}
+
+.mtbls_fix_file_names <- function(mtblsId = character(),
+                                  fileName = character()) {
+    paste0(mtblsId, "_", fileName)
 }
 
 #' Get information on data files for a given MTBLS ID/assay eventually
@@ -348,7 +355,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc)
+    lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc, mtblsId)
     ## Remove 0 size files and re-run
     fsize <- file.size(lfiles)
     fsize[is.na(fsize)] <- 0
@@ -360,7 +367,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         rid <- b$rid[b$rpath %in% lfiles[fsize == 0]]
         if (length(rid)) bfcremove(bfc, rids = rid)
         mis <- .bfc_cache_files(URLencode(paste0(fpath, ffiles[fsize == 0])),
-                                bfc)
+                                bfc, mtblsId)
         names(lfiles)[match(mis, lfiles)] <- names(mis)
     }
     ## Add and store metadata to the cached files
@@ -377,8 +384,10 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' Helper's helper to just run the caching operation on a provided set of
 #' files.
 #'
+#' @importFrom BiocFileCache bfcupdate
+#'
 #' @noRd
-.bfc_cache_files <- function(x, bfc) {
+.bfc_cache_files <- function(x, bfc, mtblsId = "MTBLS") {
     pb <- progress_bar$new(format = paste0("[:bar] :current/:",
                                            "total (:percent) in ",
                                            ":elapsed"),
@@ -389,6 +398,17 @@ mtbls_cached_data_files <- function(mtblsId = character(),
             f <- retry(bfcrpath(bfc, z, fname = "exact"),
                        sleep_mult = .sleep_mult(), verbose = TRUE,
                        retry_on = .RETRY_PATTERN, warningsAsErrors = TRUE))))
+        if (length(f) && !grepl(paste0("^", mtblsId), basename(f))) {
+            ## Rename file name to <MTBLS>_<FILENAME> to avoid overwriting
+            ## files from other data sets with same file name
+            fnew <- file.path(dirname(f), paste0(mtblsId, "_", basename(f)))
+            names(fnew) <- names(f)
+            file.rename(f, fnew)
+            suppressWarnings(
+                bfcupdate(bfc, rids = names(f), rpath = fnew,
+                          ask = FALSE, progress = FALSE))
+            f <- fnew
+        }
         f
     }))
 }
