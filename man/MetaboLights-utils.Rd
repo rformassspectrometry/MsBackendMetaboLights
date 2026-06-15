@@ -61,7 +61,7 @@ file names of all assay files of the data set (i.e., files with a name
 starting with \code{"a_"}). This parameter is passed to the \code{\link[=grepl]{grepl()}}
 function.}
 
-\item{mtblsId}{\code{character(1)} with the ID of a single MetaboLights data
+\item{mtblsId}{\code{character(1)} with the ID of a \strong{single} MetaboLights data
 set/experiment.}
 
 \item{assayName}{\code{character} with the file names of assay files of the data
@@ -149,6 +149,9 @@ data set with ID \code{mtblsId}. This will delete eventually present
 locally cached data files for the specified data set. This does not
 change any other data eventually present in the local \code{BiocFileCache}.
 }
+}
+\details{
+File names are returned in \strong{alphabetic order}.
 }
 \examples{
 

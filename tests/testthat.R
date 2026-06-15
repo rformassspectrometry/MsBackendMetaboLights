@@ -15,3 +15,6 @@ library(Spectra)
 test_suite <- system.file("test_backends", "test_MsBackend",
                           package = "Spectra")
 res <- test_dir(test_suite, stop_on_failure = TRUE)
+
+## Cleanup
+mtbls_delete_cache("MTBLS39")
