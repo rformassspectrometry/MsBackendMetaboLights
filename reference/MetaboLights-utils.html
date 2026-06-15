@@ -105,7 +105,7 @@ change any other data eventually present in the local BiocFileCache.
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -243,7 +243,7 @@ function.</p></dd>
 
 
 <dt id="arg-mtblsid">mtblsId<a class="anchor" aria-label="anchor" href="#arg-mtblsid"></a></dt>
-<dd><p><code>character(1)</code> with the ID of a single MetaboLights data
+<dd><p><code>character(1)</code> with the ID of a <strong>single</strong> MetaboLights data
 set/experiment.</p></dd>
 
 
@@ -289,6 +289,10 @@ data set's base ftp directory.</p></li>
 <code>data.frame</code> with the MetaboLights ID, the assay name(s) and remote and
 local file names of the synchronized data files.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>File names are returned in <strong>alphabetic order</strong>.</p>
+    </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Johannes Rainer, Philippine Louail</p>
@@ -1038,18 +1042,7 @@ local file names of the synchronized data files.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## List all available files</span></span></span>
 <span class="r-in"><span><span class="fu">mtbls_cached_data_files</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      rid mtbls_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 BFC33  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 BFC34  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 BFC36  MTBLS39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            mtbls_assay_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    derived_spectral_data_file                                          rpath</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26           FILES/MN063A.cdf /github/home/.cache/R/BiocFileCache/MN063A.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27           FILES/CS063A.cdf /github/home/.cache/R/BiocFileCache/CS063A.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28           FILES/AM063A.cdf /github/home/.cache/R/BiocFileCache/AM063A.cdf</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> No locally cached data files found for the specified parameters.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

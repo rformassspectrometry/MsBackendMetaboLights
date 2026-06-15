@@ -10,7 +10,8 @@ netCDF and mzXML format. Data in other formats can not be loaded with
 `MsBackendMetaboLights`. Upon initialization with the
 `backendInitialize()` method, the `MsBackendMetaboLights` backend
 downloads and caches the MS data files of an experiment locally avoiding
-hence repeated download of the data. The local data cache is managed by
+hence repeated download of the data. Data files are listed and returned
+in **alphabetic order**. The local data cache is managed by
 Bioconductor's *BiocFileCache* package. See the help and vignettes from
 that package for details on cached data resources. Additional utility
 function for management of cached files are also provided by
@@ -198,23 +199,23 @@ be
 #> MsBackendMetaboLights with 15141 spectra
 #>         msLevel     rtime scanIndex
 #>       <integer> <numeric> <integer>
-#> 1             1  0.296384         1
-#> 2             1  6.206912         2
-#> 3             1 12.093056         3
-#> 4             1 17.942912         4
-#> 5             1 23.835072         5
+#> 1             1  0.296192         1
+#> 2             1  6.260864         2
+#> 3             1 12.172544         3
+#> 4             1 18.114560         4
+#> 5             1 24.000704         5
 #> ...         ...       ...       ...
-#> 15137         1   2682.81       596
-#> 15138         1   2687.29       597
-#> 15139         1   2691.77       598
-#> 15140         1   2696.27       599
-#> 15141         1   2700.81       600
+#> 15137         1   2682.53       598
+#> 15138         1   2686.97       599
+#> 15139         1   2691.45       600
+#> 15140         1   2695.90       601
+#> 15141         1   2700.36       602
 #>  ... 37 more variables/columns.
 #> 
 #> file(s):
-#> MN063A.cdf
-#> MN063B.cdf
-#> MN063C.cdf
+#> MTBLS39_AM063A.cdf
+#> MTBLS39_AM063B.cdf
+#> MTBLS39_AM063C.cdf
 #>  ... 24 more files
 
 ## The `mtbls_sync()` function can be used to ensure that all data files are

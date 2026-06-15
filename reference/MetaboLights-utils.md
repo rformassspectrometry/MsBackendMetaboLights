@@ -123,7 +123,7 @@ mtbls_metadata(
 
 - mtblsId:
 
-  `character(1)` with the ID of a single MetaboLights data
+  `character(1)` with the ID of a **single** MetaboLights data
   set/experiment.
 
 - assayName:
@@ -167,6 +167,10 @@ mtbls_metadata(
 - For `mtbls_sync_data_files()` and `mtbls_cached_data_files()`: a
   `data.frame` with the MetaboLights ID, the assay name(s) and remote
   and local file names of the synchronized data files.
+
+## Details
+
+File names are returned in **alphabetic order**.
 
 ## Author
 
@@ -917,16 +921,5 @@ mtbls_sample_data("MTBLS2")
 
 ## List all available files
 mtbls_cached_data_files()
-#>      rid mtbls_id
-#> 26 BFC33  MTBLS39
-#> 27 BFC34  MTBLS39
-#> 28 BFC36  MTBLS39
-#>                                                                                            mtbls_assay_name
-#> 26 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-#> 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-#> 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-#>    derived_spectral_data_file                                          rpath
-#> 26           FILES/MN063A.cdf /github/home/.cache/R/BiocFileCache/MN063A.cdf
-#> 27           FILES/CS063A.cdf /github/home/.cache/R/BiocFileCache/CS063A.cdf
-#> 28           FILES/AM063A.cdf /github/home/.cache/R/BiocFileCache/AM063A.cdf
+#> Error: No locally cached data files found for the specified parameters.
 ```

@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-05-22 13:27:42.890182\
-**Compiled**: Fri May 22 13:48:56 2026
+**Last modified:** 2026-06-15 06:26:41.348228\
+**Compiled**: Mon Jun 15 06:47:32 2026
 
 ## Introduction
 
@@ -242,23 +242,23 @@ s
     ## MSn data (Spectra) with 1664 spectra in a MsBackendMetaboLights backend:
     ##        msLevel     rtime scanIndex
     ##      <integer> <numeric> <integer>
-    ## 1            1  0.296384         1
-    ## 2            1  6.206912         2
-    ## 3            1 12.093056         3
-    ## 4            1 17.942912         4
-    ## 5            1 23.835072         5
+    ## 1            1  0.296192         1
+    ## 2            1  6.260864         2
+    ## 3            1 12.172544         3
+    ## 4            1 18.114560         4
+    ## 5            1 24.000704         5
     ## ...        ...       ...       ...
-    ## 1660         1   2678.27       549
-    ## 1661         1   2683.01       550
-    ## 1662         1   2687.81       551
-    ## 1663         1   2692.62       552
-    ## 1664         1   2697.40       553
+    ## 1660         1   2679.88       549
+    ## 1661         1   2684.50       550
+    ## 1662         1   2689.15       551
+    ## 1663         1   2693.84       552
+    ## 1664         1   2698.47       553
     ##  ... 37 more variables/columns.
     ## 
     ## file(s):
-    ## MN063A.cdf
-    ## CS063A.cdf
-    ## AM063A.cdf
+    ## MTBLS39_AM063A.cdf
+    ## MTBLS39_CS063A.cdf
+    ## MTBLS39_MN063A.cdf
 
 This call now downloaded the files to the local cache and loaded these
 files as a `Spectra` object. The downloading and caching of the data is
@@ -320,17 +320,17 @@ spectraData(s, c("mtbls_id", "mtbls_assay_name",
     ## DataFrame with 1664 rows and 3 columns
     ##         mtbls_id       mtbls_assay_name derived_spectral_data_file
     ##      <character>            <character>                <character>
-    ## 1        MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 2        MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 3        MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 4        MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 5        MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## 1        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
+    ## 2        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
+    ## 3        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
+    ## 4        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
+    ## 5        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
     ## ...          ...                    ...                        ...
-    ## 1660     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 1661     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 1662     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 1663     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 1664     MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
+    ## 1660     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## 1661     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## 1662     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## 1663     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## 1664     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
 
 These variables can be used to link the individual spectra back to the
 original sample (e.g. through the *assay* and *sample* tables of the
@@ -353,23 +353,23 @@ mtbls_sync(s@backend)
     ## MsBackendMetaboLights with 1664 spectra
     ##        msLevel     rtime scanIndex
     ##      <integer> <numeric> <integer>
-    ## 1            1  0.296384         1
-    ## 2            1  6.206912         2
-    ## 3            1 12.093056         3
-    ## 4            1 17.942912         4
-    ## 5            1 23.835072         5
+    ## 1            1  0.296192         1
+    ## 2            1  6.260864         2
+    ## 3            1 12.172544         3
+    ## 4            1 18.114560         4
+    ## 5            1 24.000704         5
     ## ...        ...       ...       ...
-    ## 1660         1   2678.27       549
-    ## 1661         1   2683.01       550
-    ## 1662         1   2687.81       551
-    ## 1663         1   2692.62       552
-    ## 1664         1   2697.40       553
+    ## 1660         1   2679.88       549
+    ## 1661         1   2684.50       550
+    ## 1662         1   2689.15       551
+    ## 1663         1   2693.84       552
+    ## 1664         1   2698.47       553
     ##  ... 37 more variables/columns.
     ## 
     ## file(s):
-    ## MN063A.cdf
-    ## CS063A.cdf
-    ## AM063A.cdf
+    ## MTBLS39_AM063A.cdf
+    ## MTBLS39_CS063A.cdf
+    ## MTBLS39_MN063A.cdf
 
 Also, it is possible to *manually* cache and download data files from
 MetaboLights using the
@@ -392,11 +392,13 @@ res
 ```
 
     ##     rid mtbls_id
-    ## 1 BFC36  MTBLS39
+    ## 1 BFC45  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-    ##   derived_spectral_data_file                                          rpath
-    ## 1           FILES/AM063A.cdf /github/home/.cache/R/BiocFileCache/AM063A.cdf
+    ##   derived_spectral_data_file
+    ## 1           FILES/AM063A.cdf
+    ##                                                    rpath
+    ## 1 /github/home/.cache/R/BiocFileCache/MTBLS39_AM063A.cdf
 
 The
 [`mtbls_cached_data_files()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
@@ -411,11 +413,13 @@ mtbls_cached_data_files()
 ```
 
     ##      rid mtbls_id
-    ## 28 BFC36  MTBLS39
+    ## 27 BFC45  MTBLS39
     ##                                                                                            mtbls_assay_name
-    ## 28 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-    ##    derived_spectral_data_file                                          rpath
-    ## 28           FILES/AM063A.cdf /github/home/.cache/R/BiocFileCache/AM063A.cdf
+    ## 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
+    ##    derived_spectral_data_file
+    ## 27           FILES/AM063A.cdf
+    ##                                                     rpath
+    ## 27 /github/home/.cache/R/BiocFileCache/MTBLS39_AM063A.cdf
 
 Locally cached files for a MetaboLights data set can be removed using
 the
@@ -690,16 +694,16 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.1 Spectra_1.23.0             
-    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.2           
-    ## [5] BiocGenerics_0.59.2         generics_0.1.4             
+    ## [1] MsBackendMetaboLights_1.7.2 Spectra_1.23.3             
+    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.3           
+    ## [5] BiocGenerics_0.59.7         generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.57              bslib_0.11.0           httr2_1.2.2           
+    ##  [1] xfun_0.58              bslib_0.11.0           httr2_1.2.2           
     ##  [4] htmlwidgets_1.6.4      Biobase_2.73.1         vctrs_0.7.3           
     ##  [7] tools_4.6.0            curl_7.1.0             parallel_4.6.0        
-    ## [10] tibble_3.3.1           RSQLite_3.52.0         cluster_2.1.8.2       
+    ## [10] tibble_3.3.1           RSQLite_3.53.1         cluster_2.1.8.2       
     ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.4     
     ## [16] dbplyr_2.5.2           desc_1.4.3             lifecycle_1.0.5       
     ## [19] compiler_4.6.0         textshaping_1.0.5      progress_1.2.3        
@@ -714,7 +718,7 @@ sessionInfo()
     ## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        
     ## [49] bit_4.6.0              otel_0.2.0             ragg_1.5.2            
     ## [52] hms_1.1.4              memoise_2.0.1          evaluate_1.0.5        
-    ## [55] knitr_1.51             IRanges_2.47.1         BiocFileCache_3.3.0   
+    ## [55] knitr_1.51             IRanges_2.47.2         BiocFileCache_3.3.0   
     ## [58] rlang_1.2.0            Rcpp_1.1.1-1.1         glue_1.8.1            
     ## [61] DBI_1.3.0              mzR_2.47.0             BiocManager_1.30.27   
     ## [64] jsonlite_2.0.0         R6_2.6.1               systemfonts_1.3.2     

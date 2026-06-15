@@ -2,6 +2,13 @@
 
 ## MsBackendMetaboLights 1.7
 
+## MsBackendMetaboLights 1.7.2
+
+- Append the MetaboLights data set ID to locally stored/cached file
+  names to avoid overwriting files with same names in different data
+  sets.
+- Enforce ordering of returned file names in alphabetic order.
+
 ## MsBackendMetaboLights 1.7.1
 
 - Fix issue white spaces in ftp link (issue

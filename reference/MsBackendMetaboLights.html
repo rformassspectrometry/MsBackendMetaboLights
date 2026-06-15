@@ -7,7 +7,8 @@ package and hence supports MS data in mzML, netCDF and mzXML format. Data
 in other formats can not be loaded with MsBackendMetaboLights.
 Upon initialization with the backendInitialize() method, the
 MsBackendMetaboLights backend downloads and caches the MS data files of
-an experiment locally avoiding hence repeated download of the data.
+an experiment locally avoiding hence repeated download of the data. Data
+files are listed and returned in alphabetic order.
 The local data cache is managed by Bioconductor's BiocFileCache package.
 See the help and vignettes from that package for details on cached data
 resources. Additional utility function for management of cached files are
@@ -20,7 +21,8 @@ package and hence supports MS data in mzML, netCDF and mzXML format. Data
 in other formats can not be loaded with MsBackendMetaboLights.
 Upon initialization with the backendInitialize() method, the
 MsBackendMetaboLights backend downloads and caches the MS data files of
-an experiment locally avoiding hence repeated download of the data.
+an experiment locally avoiding hence repeated download of the data. Data
+files are listed and returned in alphabetic order.
 The local data cache is managed by Bioconductor's BiocFileCache package.
 See the help and vignettes from that package for details on cached data
 resources. Additional utility function for management of cached files are
@@ -33,7 +35,7 @@ mtbls_cached_data_files() for more information."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +70,8 @@ package and hence supports MS data in mzML, netCDF and mzXML format. Data
 in other formats can not be loaded with <code>MsBackendMetaboLights</code>.
 Upon initialization with the <code>backendInitialize()</code> method, the
 <code>MsBackendMetaboLights</code> backend downloads and caches the MS data files of
-an experiment locally avoiding hence repeated download of the data.
+an experiment locally avoiding hence repeated download of the data. Data
+files are listed and returned in <strong>alphabetic order</strong>.
 The local data cache is managed by Bioconductor's <em>BiocFileCache</em> package.
 See the help and vignettes from that package for details on cached data
 resources. Additional utility function for management of cached files are
@@ -244,23 +247,23 @@ the MetaboLights repository.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MsBackendMetaboLights with 15141 spectra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         msLevel     rtime scanIndex</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;integer&gt; &lt;numeric&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             1  0.296384         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             1  6.206912         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             1 12.093056         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             1 17.942912         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             1 23.835072         5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             1  0.296192         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             1  6.260864         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             1 12.172544         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             1 18.114560         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             1 24.000704         5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ...         ...       ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15137         1   2682.81       596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15138         1   2687.29       597</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15139         1   2691.77       598</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15140         1   2696.27       599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15141         1   2700.81       600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15137         1   2682.53       598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15138         1   2686.97       599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15139         1   2691.45       600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15140         1   2695.90       601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15141         1   2700.36       602</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... 37 more variables/columns.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> file(s):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MN063A.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MN063B.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MN063C.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063A.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063B.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063C.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... 24 more files</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## The `mtbls_sync()` function can be used to ensure that all data files are</span></span></span>
