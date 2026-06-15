@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-06-15 06:26:41.348228\
-**Compiled**: Mon Jun 15 06:47:32 2026
+**Last modified:** 2026-06-15 06:28:32.754142\
+**Compiled**: Mon Jun 15 06:57:01 2026
 
 ## Introduction
 
@@ -268,6 +268,9 @@ The local cache can thus be managed directly using functionality from
 that package. Any subsequent loading of the same data files will load
 the locally cached versions avoiding thus repetitive download of the
 same data.
+
+Importantly, as can be seen above, the MS data files are loaded in
+**alphabetic order**.
 
 The message that is shown by the call above indicates that the MS data
 files were not provided in the expected column
