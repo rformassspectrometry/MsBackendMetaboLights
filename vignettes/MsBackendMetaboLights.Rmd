@@ -164,6 +164,8 @@ directly using functionality from that package. Any subsequent loading of the
 same data files will load the locally cached versions avoiding thus repetitive
 download of the same data.
 
+Importantly, as can be seen above, the MS data files are loaded in **alphabetic order**.
+
 The message that is shown by the call above indicates that the MS data files
 were not provided in the expected column (`"Derived Spectral Data File"`) but in
 the column for raw data files.
