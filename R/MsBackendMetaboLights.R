@@ -207,8 +207,8 @@ setMethod(
         if (offline)
             mdata <- mtbls_cached_data_files(mtblsId, assayName, filePattern,
                                              fileName)
-        else mdata <- .mtbls_data_files(mtblsId, assayName, filePattern,
-                                        fileName)
+        else mdata <- mtbls_sync_data_files(mtblsId, assayName, filePattern,
+                                            fileName)
         object <- backendInitialize(MsBackendMzR(), files = mdata$rpath)
         idx <- match(dataOrigin(object),
                      normalizePath(mdata$rpath, mustWork = FALSE))
