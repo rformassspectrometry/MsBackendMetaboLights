@@ -189,10 +189,12 @@ mtbls_list_files("MTBLS2")
 #> [1] "FILES"                                                     
 #> [2] "HASHES"                                                    
 #> [3] "METADATA_REVISIONS"                                        
-#> [4] "a_MTBLS2_metabolite_profiling_mass_spectrometry.txt"       
-#> [5] "i_Investigation.txt"                                       
-#> [6] "m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
-#> [7] "s_MTBLS2.txt"                                              
+#> [4] "MTBLS2.announcement.json"                                  
+#> [5] "MTBLS2.mhd.json"                                           
+#> [6] "a_MTBLS2_metabolite_profiling_mass_spectrometry.txt"       
+#> [7] "i_Investigation.txt"                                       
+#> [8] "m_MTBLS2_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
+#> [9] "s_MTBLS2.txt"                                              
 
 ## Retrieve the available assay files (file names starting with "a_").
 afiles <- mtbls_list_files("MTBLS2", pattern = "^a_")

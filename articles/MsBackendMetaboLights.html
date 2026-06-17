@@ -81,8 +81,8 @@ Louail [aut] (ORCID: <a href="https://orcid.org/0009-0007-5429-6846" class="exte
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)<br><strong>Last modified:</strong>
-2026-06-15 06:28:32.754142<br><strong>Compiled</strong>: Mon Jun 15
-06:57:01 2026</p>
+2026-06-17 16:13:56.5352<br><strong>Compiled</strong>: Wed Jun 17
+16:32:26 2026</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -404,7 +404,7 @@ the MetaboLights data set <em>MTBLS39</em>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span></span></code></pre></div>
 <pre><code><span><span class="co">##     rid mtbls_id</span></span>
-<span><span class="co">## 1 BFC45  MTBLS39</span></span>
+<span><span class="co">## 1 BFC41  MTBLS39</span></span>
 <span><span class="co">##                                                                                           mtbls_assay_name</span></span>
 <span><span class="co">## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span></span>
 <span><span class="co">##   derived_spectral_data_file</span></span>
@@ -419,7 +419,7 @@ all available data files is returned.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MetaboLights-utils.html">mtbls_cached_data_files</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      rid mtbls_id</span></span>
-<span><span class="co">## 27 BFC45  MTBLS39</span></span>
+<span><span class="co">## 27 BFC41  MTBLS39</span></span>
 <span><span class="co">##                                                                                            mtbls_assay_name</span></span>
 <span><span class="co">## 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt</span></span>
 <span><span class="co">##    derived_spectral_data_file</span></span>
@@ -445,10 +445,12 @@ files in the data set’s base FTP folder.</p>
 <pre><code><span><span class="co">## [1] "FILES"                                                                                                          </span></span>
 <span><span class="co">## [2] "HASHES"                                                                                                         </span></span>
 <span><span class="co">## [3] "METADATA_REVISIONS"                                                                                             </span></span>
-<span><span class="co">## [4] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       </span></span>
-<span><span class="co">## [5] "i_Investigation.txt"                                                                                            </span></span>
-<span><span class="co">## [6] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"</span></span>
-<span><span class="co">## [7] "s_MTBLS39.txt"</span></span></code></pre>
+<span><span class="co">## [4] "MTBLS39.announcement.json"                                                                                      </span></span>
+<span><span class="co">## [5] "MTBLS39.mhd.json"                                                                                               </span></span>
+<span><span class="co">## [6] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       </span></span>
+<span><span class="co">## [7] "i_Investigation.txt"                                                                                            </span></span>
+<span><span class="co">## [8] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"</span></span>
+<span><span class="co">## [9] "s_MTBLS39.txt"</span></span></code></pre>
 <p>The <code><a href="../reference/MetaboLights-utils.html">mtbls_assay_data()</a></code> retrieves information on the, or
 one of the possibly multiple, used assay(s).</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
@@ -690,7 +692,7 @@ extracted.</p>
 <span><span class="co">## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          </span></span>
 <span><span class="co">## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          </span></span>
 <span><span class="co">## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         </span></span>
-<span><span class="co">## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.46         </span></span>
+<span><span class="co">## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.47         </span></span>
 <span><span class="co">## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        </span></span>
 <span><span class="co">## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        </span></span>
 <span><span class="co">## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        </span></span>

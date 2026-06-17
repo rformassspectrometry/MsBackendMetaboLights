@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-06-15 06:28:32.754142\
-**Compiled**: Mon Jun 15 06:57:01 2026
+**Last modified:** 2026-06-17 16:13:56.5352\
+**Compiled**: Wed Jun 17 16:32:26 2026
 
 ## Introduction
 
@@ -395,7 +395,7 @@ res
 ```
 
     ##     rid mtbls_id
-    ## 1 BFC45  MTBLS39
+    ## 1 BFC41  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##   derived_spectral_data_file
@@ -416,7 +416,7 @@ mtbls_cached_data_files()
 ```
 
     ##      rid mtbls_id
-    ## 27 BFC45  MTBLS39
+    ## 27 BFC41  MTBLS39
     ##                                                                                            mtbls_assay_name
     ## 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##    derived_spectral_data_file
@@ -449,10 +449,12 @@ mtbls_list_files("MTBLS39")
     ## [1] "FILES"                                                                                                          
     ## [2] "HASHES"                                                                                                         
     ## [3] "METADATA_REVISIONS"                                                                                             
-    ## [4] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       
-    ## [5] "i_Investigation.txt"                                                                                            
-    ## [6] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
-    ## [7] "s_MTBLS39.txt"
+    ## [4] "MTBLS39.announcement.json"                                                                                      
+    ## [5] "MTBLS39.mhd.json"                                                                                               
+    ## [6] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       
+    ## [7] "i_Investigation.txt"                                                                                            
+    ## [8] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
+    ## [9] "s_MTBLS39.txt"
 
 The
 [`mtbls_assay_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
@@ -715,7 +717,7 @@ sessionInfo()
     ## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          
     ## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          
     ## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         
-    ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.46         
+    ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.47         
     ## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        
     ## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        
     ## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        

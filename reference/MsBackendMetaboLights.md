@@ -30,6 +30,7 @@ backendInitialize(
   mtblsId = character(),
   assayName = character(),
   filePattern = "mzML$|CDF$|cdf$|mzXML$",
+  fileName = character(),
   offline = FALSE,
   ...
 )
@@ -65,6 +66,14 @@ mtbls_sync(x, offline = FALSE)
   file types. Defaults to `filePattern = "mzML$|CDF$|cdf$|mzXML$"` hence
   restricting to mzML, CDF and mzXML files which are supported by
   *Spectra*'s `MsBackendMzR` backend.
+
+- fileName:
+
+  `character` with optional base file name(s) of selected data files to
+  load. If provided, only data files whose base file name matches one of
+  `fileName` are loaded. Defaults to `fileName = character()` in which
+  case all matching data files are loaded. An error is thrown if none of
+  the `fileName` is found in the data set.
 
 - offline:
 
@@ -152,7 +161,9 @@ By default, with `assayName = character()` MS data files from **all**
 assays of a data set are loaded. Optional parameter `filePattern`
 defines the pattern that should be used to filter the file names of the
 MS data files. It defaults to data files with file endings of supported
-MS data files.
+MS data files. The optional `fileName` parameter allows to further
+restrict the loaded data to specific data file(s), defined by their base
+file name(s).
 [`backendInitialize()`](https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html)
 requires an active internet connection as the function first compares
 the remote file content to the locally cached files and eventually
@@ -184,10 +195,12 @@ mtbls_list_files("MTBLS39")
 #> [1] "FILES"                                                                                                          
 #> [2] "HASHES"                                                                                                         
 #> [3] "METADATA_REVISIONS"                                                                                             
-#> [4] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       
-#> [5] "i_Investigation.txt"                                                                                            
-#> [6] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
-#> [7] "s_MTBLS39.txt"                                                                                                  
+#> [4] "MTBLS39.announcement.json"                                                                                      
+#> [5] "MTBLS39.mhd.json"                                                                                               
+#> [6] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"       
+#> [7] "i_Investigation.txt"                                                                                            
+#> [8] "m_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry_v2_maf.tsv"
+#> [9] "s_MTBLS39.txt"                                                                                                  
 
 ## Initialize a MsBackendMetaboLights representing all MS data files of
 ## the data set with the ID "MTBLS39". This will download and cache all
