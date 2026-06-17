@@ -38,6 +38,29 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     res_o <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                                filePattern = "63A.cdf", offline = TRUE)
     expect_equal(Spectra::rtime(res), Spectra::rtime(res_o))
+
+    Sys.sleep(4)
+    res_f <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                               filePattern = "63A.cdf",
+                               fileName = "AM063A.cdf")
+    expect_s4_class(res_f, "MsBackendMetaboLights")
+    expect_equal(unique(basename(res_f$derived_spectral_data_file)),
+                 "AM063A.cdf")
+
+    res_fo <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                                filePattern = "63A.cdf",
+                                fileName = "AM063A.cdf", offline = TRUE)
+    expect_equal(Spectra::rtime(res_f), Spectra::rtime(res_fo))
+
+    expect_error(
+        backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                          filePattern = "63A.cdf", fileName = "does_not_exist"),
+        "None of the ")
+    expect_error(
+        backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
+                          filePattern = "63A.cdf", fileName = "does_not_exist",
+                          offline = TRUE),
+        "None of the ")
 })
 
 test_that("backendRequiredSpectraVariables,MsBackendMetaboLights works", {

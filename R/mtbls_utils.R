@@ -276,9 +276,13 @@ mtbls_cached_data_files <- function(mtblsId = character(),
                                     pattern = "*", fileName = character()) {
     res <- .mtbls_data_files_offline(mtblsId = mtblsId, assayName = assayName,
                                      pattern = pattern)
-    if (length(fileName))
-        res <- res[basename(res$derived_spectral_data_file) %in% fileName, ]
-    else res
+    if (length(fileName)) {
+        keep <- basename(res$derived_spectral_data_file) %in% fileName
+        if (!any(keep))
+            stop("None of the 'fileName' found in data set \"", mtblsId, "\"")
+        res <- res[keep, ]
+    }
+    res
 }
 
 .mtbls_fix_file_names <- function(mtblsId = character(),

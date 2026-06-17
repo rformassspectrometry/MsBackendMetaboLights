@@ -15,6 +15,7 @@ MsBackendMetaboLights()
   mtblsId = character(),
   assayName = character(),
   filePattern = "mzML$|CDF$|cdf$|mzXML$",
+  fileName = character(),
   offline = FALSE,
   ...
 )
@@ -40,6 +41,13 @@ requested) file types. Defaults to
 \code{filePattern = "mzML$|CDF$|cdf$|mzXML$"} hence restricting to mzML,
 CDF and mzXML files which are supported by \emph{Spectra}'s
 \code{MsBackendMzR} backend.}
+
+\item{fileName}{\code{character} with optional base file name(s) of selected
+data files to load. If provided, only data files whose base file name
+matches one of \code{fileName} are loaded. Defaults to
+\code{fileName = character()} in which case all matching data files are
+loaded. An error is thrown if none of the \code{fileName} is found in the
+data set.}
 
 \item{offline}{\code{logical(1)} whether only locally cached content should be
 evaluated/loaded.}
@@ -128,7 +136,9 @@ assay files for a given MetaboLights ID \verb{<MetaboLights ID>}). By default,
 with \code{assayName = character()} MS data files from \strong{all} assays of a data
 set are loaded. Optional parameter \code{filePattern} defines the pattern that
 should be used to filter the file names of the MS data files. It defaults
-to data files with file endings of supported MS data files.
+to data files with file endings of supported MS data files. The optional
+\code{fileName} parameter allows to further restrict the loaded data to specific
+data file(s), defined by their base file name(s).
 \code{backendInitialize()} requires an active internet connection as the
 function first compares the remote file content to the locally cached files
 and eventually synchronizes changes/updates. This can be skipped with
