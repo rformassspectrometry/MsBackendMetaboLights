@@ -37,7 +37,9 @@
 #' with `assayName = character()` MS data files from **all** assays of a data
 #' set are loaded. Optional parameter `filePattern` defines the pattern that
 #' should be used to filter the file names of the MS data files. It defaults
-#' to data files with file endings of supported MS data files.
+#' to data files with file endings of supported MS data files. The optional
+#' `fileName` parameter allows to further restrict the loaded data to specific
+#' data file(s), defined by their base file name(s).
 #' `backendInitialize()` requires an active internet connection as the
 #' function first compares the remote file content to the locally cached files
 #' and eventually synchronizes changes/updates. This can be skipped with
@@ -78,6 +80,13 @@
 #'     `filePattern = "mzML$|CDF$|cdf$|mzXML$"` hence restricting to mzML,
 #'     CDF and mzXML files which are supported by *Spectra*'s
 #'     `MsBackendMzR` backend.
+#'
+#' @param fileName `character` with optional base file name(s) of selected
+#'     data files to load. If provided, only data files whose base file name
+#'     matches one of `fileName` are loaded. Defaults to
+#'     `fileName = character()` in which case all matching data files are
+#'     loaded. An error is thrown if none of the `fileName` is found in the
+#'     data set.
 #'
 #' @param offline `logical(1)` whether only locally cached content should be
 #'     evaluated/loaded.
@@ -185,7 +194,8 @@ MsBackendMetaboLights <- function() {
 setMethod(
     "backendInitialize", "MsBackendMetaboLights",
     function(object, mtblsId = character(), assayName = character(),
-             filePattern = "mzML$|CDF$|cdf$|mzXML$", offline = FALSE, ...) {
+             filePattern = "mzML$|CDF$|cdf$|mzXML$", fileName = character(),
+             offline = FALSE, ...) {
         dots <- list(...)
         if (any(names(dots) == "data"))
             stop("Parameter 'data' is not supported for ",
@@ -195,8 +205,10 @@ setMethod(
             stop("Parameter 'mtblsId' is required and can only be a single ID ",
                  "of a MetaboLights data set.")
         if (offline)
-            mdata <- .mtbls_data_files_offline(mtblsId, assayName, filePattern)
-        else mdata <- .mtbls_data_files(mtblsId, assayName, filePattern)
+            mdata <- mtbls_cached_data_files(mtblsId, assayName, filePattern,
+                                             fileName)
+        else mdata <- .mtbls_data_files(mtblsId, assayName, filePattern,
+                                        fileName)
         object <- backendInitialize(MsBackendMzR(), files = mdata$rpath)
         idx <- match(dataOrigin(object),
                      normalizePath(mdata$rpath, mustWork = FALSE))
