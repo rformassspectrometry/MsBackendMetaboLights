@@ -127,8 +127,7 @@ test_that("mtbls_cached_data_files works", {
 
     res <- mtbls_cached_data_files(fileName = "AM063A.cdf")
     expect_true(is.data.frame(res))
-    expect_true(nrow(res) > 0)
-    expect_true(all(basename(res$derived_spectral_data_file) == "AM063A.cdf"))
+    expect_equal(basename(res$derived_spectral_data_file), "AM063A.cdf")
 })
 
 
