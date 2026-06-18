@@ -2,6 +2,12 @@
 
 ## MsBackendMetaboLights 1.7
 
+## MsBackendMetaboLights 1.7.3
+
+- Support parameter `fileName` in
+  [`backendInitialize()`](https://rdrr.io/pkg/ProtGenerics/man/backendInitialize.html)
+  to load only selected file(s).
+
 ## MsBackendMetaboLights 1.7.2
 
 - Append the MetaboLights data set ID to locally stored/cached file
