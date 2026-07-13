@@ -29,7 +29,7 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     res <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                              filePattern = "63A.cdf")
     expect_s4_class(res, "MsBackendMetaboLights")
-    expect_true(all(c("mtbls_id", "mtbls_assay_name",
+    expect_true(all(c("mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
                       "derived_spectral_data_file") %in%
                     Spectra::spectraVariables(res)))
     expect_true(all(res$mtbls_id == "MTBLS39"))
@@ -66,7 +66,7 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
 test_that("backendRequiredSpectraVariables,MsBackendMetaboLights works", {
     expect_equal(backendRequiredSpectraVariables(MsBackendMetaboLights()),
                  c("dataStorage", "scanIndex", "mtbls_id", "mtbls_assay_name",
-                   "derived_spectral_data_file"))
+                   "mtbls_assay_id", "derived_spectral_data_file"))
 })
 
 test_that("mtbls_sync works", {
@@ -107,6 +107,7 @@ test_that(".valid_mtbls_required_columns works", {
     expect_match(.valid_mtbls_required_columns(x), "One or more")
     x@spectraData$mtbls_id <- 3
     x@spectraData$mtbls_assay_name <- "a"
+    x@spectraData$mtbls_assay_id <- 1
     x@spectraData$derived_spectral_data_file <- "b"
     expect_equal(.valid_mtbls_required_columns(x), character())
 })

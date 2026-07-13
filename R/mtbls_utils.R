@@ -307,6 +307,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' - `"rid"`: the BiocFileCache ID of each file.
 #' - `"mtbls_id"`: the MTBLS ID
 #' - `"mtbls_assay_name"`: the name of the assay file for each data file
+#' - `"mtbls_assay_id"`: the ID of the assay file for each data file
 #' - `"derived_spectral_data_file"`: the name of the data file in the assay
 #'   file/table
 #' - `"rpath"`: the name of the cached data file (full local path)
@@ -330,6 +331,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
                               pattern = "mzML$|CDF$|mzXML$",
                               fileName = character()) {
     assays <- .mtbls_assay_list(mtblsId)
+    assays <- assays[sort(names(assays))]
     anames <- names(assays)
     if (length(assayName)) {
         if (!all(assayName %in% anames))
@@ -363,7 +365,9 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc, mtblsId)
+    assay_idx <- as.integer(as.factor(rep(names(dfiles), lengths(dfiles))))
+    lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc,
+                                paste0(mtblsId, "_", assay_idx))
     ## Remove 0 size files and re-run
     fsize <- file.size(lfiles)
     fsize[is.na(fsize)] <- 0
@@ -375,7 +379,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         rid <- b$rid[b$rpath %in% lfiles[fsize == 0]]
         if (length(rid)) bfcremove(bfc, rids = rid)
         mis <- .bfc_cache_files(URLencode(paste0(fpath, ffiles[fsize == 0])),
-                                bfc, mtblsId)
+                                bfc, paste0(mtblsId, "_", assay_idx))
         names(lfiles)[match(mis, lfiles)] <- names(mis)
     }
     ## Add and store metadata to the cached files
@@ -383,6 +387,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         rid = names(lfiles),
         mtbls_id = mtblsId,
         mtbls_assay_name = rep(names(dfiles), lengths(dfiles)),
+        mtbls_assay_id = assay_idx,
         derived_spectral_data_file = unlist(dfiles, use.names = FALSE))
     bfcmeta(bfc, name = "MTBLS", overwrite = TRUE) <- mdata
     mdata$rpath <- lfiles
@@ -395,21 +400,24 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' @importFrom BiocFileCache bfcupdate
 #'
 #' @noRd
-.bfc_cache_files <- function(x, bfc, mtblsId = "MTBLS") {
+.bfc_cache_files <- function(x, bfc, mtblsAssayId = "MTBLS_1") {
+    if (length(mtblsAssayId))
+        mtblsAssayId <- rep(mtblsAssayId, length(x))
     pb <- progress_bar$new(format = paste0("[:bar] :current/:",
                                            "total (:percent) in ",
                                            ":elapsed"),
                            total = length(x), clear = FALSE)
-    unlist(lapply(x, function(z) {
+    unlist(lapply(1:length(x), function(i) {
         pb$tick()
         invisible(capture.output(suppressMessages(
-            f <- retry(bfcrpath(bfc, z, fname = "exact"),
+            f <- retry(bfcrpath(bfc, x[[i]], fname = "exact"),
                        sleep_mult = .sleep_mult(), verbose = TRUE,
                        retry_on = .RETRY_PATTERN, warningsAsErrors = TRUE))))
-        if (length(f) && !grepl(paste0("^", mtblsId), basename(f))) {
-            ## Rename file name to <MTBLS>_<FILENAME> to avoid overwriting
-            ## files from other data sets with same file name
-            fnew <- file.path(dirname(f), paste0(mtblsId, "_", basename(f)))
+        if (length(f) && !grepl(paste0("^", mtblsAssayId[[i]]), basename(f))) {
+            ## Rename file name to <MTBLS>_<ASSAY_ID>_<FILENAME> to avoid
+            ## overwriting files from other data sets with same file name
+            fnew <- file.path(dirname(f),
+                              paste0(mtblsAssayId[[i]], "_", basename(f)))
             names(fnew) <- names(f)
             file.rename(f, fnew)
             suppressWarnings(
@@ -447,7 +455,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     if (!nrow(res))
         stop("No locally cached data files found for the specified ",
              "parameters.", call. = FALSE)
-    res <- res[, c("rid", "mtbls_id", "mtbls_assay_name",
+    res <- res[, c("rid", "mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
                    "derived_spectral_data_file", "rpath")]
     res[order(res$rpath), , drop = FALSE]
 }

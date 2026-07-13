@@ -99,7 +99,7 @@ associated with. Note that at present only MS data files in \emph{mzML}, \emph{C
 and \emph{mzXML} format are supported.
 
 The \code{MsBackendMetaboLights} backend defines and provides additional spectra
-variables \code{"mtbls_id"}, \code{"mtbls_assay_name"} and
+variables \code{"mtbls_id"}, \code{"mtbls_assay_name"} , \code{"mtbls_assay_id"} and
 \code{"derived_spectral_data_file"} that list the MetaboLights ID, the name of
 the assay file and the original data file name on the MetaboLights ftp
 server for each individual spectrum. The \code{"derived_spectral_data_file"} can
