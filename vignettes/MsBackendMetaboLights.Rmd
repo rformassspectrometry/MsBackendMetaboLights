@@ -181,13 +181,14 @@ below.
 spectraVariables(s)
 ```
 
-The MetaboLights-specific variables are `"mtbls_id"`, `"mtbls_assay_name"` and
-`"derived_spectral_data_file"` providing the MetaboLights ID of the data set,
-the assay/method with which the data files were generated and the original file
-path/name of the data files on the MetaboLights ftp server.
+The MetaboLights-specific variables are `"mtbls_id"`, `"mtbls_assay_name"`,
+`"mtbls_assay_id"` and `"derived_spectral_data_file"` providing the
+MetaboLights ID of the data set, the assay/method with which the data files
+were generated and the original file path/name of the data files on the
+MetaboLights ftp server.
 
 ```{r}
-spectraData(s, c("mtbls_id", "mtbls_assay_name",
+spectraData(s, c("mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
                  "derived_spectral_data_file"))
 ```
 

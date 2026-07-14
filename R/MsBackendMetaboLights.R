@@ -121,7 +121,7 @@
 #' and *mzXML* format are supported.
 #'
 #' The `MsBackendMetaboLights` backend defines and provides additional spectra
-#' variables `"mtbls_id"`, `"mtbls_assay_name"` and
+#' variables `"mtbls_id"`, `"mtbls_assay_name"` , `"mtbls_assay_id"` and
 #' `"derived_spectral_data_file"` that list the MetaboLights ID, the name of
 #' the assay file and the original data file name on the MetaboLights ftp
 #' server for each individual spectrum. The `"derived_spectral_data_file"` can
@@ -214,6 +214,7 @@ setMethod(
                      normalizePath(mdata$rpath, mustWork = FALSE))
         object@spectraData$mtbls_id <- mdata$mtbls_id[idx]
         object@spectraData$mtbls_assay_name <- mdata$mtbls_assay_name[idx]
+        object@spectraData$mtbls_assay_id <- mdata$mtbls_assay_id[idx]
         object@spectraData$derived_spectral_data_file <-
             mdata$derived_spectral_data_file[idx]
         object <- as(object, "MsBackendMetaboLights")
@@ -227,18 +228,19 @@ setMethod(
 setMethod(
     "backendRequiredSpectraVariables", "MsBackendMetaboLights",
     function(object, ...) {
-        c(callNextMethod(), "mtbls_id", "mtbls_assay_name",
+        c(callNextMethod(), "mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
           "derived_spectral_data_file")
     })
 
 .valid_mtbls_required_columns <- function(object) {
     if (nrow(object@spectraData)) {
-        if (!all(c("mtbls_id", "mtbls_assay_name",
+        if (!all(c("mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
                    "derived_spectral_data_file") %in%
                  colnames(object@spectraData)))
             return(paste0("One or more of required spectra variable(s) ",
-                          "\"mtbls_id\", \"mtbls_assay_name\", \"derived_",
-                          "spectral_data_file\" is (are) missing"))
+                          "\"mtbls_id\", \"mtbls_assay_name\",
+                          \"mtbls_assay_id\", \"derived_spectral_data_file\"",
+                          "is (are) missing"))
     }
     character()
 }
@@ -270,7 +272,7 @@ mtbls_sync <- function(x, offline = FALSE) {
         stop("'x' is expected to be an instance of 'MsBackendMetaboLights'")
     sdata <- unique(
         as.data.frame(x@spectraData[, c("mtbls_id", "mtbls_assay_name",
-                                        "derived_spectral_data_file")]))
+                            "mtbls_assay_id", "derived_spectral_data_file")]))
     cn <- c("derived_spectral_data_file", "rpath")
     res <- lapply(split(sdata, sdata$mtbls_id), function(z, offline) {
         if (offline)
