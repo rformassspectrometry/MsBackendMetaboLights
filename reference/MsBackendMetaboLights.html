@@ -35,7 +35,7 @@ mtbls_cached_data_files() for more information."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,7 +176,7 @@ MetaboLights ID and the assay file name with which the data file is
 associated with. Note that at present only MS data files in <em>mzML</em>, <em>CDF</em>
 and <em>mzXML</em> format are supported.</p>
 <p>The <code>MsBackendMetaboLights</code> backend defines and provides additional spectra
-variables <code>"mtbls_id"</code>, <code>"mtbls_assay_name"</code> and
+variables <code>"mtbls_id"</code>, <code>"mtbls_assay_name"</code> , <code>"mtbls_assay_id"</code> and
 <code>"derived_spectral_data_file"</code> that list the MetaboLights ID, the name of
 the assay file and the original data file name on the MetaboLights ftp
 server for each individual spectrum. The <code>"derived_spectral_data_file"</code> can
@@ -272,12 +272,12 @@ the MetaboLights repository.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15139         1   2691.45       600</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15140         1   2695.90       601</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15141         1   2700.36       602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ... 37 more variables/columns.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ... 38 more variables/columns.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> file(s):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063A.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063B.cdf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_AM063C.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_1_AM063A.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_1_AM063B.cdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_1_AM063C.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... 24 more files</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## The `mtbls_sync()` function can be used to ensure that all data files are</span></span></span>
@@ -296,7 +296,7 @@ the MetaboLights repository.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.9000.</p>
 </div>
 
     </footer></div>

@@ -2,6 +2,11 @@
 
 ## MsBackendMetaboLights 1.7
 
+## MsBackendMetaboLights 1.7.4
+
+- Handle MetaboLights data set with file with same file name in multiple
+  assays.
+
 ## MsBackendMetaboLights 1.7.3
 
 - Support parameter `fileName` in

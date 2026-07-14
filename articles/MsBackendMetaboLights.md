@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-06-18 06:01:25.587182\
-**Compiled**: Thu Jun 18 06:19:11 2026
+**Last modified:** 2026-07-14 13:18:25.283253\
+**Compiled**: Tue Jul 14 13:36:51 2026
 
 ## Introduction
 
@@ -253,12 +253,12 @@ s
     ## 1662         1   2689.15       551
     ## 1663         1   2693.84       552
     ## 1664         1   2698.47       553
-    ##  ... 37 more variables/columns.
+    ##  ... 38 more variables/columns.
     ## 
     ## file(s):
-    ## MTBLS39_AM063A.cdf
-    ## MTBLS39_CS063A.cdf
-    ## MTBLS39_MN063A.cdf
+    ## MTBLS39_1_AM063A.cdf
+    ## MTBLS39_1_CS063A.cdf
+    ## MTBLS39_1_MN063A.cdf
 
 This call now downloaded the files to the local cache and loaded these
 files as a `Spectra` object. The downloading and caching of the data is
@@ -306,34 +306,49 @@ spectraVariables(s)
     ## [31] "filterString"               "spectrumId"                
     ## [33] "ionMobilityDriftTime"       "scanWindowLowerLimit"      
     ## [35] "scanWindowUpperLimit"       "mtbls_id"                  
-    ## [37] "mtbls_assay_name"           "derived_spectral_data_file"
+    ## [37] "mtbls_assay_name"           "mtbls_assay_id"            
+    ## [39] "derived_spectral_data_file"
 
 The MetaboLights-specific variables are `"mtbls_id"`,
-`"mtbls_assay_name"` and `"derived_spectral_data_file"` providing the
-MetaboLights ID of the data set, the assay/method with which the data
-files were generated and the original file path/name of the data files
-on the MetaboLights ftp server.
+`"mtbls_assay_name"`, `"mtbls_assay_id"` and
+`"derived_spectral_data_file"` providing the MetaboLights ID of the data
+set, the assay/method with which the data files were generated and the
+original file path/name of the data files on the MetaboLights ftp
+server.
 
 ``` r
 
-spectraData(s, c("mtbls_id", "mtbls_assay_name",
+spectraData(s, c("mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
                  "derived_spectral_data_file"))
 ```
 
-    ## DataFrame with 1664 rows and 3 columns
-    ##         mtbls_id       mtbls_assay_name derived_spectral_data_file
-    ##      <character>            <character>                <character>
-    ## 1        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 2        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 3        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 4        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## 5        MTBLS39 a_MTBLS39_the_plasti..           FILES/AM063A.cdf
-    ## ...          ...                    ...                        ...
-    ## 1660     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 1661     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 1662     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 1663     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
-    ## 1664     MTBLS39 a_MTBLS39_the_plasti..           FILES/MN063A.cdf
+    ## DataFrame with 1664 rows and 4 columns
+    ##         mtbls_id       mtbls_assay_name mtbls_assay_id
+    ##      <character>            <character>      <integer>
+    ## 1        MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 2        MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 3        MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 4        MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 5        MTBLS39 a_MTBLS39_the_plasti..              1
+    ## ...          ...                    ...            ...
+    ## 1660     MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 1661     MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 1662     MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 1663     MTBLS39 a_MTBLS39_the_plasti..              1
+    ## 1664     MTBLS39 a_MTBLS39_the_plasti..              1
+    ##      derived_spectral_data_file
+    ##                     <character>
+    ## 1              FILES/AM063A.cdf
+    ## 2              FILES/AM063A.cdf
+    ## 3              FILES/AM063A.cdf
+    ## 4              FILES/AM063A.cdf
+    ## 5              FILES/AM063A.cdf
+    ## ...                         ...
+    ## 1660           FILES/MN063A.cdf
+    ## 1661           FILES/MN063A.cdf
+    ## 1662           FILES/MN063A.cdf
+    ## 1663           FILES/MN063A.cdf
+    ## 1664           FILES/MN063A.cdf
 
 These variables can be used to link the individual spectra back to the
 original sample (e.g. through the *assay* and *sample* tables of the
@@ -367,12 +382,12 @@ mtbls_sync(s@backend)
     ## 1662         1   2689.15       551
     ## 1663         1   2693.84       552
     ## 1664         1   2698.47       553
-    ##  ... 37 more variables/columns.
+    ##  ... 38 more variables/columns.
     ## 
     ## file(s):
-    ## MTBLS39_AM063A.cdf
-    ## MTBLS39_CS063A.cdf
-    ## MTBLS39_MN063A.cdf
+    ## MTBLS39_1_AM063A.cdf
+    ## MTBLS39_1_CS063A.cdf
+    ## MTBLS39_1_MN063A.cdf
 
 Also, it is possible to *manually* cache and download data files from
 MetaboLights using the
@@ -398,10 +413,10 @@ res
     ## 1 BFC41  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-    ##   derived_spectral_data_file
-    ## 1           FILES/AM063A.cdf
-    ##                                                    rpath
-    ## 1 /github/home/.cache/R/BiocFileCache/MTBLS39_AM063A.cdf
+    ##   mtbls_assay_id derived_spectral_data_file
+    ## 1              1           FILES/AM063A.cdf
+    ##                                                      rpath
+    ## 1 /github/home/.cache/R/BiocFileCache/MTBLS39_1_AM063A.cdf
 
 The
 [`mtbls_cached_data_files()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
@@ -419,10 +434,10 @@ mtbls_cached_data_files()
     ## 27 BFC41  MTBLS39
     ##                                                                                            mtbls_assay_name
     ## 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
-    ##    derived_spectral_data_file
-    ## 27           FILES/AM063A.cdf
-    ##                                                     rpath
-    ## 27 /github/home/.cache/R/BiocFileCache/MTBLS39_AM063A.cdf
+    ##    mtbls_assay_id derived_spectral_data_file
+    ## 27              1           FILES/AM063A.cdf
+    ##                                                       rpath
+    ## 27 /github/home/.cache/R/BiocFileCache/MTBLS39_1_AM063A.cdf
 
 Locally cached files for a MetaboLights data set can be removed using
 the
@@ -675,7 +690,7 @@ dim(mdat)
 sessionInfo()
 ```
 
-    ## R version 4.6.0 (2026-04-24)
+    ## R version 4.6.1 (2026-06-24)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.4 LTS
     ## 
@@ -699,32 +714,32 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.3 Spectra_1.23.3             
-    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.3           
-    ## [5] BiocGenerics_0.59.7         generics_0.1.4             
+    ## [1] MsBackendMetaboLights_1.7.4 Spectra_1.23.3             
+    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.5           
+    ## [5] BiocGenerics_0.59.10        generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.58              bslib_0.11.0           httr2_1.2.2           
+    ##  [1] xfun_0.60              bslib_0.11.0           httr2_1.3.0           
     ##  [4] htmlwidgets_1.6.4      Biobase_2.73.1         vctrs_0.7.3           
-    ##  [7] tools_4.6.0            curl_7.1.0             parallel_4.6.0        
-    ## [10] tibble_3.3.1           RSQLite_3.53.1         cluster_2.1.8.2       
+    ##  [7] tools_4.6.1            curl_7.1.0             parallel_4.6.1        
+    ## [10] tibble_3.3.1           RSQLite_3.53.3         cluster_2.1.8.2       
     ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.4     
-    ## [16] dbplyr_2.5.2           desc_1.4.3             lifecycle_1.0.5       
-    ## [19] compiler_4.6.0         textshaping_1.0.5      progress_1.2.3        
+    ## [16] dbplyr_2.6.0           desc_1.4.3             lifecycle_1.0.5       
+    ## [19] compiler_4.6.1         textshaping_1.0.5      progress_1.2.3        
     ## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-68           
     ## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           
-    ## [28] pkgdown_2.2.0.9000     pillar_1.11.1          crayon_1.5.3          
+    ## [28] pkgdown_2.2.1.9000     pillar_1.11.1          crayon_1.5.3          
     ## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          
     ## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         
     ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.47         
     ## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        
-    ## [43] withr_3.0.2            prettyunits_1.2.0      filelock_1.0.3        
-    ## [46] rappdirs_0.3.4         bit64_4.8.2            rmarkdown_2.31        
-    ## [49] bit_4.6.0              otel_0.2.0             ragg_1.5.2            
-    ## [52] hms_1.1.4              memoise_2.0.1          evaluate_1.0.5        
-    ## [55] knitr_1.51             IRanges_2.47.2         BiocFileCache_3.3.0   
-    ## [58] rlang_1.2.0            Rcpp_1.1.1-1.1         glue_1.8.1            
-    ## [61] DBI_1.3.0              mzR_2.47.0             BiocManager_1.30.27   
-    ## [64] jsonlite_2.0.0         R6_2.6.1               systemfonts_1.3.2     
-    ## [67] fs_2.1.0               ProtGenerics_1.45.0    MsCoreUtils_1.25.4
+    ## [43] withr_3.0.3            prettyunits_1.2.0      filelock_1.0.3        
+    ## [46] bit64_4.8.2            rmarkdown_2.31         bit_4.6.0             
+    ## [49] otel_0.2.0             ragg_1.5.2             hms_1.1.4             
+    ## [52] memoise_2.0.1          evaluate_1.0.5         knitr_1.51            
+    ## [55] IRanges_2.47.2         BiocFileCache_3.3.0    rlang_1.3.0           
+    ## [58] Rcpp_1.1.2             glue_1.8.1             DBI_1.3.0             
+    ## [61] mzR_2.47.0             BiocManager_1.30.27    jsonlite_2.0.0        
+    ## [64] R6_2.6.1               systemfonts_1.3.2      fs_2.1.0              
+    ## [67] ProtGenerics_1.45.0    MsCoreUtils_1.25.4

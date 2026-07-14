@@ -121,10 +121,10 @@ associated with. Note that at present only MS data files in *mzML*,
 *CDF* and *mzXML* format are supported.
 
 The `MsBackendMetaboLights` backend defines and provides additional
-spectra variables `"mtbls_id"`, `"mtbls_assay_name"` and
-`"derived_spectral_data_file"` that list the MetaboLights ID, the name
-of the assay file and the original data file name on the MetaboLights
-ftp server for each individual spectrum. The
+spectra variables `"mtbls_id"`, `"mtbls_assay_name"` ,
+`"mtbls_assay_id"` and `"derived_spectral_data_file"` that list the
+MetaboLights ID, the name of the assay file and the original data file
+name on the MetaboLights ftp server for each individual spectrum. The
 `"derived_spectral_data_file"` can be used for the mapping between the
 experiment's samples and the individual data files, respective their
 spectra. This mapping is provided in the MetaboLights assay file.
@@ -223,12 +223,12 @@ be
 #> 15139         1   2691.45       600
 #> 15140         1   2695.90       601
 #> 15141         1   2700.36       602
-#>  ... 37 more variables/columns.
+#>  ... 38 more variables/columns.
 #> 
 #> file(s):
-#> MTBLS39_AM063A.cdf
-#> MTBLS39_AM063B.cdf
-#> MTBLS39_AM063C.cdf
+#> MTBLS39_1_AM063A.cdf
+#> MTBLS39_1_AM063B.cdf
+#> MTBLS39_1_AM063C.cdf
 #>  ... 24 more files
 
 ## The `mtbls_sync()` function can be used to ensure that all data files are
