@@ -15,25 +15,33 @@ exportMethods(backendInitialize)
 exportMethods(backendRequiredSpectraVariables)
 importClassesFrom(Spectra,MsBackendDataFrame)
 importClassesFrom(Spectra,MsBackendMzR)
-importFrom(BiocFileCache,BiocFileCache)
-importFrom(BiocFileCache,bfcinfo)
-importFrom(BiocFileCache,bfcremove)
-importFrom(BiocFileCache,bfcupdate)
+importFrom(BiocFileCache,
+  BiocFileCache,
+  bfcinfo,
+  bfcremove,
+  bfcupdate
+)
 importFrom(MsCoreUtils,retry)
 importFrom(S4Vectors,DataFrame)
 importFrom(Spectra,MsBackendMzR)
-importFrom(curl,curl)
-importFrom(curl,handle_setopt)
-importFrom(curl,new_handle)
-importFrom(methods,as)
-importFrom(methods,callNextMethod)
-importFrom(methods,new)
-importFrom(methods,validObject)
+importFrom(curl,
+  curl,
+  handle_setopt,
+  new_handle
+)
+importFrom(methods,
+  as,
+  callNextMethod,
+  new,
+  validObject
+)
 importFrom(progress,progress_bar)
-importFrom(utils,URLencode)
-importFrom(utils,capture.output)
-importFrom(utils,menu)
-importFrom(utils,read.table)
+importFrom(utils,
+  URLencode,
+  capture.output,
+  menu,
+  read.table
+)
 importMethodsFrom(BiocFileCache,"bfcmeta<-")
 importMethodsFrom(BiocFileCache,bfcmetalist)
 importMethodsFrom(BiocFileCache,bfcquery)

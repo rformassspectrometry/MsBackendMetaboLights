@@ -50,4 +50,4 @@ BugReports: https://github.com/RforMassSpectrometry/MsBackendMetaboLights/issues
 URL: https://github.com/RforMassSpectrometry/MsBackendMetaboLights
 biocViews: Infrastructure, MassSpectrometry, Metabolomics, DataImport, Proteomics
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 8.0.0
+Config/roxygen2/version: 8.1.0
