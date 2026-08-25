@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-07-14 13:18:25.283253\
-**Compiled**: Tue Jul 14 13:36:51 2026
+**Last modified:** 2026-08-25 06:22:03.15145\
+**Compiled**: Tue Aug 25 06:43:57 2026
 
 ## Introduction
 
@@ -32,13 +32,7 @@ data directly in R.
 
 The package can be installed from within R with the commands below:
 
-``` r
-
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("RforMassSpectrometry/MsBackendMetaboLights")
-```
+`if`` ``(``!`[`requireNamespace`](https://rdrr.io/r/base/ns-load.html)`(``"BiocManager"``, quietly ``=`` ``TRUE``)``)`` `` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`` `` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"RforMassSpectrometry/MsBackendMetaboLights"``)`
 
 ## Importing MS Data from MetaboLights
 
@@ -66,23 +60,14 @@ that a data set can have more than one assay file.
 Below we list all files from the MetaboLights data set with the ID
 *MTBLS39*.
 
-``` r
-
-library(MsBackendMetaboLights)
-
-#' List files of a MetaboLights data set
-all_files <- mtbls_list_files("MTBLS39")
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`MsBackendMetaboLights`](https://github.com/RforMassSpectrometry/MsBackendMetaboLights)`)`` `` ``#' List files of a MetaboLights data set`` ``all_files`` ``<-`` `[`mtbls_list_files`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`
 
 All these files are directly accessible in the ftp folder associated
 with the MetaboLights data set. Below we use the
 [`mtbls_ftp_path()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
 function to return the ftp path for our test data set.
 
-``` r
-
-mtbls_ftp_path("MTBLS39")
-```
+[`mtbls_ftp_path`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`
 
     ## [1] "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS39/"
 
@@ -97,23 +82,11 @@ might thus fail. We use below the `retry()` function from the
 package to retry reading from the FTP server if the connection fails or
 gets closed before the data is fully read.
 
-``` r
-
-#' Get the assay files of the data set
-grep("^a_", all_files, value = TRUE)
-```
+`#' Get the assay files of the data set`` `[`grep`](https://rdrr.io/r/base/grep.html)`(``"^a_"``, ``all_files``, value ``=`` ``TRUE``)`
 
     ## [1] "a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt"
 
-``` r
-
-#' Read the assay file
-a <- MsCoreUtils::retry(
-    read.table(paste0(mtbls_ftp_path("MTBLS39"),
-                      grep("^a_", all_files, value = TRUE)),
-               sep = "\t", header = TRUE, check.names = FALSE),
-    ntimes = 5, sleep_mult = 7)
-```
+`#' Read the assay file`` ``a`` ``<-`` ``MsCoreUtils``::`[`retry`](https://rdrr.io/pkg/MsCoreUtils/man/retry.html)`(`` `` `[`read.table`](https://rdrr.io/r/utils/read.table.html)`(`[`paste0`](https://rdrr.io/r/base/paste.html)`(`[`mtbls_ftp_path`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)``,`` `` `[`grep`](https://rdrr.io/r/base/grep.html)`(``"^a_"``, ``all_files``, value ``=`` ``TRUE``)``)``,`` `` sep ``=`` ``"\t"``, header ``=`` ``TRUE``, check.names ``=`` ``FALSE``)``,`` `` ntimes ``=`` ``5``, sleep_mult ``=`` ``7``)`
 
 Each row in this assay table refers to one measurement (data file) of
 the data set, with columns providing information on that measurement.
@@ -121,10 +94,7 @@ The number and content of columns can vary between data sets and depends
 on the information the original researcher (manually) provided. Below we
 list the columns available in the assay file of our test data set.
 
-``` r
-
-colnames(a)
-```
+[`colnames`](https://rdrr.io/r/base/colnames.html)`(``a``)`
 
     ##  [1] "Sample Name"                               
     ##  [2] "Protocol REF"                              
@@ -175,10 +145,7 @@ files is not absolutely mandatory, thus, for some data sets no MS data
 files might be available. Below we list the content of these data
 columns.
 
-``` r
-
-a[, c("Raw Spectral Data File", "Derived Spectral Data File")]
-```
+`a``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"Raw Spectral Data File"``, ``"Derived Spectral Data File"``)``]`
 
     ##    Raw Spectral Data File Derived Spectral Data File
     ## 1        FILES/MN063A.cdf                         NA
@@ -223,21 +190,11 @@ with more than one assay, it would also be possible to select MS data
 files from one particular assay only using the `assayName` parameter. In
 our case we load all MS data files that end with *63A.cdf*.
 
-``` r
-
-library(Spectra)
-
-#' Load MS data files of one data set
-s <- Spectra("MTBLS39", filePattern = "63A.cdf",
-             source = MsBackendMetaboLights())
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`Spectra`](https://github.com/RforMassSpectrometry/Spectra)`)`` `` ``#' Load MS data files of one data set`` ``s`` ``<-`` `[`Spectra`](https://rdrr.io/pkg/Spectra/man/Spectra.html)`(``"MTBLS39"``, filePattern ``=`` ``"63A.cdf"``,`` `` source ``=`` `[`MsBackendMetaboLights`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MsBackendMetaboLights.md)`(``)``)`
 
     ## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".
 
-``` r
-
-s
-```
+`s`
 
     ## MSn data (Spectra) with 1664 spectra in a MsBackendMetaboLights backend:
     ##        msLevel     rtime scanIndex
@@ -283,10 +240,7 @@ data files also additional information related to the MetaboLights data
 set are available as specific *spectra variables*. We list all available
 spectra variables of the data set below.
 
-``` r
-
-spectraVariables(s)
-```
+[`spectraVariables`](https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html)`(``s``)`
 
     ##  [1] "msLevel"                    "rtime"                     
     ##  [3] "acquisitionNum"             "scanIndex"                 
@@ -316,11 +270,7 @@ set, the assay/method with which the data files were generated and the
 original file path/name of the data files on the MetaboLights ftp
 server.
 
-``` r
-
-spectraData(s, c("mtbls_id", "mtbls_assay_name", "mtbls_assay_id",
-                 "derived_spectral_data_file"))
-```
+[`spectraData`](https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html)`(``s``, `[`c`](https://rdrr.io/r/base/c.html)`(``"mtbls_id"``, ``"mtbls_assay_name"``, ``"mtbls_assay_id"``,`` `` ``"derived_spectral_data_file"``)``)`
 
     ## DataFrame with 1664 rows and 4 columns
     ##         mtbls_id       mtbls_assay_name mtbls_assay_id
@@ -361,10 +311,7 @@ function can be used to *synchronize* the local content of a
 backend are available locally and eventually downloads and caches
 missing files.
 
-``` r
-
-mtbls_sync(s@backend)
-```
+[`mtbls_sync`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MsBackendMetaboLights.md)`(``s``@``backend``)`
 
     ## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".
 
@@ -397,17 +344,11 @@ already cached and, if so, does not download them again. Below we use
 this retrieve the local storage information on one of the data files of
 the MetaboLights data set *MTBLS39*:
 
-``` r
-
-res <- mtbls_sync_data_files("MTBLS39", fileName = "AM063A.cdf")
-```
+`res`` ``<-`` `[`mtbls_sync_data_files`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``, fileName ``=`` ``"AM063A.cdf"``)`
 
     ## Used data files from the assay's column "Raw Spectral Data File" since none were available in column "Derived Spectral Data File".
 
-``` r
-
-res
-```
+`res`
 
     ##     rid mtbls_id
     ## 1 BFC41  MTBLS39
@@ -425,10 +366,7 @@ data files. This function does not require an active internet connection
 since only local content is queried. With the default settings, a
 `data.frame` with all available data files is returned.
 
-``` r
-
-mtbls_cached_data_files()
-```
+[`mtbls_cached_data_files`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``)`
 
     ##      rid mtbls_id
     ## 27 BFC41  MTBLS39
@@ -456,10 +394,7 @@ page. The
 for example allows to list all available files in the data set’s base
 FTP folder.
 
-``` r
-
-mtbls_list_files("MTBLS39")
-```
+[`mtbls_list_files`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`
 
     ## [1] "FILES"                                                                                                          
     ## [2] "HASHES"                                                                                                         
@@ -476,11 +411,7 @@ The
 retrieves information on the, or one of the possibly multiple, used
 assay(s).
 
-``` r
-
-adat <- mtbls_assay_data("MTBLS39")
-head(adat)
-```
+`adat`` ``<-`` `[`mtbls_assay_data`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`` `[`head`](https://rdrr.io/r/utils/head.html)`(``adat``)`
 
     ##   Sample Name Protocol REF Parameter Value[Post Extraction]
     ## 1      MN063A   Extraction             methanol/formic acid
@@ -599,11 +530,7 @@ The
 [`mtbls_sample_data()`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)
 retrieves the sample information for a data set.
 
-``` r
-
-sdat <- mtbls_sample_data("MTBLS39")
-head(sdat)
-```
+`sdat`` ``<-`` `[`mtbls_sample_data`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`` `[`head`](https://rdrr.io/r/utils/head.html)`(``sdat``)`
 
     ##                            Source Name Characteristics[Organism]
     ## 1 Vineyard MN,Year 2006,Stage 3,Rep. A            Vitis vinifera
@@ -675,20 +602,13 @@ combines the sample and assay information into a single `data.frame`
 from which individual sample information for the respective MS data
 files could be extracted.
 
-``` r
-
-mdat <- mtbls_metadata("MTBLS39")
-dim(mdat)
-```
+`mdat`` ``<-`` `[`mtbls_metadata`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``"MTBLS39"``)`` `[`dim`](https://rdrr.io/r/base/dim.html)`(``mdat``)`
 
     ## [1] 27 65
 
 ## Session information
 
-``` r
-
-sessionInfo()
-```
+[`sessionInfo`](https://rdrr.io/r/utils/sessionInfo.html)`(``)`
 
     ## R version 4.6.1 (2026-06-24)
     ## Platform: x86_64-pc-linux-gnu
@@ -715,27 +635,27 @@ sessionInfo()
     ## 
     ## other attached packages:
     ## [1] MsBackendMetaboLights_1.7.4 Spectra_1.23.3             
-    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.5           
-    ## [5] BiocGenerics_0.59.10        generics_0.1.4             
+    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.7           
+    ## [5] BiocGenerics_0.59.12        generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.60              bslib_0.11.0           httr2_1.3.0           
-    ##  [4] htmlwidgets_1.6.4      Biobase_2.73.1         vctrs_0.7.3           
+    ##  [1] xfun_0.60              bslib_0.12.0           httr2_1.3.0           
+    ##  [4] htmlwidgets_1.6.4      Biobase_2.73.2         vctrs_0.7.3           
     ##  [7] tools_4.6.1            curl_7.1.0             parallel_4.6.1        
-    ## [10] tibble_3.3.1           RSQLite_3.53.3         cluster_2.1.8.2       
-    ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.4     
+    ## [10] tibble_3.3.1           RSQLite_3.53.3         cluster_2.1.8.3       
+    ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.6.1   
     ## [16] dbplyr_2.6.0           desc_1.4.3             lifecycle_1.0.5       
     ## [19] compiler_4.6.1         textshaping_1.0.5      progress_1.2.3        
     ## [22] codetools_0.2-20       ncdf4_1.24             clue_0.3-68           
     ## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           
     ## [28] pkgdown_2.2.1.9000     pillar_1.11.1          crayon_1.5.3          
-    ## [31] jquerylib_0.1.4        MASS_7.3-65            cachem_1.1.0          
+    ## [31] jquerylib_0.1.4        MASS_7.3-66            cachem_1.1.0          
     ## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         
     ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.47         
     ## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        
     ## [43] withr_3.0.3            prettyunits_1.2.0      filelock_1.0.3        
-    ## [46] bit64_4.8.2            rmarkdown_2.31         bit_4.6.0             
+    ## [46] bit64_4.8.4            rmarkdown_2.31         bit_4.6.0             
     ## [49] otel_0.2.0             ragg_1.5.2             hms_1.1.4             
     ## [52] memoise_2.0.1          evaluate_1.0.5         knitr_1.51            
     ## [55] IRanges_2.47.2         BiocFileCache_3.3.0    rlang_1.3.0           

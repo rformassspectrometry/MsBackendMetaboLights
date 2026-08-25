@@ -4,8 +4,7 @@
 
 ## MsBackendMetaboLights 1.7.4
 
-- Handle MetaboLights data set with file with same file name in multiple
-  assays.
+- Support/handle duplicated file names across multiple assays.
 
 ## MsBackendMetaboLights 1.7.3
 

@@ -22,10 +22,7 @@ Rainer J, Louail P, Tomè G (2026). *MsBackendMetaboLights: Retrieve Mass
 Spectrometry Data from MetaboLights*. R package version 1.7.4,
 <https://github.com/RforMassSpectrometry/MsBackendMetaboLights>.
 
-    @Manual{,
-      title = {MsBackendMetaboLights: Retrieve Mass Spectrometry Data from MetaboLights},
-      author = {Johannes Rainer and Philippine Louail and Gabriele Tomè},
-      year = {2026},
-      note = {R package version 1.7.4},
-      url = {https://github.com/RforMassSpectrometry/MsBackendMetaboLights},
-    }
+@Manual{, title = {MsBackendMetaboLights: Retrieve Mass Spectrometry
+Data from MetaboLights}, author = {Johannes Rainer and Philippine Louail
+and Gabriele Tomè}, year = {2026}, note = {R package version 1.7.4}, url
+= {https://github.com/RforMassSpectrometry/MsBackendMetaboLights}, }

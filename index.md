@@ -19,20 +19,44 @@ locally using the
 [BiocFileCache](https://bioconductor.org/packages/BiocFileCache)
 package.
 
-# Installation
+## Installation
 
-The package can be installed with
+The package can be installed from
+[Bioconductor](https://bioconductor.org) with
 
-``` r
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"MsBackendMetaboLights"``)`
 
-install.packages("BiocManager")
-BiocManager::install("RforMassSpectrometry/MsBackendMetaboLights")
-```
+------------------------------------------------------------------------
 
-# Contributions
+## 🤝 Contributing
 
-Contributions are highly welcome and should follow the [contribution
-guidelines](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions).
-Also, please check the coding style guidelines in the
-[RforMassSpectrometry
-vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html).
+We appreciate contributions of all kinds — from bug fixes and tests to
+documentation and new format support.
+
+If you’re planning to contribute:
+
+1.  Read our [contribution
+    guidelines](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions)
+2.  Follow the [RforMassSpectrometry style
+    guide](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html)
+3.  Fork the repo, create a branch, implement your changes, and submit a
+    pull request —
+
+# Funding information
+
+Part of this work was funded by the **European Union** under the
+**HORIZON-MSCA-2021** project **101073062: HUMAN – Harmonising and
+Unifying Blood Metabolic Analysis Networks**, by the **Autonomous
+Province of Bolzano** under the **MetaRbolomics4Galaxy** project (CUP:
+D53C25001030003) from the *Joint Projects South Tyrol–Germany 2025*
+funding program and by the DFG grant no.
+[564004112](https://gepris.dfg.de/gepris/projekt/564004112?language=en).
+
+![EU
+Logo](https://github.com/rformassspectrometry/Metabonaut/raw/main/vignettes/images/EULogo.jpg)
+
+EU Logo
+
+![funding](https://github.com/rformassspectrometry/MsBackendMassIVE/raw/main/man/figures/SuedDFG-60.png)
+
+funding
