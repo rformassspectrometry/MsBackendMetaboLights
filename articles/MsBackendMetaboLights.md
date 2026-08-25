@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-08-25 06:22:03.15145\
-**Compiled**: Tue Aug 25 06:43:57 2026
+**Last modified:** 2026-08-25 06:57:32.398714\
+**Compiled**: Tue Aug 25 07:18:21 2026
 
 ## Introduction
 
@@ -30,9 +30,9 @@ data directly in R.
 
 ## Installation
 
-The package can be installed from within R with the commands below:
+The package can be installed from Bioconductor with the commands below:
 
-`if`` ``(``!`[`requireNamespace`](https://rdrr.io/r/base/ns-load.html)`(``"BiocManager"``, quietly ``=`` ``TRUE``)``)`` `` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`` `` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"RforMassSpectrometry/MsBackendMetaboLights"``)`
+`if`` ``(``!`[`requireNamespace`](https://rdrr.io/r/base/ns-load.html)`(``"BiocManager"``, quietly ``=`` ``TRUE``)``)`` `` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`` `` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"MsBackendMetaboLights"``)`
 
 ## Importing MS Data from MetaboLights
 
@@ -634,7 +634,7 @@ files could be extracted.
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.4 Spectra_1.23.3             
+    ## [1] MsBackendMetaboLights_1.7.5 Spectra_1.23.3             
     ## [3] BiocParallel_1.47.0         S4Vectors_0.51.7           
     ## [5] BiocGenerics_0.59.12        generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
