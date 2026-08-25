@@ -42,13 +42,13 @@ this data directly in R.
 
 # Installation
 
-The package can be installed from within R with the commands below:
+The package can be installed from Bioconductor with the commands below:
 
 ```{r, eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("RforMassSpectrometry/MsBackendMetaboLights")
+BiocManager::install("MsBackendMetaboLights")
 ```
 
 

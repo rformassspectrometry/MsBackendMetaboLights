@@ -1,5 +1,11 @@
 # MsBackendMetaboLights 1.7
 
+# MsBackendMetaboLights 1.7.5
+
+- Fix installation instructions.
+- Add 4 second pause to several unit tests trying to avoid MetaboLights
+  connection errors.
+
 # MsBackendMetaboLights 1.7.4
 
 - Support/handle duplicated file names across multiple assays.

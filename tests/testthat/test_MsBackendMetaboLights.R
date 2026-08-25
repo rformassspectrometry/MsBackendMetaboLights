@@ -22,9 +22,11 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     expect_error(backendInitialize(MsBackendMetaboLights(), mtblsId = "a"),
                  "Failed to connect")
 
+    Sys.sleep(5)
     ## Test NMR data set
     expect_error(backendInitialize(MsBackendMetaboLights(),
                                    mtblsId = "MTBLS100"), "No files matching")
+    Sys.sleep(5)
     ## Test real data set.
     res <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                              filePattern = "63A.cdf")
@@ -52,10 +54,12 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
                                 fileName = "AM063A.cdf", offline = TRUE)
     expect_equal(Spectra::rtime(res_f), Spectra::rtime(res_fo))
 
+    Sys.sleep(5)
     expect_error(
         backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                           filePattern = "63A.cdf", fileName = "does_not_exist"),
         "None of the ")
+    Sys.sleep(5)
     expect_error(
         backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                           filePattern = "63A.cdf", fileName = "does_not_exist",
@@ -120,6 +124,7 @@ test_that(".valid_files_local works", {
 })
 
 test_that("backendMerge,MsBackendMetaboLights works", {
+    Sys.sleep(5)
     ## Online mode
     be <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                             filePattern = "A.cdf")
@@ -133,6 +138,7 @@ test_that("backendMerge,MsBackendMetaboLights works", {
     ## Offline data
     a <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                            filePattern = "63A.cdf", offline = TRUE)
+    Sys.sleep(5)
     b <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS8735",
                            filePattern = "2_E_POS.mzML")
 

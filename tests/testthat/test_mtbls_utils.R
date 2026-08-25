@@ -67,6 +67,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     ## Cache the data: MTBLS39 contains small cdf files, but they are listed
     ## in the Raw Spectral Data File column. Will use a specfic pattern to
     ## just load 3 files.
+    Sys.sleep(5)
     a <- .mtbls_data_files("MTBLS39", pattern = "63A.cdf")
     expect_true(is.data.frame(a))
     expect_true(nrow(a) == 3)
@@ -109,6 +110,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
 })
 
 test_that("mtbls_sync_data_files works", {
+    Sys.sleep(5)
     expect_error(mtbls_sync_data_files(), "No MetaboLights data")
     expect_error(mtbls_sync_data_files(c("a", "b")), "single")
     res <- mtbls_sync_data_files("MTBLS39", pattern = "*",
@@ -148,6 +150,7 @@ test_that("mtbls_assay_data works", {
     expect_true(is.data.frame(res))
     expect_true(nrow(res) == 0L)
 
+    Sys.sleep(5)
     expect_error(mtbls_assay_data(id, "aaaa"), "does not exist")
     res <- mtbls_assay_data(id)
     expect_true(is.data.frame(res))
@@ -160,6 +163,7 @@ test_that("mtbls_sample_data works", {
     expect_true(is.data.frame(res))
     expect_true(nrow(res) == 0L)
 
+    Sys.sleep(5)
     res <- mtbls_sample_data(id)
     expect_true(is.data.frame(res))
     expect_true(nrow(res) > 0)
