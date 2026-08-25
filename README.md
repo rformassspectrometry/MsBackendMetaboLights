@@ -4,6 +4,7 @@
 [![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/actions?query=workflow%3AR-CMD-check-bioc)
 [![codecov](https://codecov.io/gh/rformassspectrometry/MsBackendMetaboLights/graph/badge.svg?token=jpxt7OlA2k)](https://codecov.io/gh/rformassspectrometry/MsBackendMetaboLights)
 [![:name status badge](https://rformassspectrometry.r-universe.dev/badges/:name)](https://rformassspectrometry.r-universe.dev/)
+[![years in bioc](http://bioconductor.org/shields/years-in-bioc/MsBackendMetaboLights.svg)](https://doi.org/doi:10.18129/B9.bioc.MsBackendMetaboLights)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 This repository provides a *backend* for
