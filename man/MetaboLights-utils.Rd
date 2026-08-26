@@ -155,6 +155,9 @@ File names are returned in \strong{alphabetic order}.
 }
 \examples{
 
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
+
 ## Get the FTP path to the data set MTBLS2
 mtbls_ftp_path("MTBLS2")
 
@@ -173,6 +176,9 @@ a <- MsCoreUtils::retry(
     header = TRUE, sep = "\t", check.names = FALSE),
     ntimes = 5, sleep_mult = 4)
 head(a)
+
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
 
 ## Get the assay information for one MTBLS data set
 mtbls_assay_data("MTBLS2")

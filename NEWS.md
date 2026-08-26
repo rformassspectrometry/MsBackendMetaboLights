@@ -1,5 +1,9 @@
 # MsBackendMetaboLights 1.7
 
+# MsBackendMetaboLights 1.7.6
+
+- Add 5 second pause to examples.
+
 # MsBackendMetaboLights 1.7.5
 
 - Fix installation instructions.
