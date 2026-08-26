@@ -188,6 +188,9 @@ Philippine Louail, Johannes Rainer
 
 ``` r
 
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
+
 library(MsBackendMetaboLights)
 
 ## List files of a MetaboLights data set
@@ -230,6 +233,9 @@ be
 #> MTBLS39_1_AM063B.cdf
 #> MTBLS39_1_AM063C.cdf
 #>  ... 24 more files
+
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
 
 ## The `mtbls_sync()` function can be used to ensure that all data files are
 ## available locally. This function will eventually download missing data

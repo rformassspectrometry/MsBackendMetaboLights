@@ -35,7 +35,7 @@ mtbls_cached_data_files() for more information."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -237,6 +237,9 @@ the MetaboLights repository.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## INFO: adding a small pause to ensure unit test wan't fail</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RforMassSpectrometry/MsBackendMetaboLights" class="external-link">MsBackendMetaboLights</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## List files of a MetaboLights data set</span></span></span>
@@ -279,6 +282,9 @@ the MetaboLights repository.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_1_AM063B.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MTBLS39_1_AM063C.cdf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... 24 more files</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## INFO: adding a small pause to ensure unit test wan't fail</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## The `mtbls_sync()` function can be used to ensure that all data files are</span></span></span>
 <span class="r-in"><span><span class="co">## available locally. This function will eventually download missing data</span></span></span>

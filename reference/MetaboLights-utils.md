@@ -180,6 +180,9 @@ Johannes Rainer, Philippine Louail
 
 ``` r
 
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
+
 ## Get the FTP path to the data set MTBLS2
 mtbls_ftp_path("MTBLS2")
 #> [1] "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS2/"
@@ -370,6 +373,9 @@ head(a)
 #> 4                    Exp1              NA                    NA
 #> 5                    Exp1              NA                    NA
 #> 6                    Exp1              NA                    NA
+
+## INFO: adding a small pause to ensure unit test wan't fail
+Sys.sleep(5)
 
 ## Get the assay information for one MTBLS data set
 mtbls_assay_data("MTBLS2")
