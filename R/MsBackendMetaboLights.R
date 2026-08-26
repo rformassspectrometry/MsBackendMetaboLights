@@ -144,6 +144,9 @@
 #'
 #' @examples
 #'
+#' ## INFO: adding a small pause to ensure unit test wan't fail
+#' Sys.sleep(5)
+#'
 #' library(MsBackendMetaboLights)
 #'
 #' ## List files of a MetaboLights data set
@@ -155,6 +158,9 @@
 #'
 #' be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
 #' be
+#'
+#' ## INFO: adding a small pause to ensure unit test wan't fail
+#' Sys.sleep(5)
 #'
 #' ## The `mtbls_sync()` function can be used to ensure that all data files are
 #' ## available locally. This function will eventually download missing data
