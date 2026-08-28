@@ -450,7 +450,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
                                       assayName = character(),
                                       pattern = "mzML$|CDF$|mzXML$") {
     bfc <- BiocFileCache()
-    if (!.mtbls_has_mtbls_table())
+    if (!.mtbls_has_mtbls_table(bfc))
         stop("No local MetaboLights cache available. Please re-run with ",
              "'offline = FALSE' first.", call. = FALSE)
     res <- as.data.frame(bfcquery(bfc, mtblsId, field = "mtbls_id"))
@@ -469,8 +469,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' @importMethodsFrom BiocFileCache bfcmetalist
 #'
 #' @noRd
-.mtbls_has_mtbls_table <- function() {
-    bfc <- BiocFileCache()
+.mtbls_has_mtbls_table <- function(bfc) {
     any(bfcmetalist(bfc) == "MTBLS")
 }
 
