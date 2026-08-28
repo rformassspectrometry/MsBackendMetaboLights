@@ -2,6 +2,11 @@
 
 ## MsBackendMetaboLights 1.7
 
+## MsBackendMetaboLights 1.7.7
+
+- Internal refactoring to reduce need to load `BiocFileCache`
+  repeatedly.
+
 ## MsBackendMetaboLights 1.7.6
 
 - Add 5 second pause to examples.

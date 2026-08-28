@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-08-26 06:09:53.889241\
-**Compiled**: Wed Aug 26 06:38:50 2026
+**Last modified:** 2026-08-28 12:22:48.393979\
+**Compiled**: Fri Aug 28 12:51:27 2026
 
 ## Introduction
 
@@ -634,8 +634,8 @@ files could be extracted.
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.6 Spectra_1.23.3             
-    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.7           
+    ## [1] MsBackendMetaboLights_1.7.7 Spectra_1.23.3             
+    ## [3] BiocParallel_1.47.0         S4Vectors_0.51.9           
     ## [5] BiocGenerics_0.59.12        generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
     ## 
@@ -658,7 +658,7 @@ files could be extracted.
     ## [46] bit64_4.8.4            rmarkdown_2.31         bit_4.6.0             
     ## [49] otel_0.2.0             ragg_1.5.2             hms_1.1.4             
     ## [52] memoise_2.0.1          evaluate_1.0.5         knitr_1.51            
-    ## [55] IRanges_2.47.2         BiocFileCache_3.3.0    rlang_1.3.0           
+    ## [55] IRanges_2.47.3         BiocFileCache_3.3.0    rlang_1.3.0           
     ## [58] Rcpp_1.1.2             glue_1.8.1             DBI_1.3.0             
     ## [61] mzR_2.47.0             BiocManager_1.30.27    jsonlite_2.0.0        
     ## [64] R6_2.6.1               systemfonts_1.3.2      fs_2.1.0              
