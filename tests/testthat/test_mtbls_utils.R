@@ -59,7 +59,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
 
     ## Error if no cache available
     with_mocked_bindings(
-        ".mtbls_has_mtbls_table" = function() FALSE,
+        ".mtbls_has_mtbls_table" = function(bfc) FALSE,
         code = expect_error(.mtbls_data_files_offline("MTBLS39"),
                             "No local MetaboLights cache")
     )
@@ -96,7 +96,8 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_true(all(b$mtbls_id == "MTBLS39"))
     expect_equal(a$rpath, b$rpath)
 
-    expect_true(.mtbls_has_mtbls_table())
+    b <- BiocFileCache()
+    expect_true(.mtbls_has_mtbls_table(b))
 
     ## Use offline
     expect_error(.mtbls_data_files_offline("MTBLS39", assayName = "something"),
