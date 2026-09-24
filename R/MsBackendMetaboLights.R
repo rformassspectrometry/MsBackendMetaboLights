@@ -144,7 +144,8 @@
 #'
 #' @examples
 #'
-#' ## INFO: adding a small pause to ensure unit test wan't fail
+#' ## INFO: adding a small pause to ensure unit test don't fail on the
+#' ## Bioconductor build systems
 #' Sys.sleep(5)
 #'
 #' library(MsBackendMetaboLights)
@@ -159,7 +160,8 @@
 #' be <- backendInitialize(MsBackendMetaboLights(), "MTBLS39")
 #' be
 #'
-#' ## INFO: adding a small pause to ensure unit test wan't fail
+#' ## INFO: adding a small pause to ensure unit test don't fail on the
+#' ## Bioconductor build systems
 #' Sys.sleep(5)
 #'
 #' ## The `mtbls_sync()` function can be used to ensure that all data files are

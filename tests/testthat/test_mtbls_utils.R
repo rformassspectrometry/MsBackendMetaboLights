@@ -1,5 +1,5 @@
 alist_ms <- .mtbls_assay_list("MTBLS2")
-Sys.sleep(4)
+Sys.sleep(sample(2:7, 1))
 alist_nmr <- .mtbls_assay_list("MTBLS123")
 
 test_that("mtbls_ftp_path works", {
@@ -16,14 +16,14 @@ test_that("mtbls_ftp_path works", {
 })
 
 test_that("mtbls_list_files works", {
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
     res <- mtbls_list_files("MTBLS8735", pattern = "^a_")
     expect_true(length(res) == 2)
     expect_error(mtbls_list_files("AAA"), "Failed to connect")
 })
 
 test_that(".mtbls_assay_list works", {
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
     res <- .mtbls_assay_list("MTBLS8735")
     expect_true(is.list(res))
     expect_true(length(res) == 2L)
@@ -67,13 +67,13 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     ## Cache the data: MTBLS39 contains small cdf files, but they are listed
     ## in the Raw Spectral Data File column. Will use a specfic pattern to
     ## just load 3 files.
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     a <- .mtbls_data_files("MTBLS39", pattern = "63A.cdf")
     expect_true(is.data.frame(a))
     expect_true(nrow(a) == 3)
     expect_true(all(a$mtbls_id == "MTBLS39"))
     ## Re-call function the data.
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
     b <- .mtbls_data_files("MTBLS39", pattern = "63A.cdf")
     expect_true(is.data.frame(b))
     expect_true(nrow(b) == 3)
@@ -85,7 +85,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
                                    fileName = c("a", "b")), "None of the ")
 
     ## with assayName
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
     b <- .mtbls_data_files(
         "MTBLS39", pattern = "63A.cdf",
         assayName = paste0("a_MTBLS39_the_plasticity_of_the_grapevine_berry",
@@ -111,7 +111,7 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
 })
 
 test_that("mtbls_sync_data_files works", {
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     expect_error(mtbls_sync_data_files(), "No MetaboLights data")
     expect_error(mtbls_sync_data_files(c("a", "b")), "single")
     res <- mtbls_sync_data_files("MTBLS39", pattern = "*",
@@ -151,7 +151,7 @@ test_that("mtbls_assay_data works", {
     expect_true(is.data.frame(res))
     expect_true(nrow(res) == 0L)
 
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     expect_error(mtbls_assay_data(id, "aaaa"), "does not exist")
     res <- mtbls_assay_data(id)
     expect_true(is.data.frame(res))
@@ -164,7 +164,7 @@ test_that("mtbls_sample_data works", {
     expect_true(is.data.frame(res))
     expect_true(nrow(res) == 0L)
 
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     res <- mtbls_sample_data(id)
     expect_true(is.data.frame(res))
     expect_true(nrow(res) > 0)

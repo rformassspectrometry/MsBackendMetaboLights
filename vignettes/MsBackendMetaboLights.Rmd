@@ -91,7 +91,10 @@ mtbls_ftp_path("MTBLS39")
 ```
 
 ```{r, echo = FALSE}
-Sys.sleep(4)
+#' Sleep for random number of seconds; only needed to ensure daily unit
+#' tests from Bioconductor don't fail because of rate limitations of\
+#' the MetaboLights repository
+Sys.sleep(sample(1:7, 1))
 ```
 
 We could inspect the content of this folder also using a browser supporting the
@@ -133,6 +136,13 @@ these data columns.
 
 ```{r}
 a[, c("Raw Spectral Data File", "Derived Spectral Data File")]
+```
+
+```{r, echo = FALSE}
+#' Sleep for random number of seconds; only needed to ensure daily unit
+#' tests from Bioconductor don't fail because of rate limitations of\
+#' the MetaboLights repository
+Sys.sleep(sample(1:7, 1))
 ```
 
 For this particular data set the MS data files are provided in the `"Raw
@@ -201,7 +211,10 @@ The `mtbls_sync()` function can be used to *synchronize* the local content of a
 are available locally and eventually downloads and caches missing files.
 
 ```{r, echo = FALSE}
-Sys.sleep(4)
+#' Sleep for random number of seconds; only needed to ensure daily unit
+#' tests from Bioconductor don't fail because of rate limitations of\
+#' the MetaboLights repository
+Sys.sleep(sample(1:7, 1))
 ```
 
 ```{r}
@@ -266,6 +279,13 @@ MS data files could be extracted.
 ```{r}
 mdat <- mtbls_metadata("MTBLS39")
 dim(mdat)
+```
+
+```{r, echo = FALSE}
+#' Sleep for random number of seconds; only needed to ensure daily unit
+#' tests from Bioconductor don't fail because of rate limitations of\
+#' the MetaboLights repository
+Sys.sleep(sample(1:7, 1))
 ```
 
 # Session information
