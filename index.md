@@ -26,7 +26,9 @@ package.
 The package can be installed from
 [Bioconductor](https://bioconductor.org) with
 
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"MsBackendMetaboLights"``)`
+\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`\
+`BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"MsBackendMetaboLights"``)`
 
 ------------------------------------------------------------------------
 

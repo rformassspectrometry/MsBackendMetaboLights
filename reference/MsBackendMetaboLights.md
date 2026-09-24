@@ -188,7 +188,8 @@ Philippine Louail, Johannes Rainer
 
 ``` r
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 library(MsBackendMetaboLights)
@@ -234,7 +235,8 @@ be
 #> MTBLS39_1_AM063C.cdf
 #>  ... 24 more files
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 ## The `mtbls_sync()` function can be used to ensure that all data files are

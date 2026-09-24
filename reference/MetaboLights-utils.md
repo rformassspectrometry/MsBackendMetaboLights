@@ -180,7 +180,8 @@ Johannes Rainer, Philippine Louail
 
 ``` r
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 ## Get the FTP path to the data set MTBLS2
@@ -374,7 +375,8 @@ head(a)
 #> 5                    Exp1              NA                    NA
 #> 6                    Exp1              NA                    NA
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 ## Get the assay information for one MTBLS data set
