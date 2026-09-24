@@ -155,7 +155,8 @@ File names are returned in \strong{alphabetic order}.
 }
 \examples{
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 ## Get the FTP path to the data set MTBLS2
@@ -177,7 +178,8 @@ a <- MsCoreUtils::retry(
     ntimes = 5, sleep_mult = 4)
 head(a)
 
-## INFO: adding a small pause to ensure unit test wan't fail
+## INFO: adding a small pause to ensure unit test don't fail on the
+## Bioconductor build systems
 Sys.sleep(5)
 
 ## Get the assay information for one MTBLS data set

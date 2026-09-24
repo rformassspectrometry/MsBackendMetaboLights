@@ -22,11 +22,11 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
     expect_error(backendInitialize(MsBackendMetaboLights(), mtblsId = "a"),
                  "Failed to connect")
 
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     ## Test NMR data set
     expect_error(backendInitialize(MsBackendMetaboLights(),
                                    mtblsId = "MTBLS100"), "No files matching")
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     ## Test real data set.
     res <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                              filePattern = "63A.cdf")
@@ -41,7 +41,7 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
                                filePattern = "63A.cdf", offline = TRUE)
     expect_equal(Spectra::rtime(res), Spectra::rtime(res_o))
 
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
     res_f <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                                filePattern = "63A.cdf",
                                fileName = "AM063A.cdf")
@@ -54,12 +54,12 @@ test_that("backendInitialize,MsBackendMetaboLights works", {
                                 fileName = "AM063A.cdf", offline = TRUE)
     expect_equal(Spectra::rtime(res_f), Spectra::rtime(res_fo))
 
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     expect_error(
         backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                           filePattern = "63A.cdf", fileName = "does_not_exist"),
         "None of the ")
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     expect_error(
         backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                           filePattern = "63A.cdf", fileName = "does_not_exist",
@@ -86,7 +86,7 @@ test_that("mtbls_sync works", {
     mtbls_delete_cache("MTBLS39")
     expect_error(mtbls_sync(x, offline = TRUE), "No locally cached data files")
 
-    Sys.sleep(4)
+    Sys.sleep(sample(2:7, 1))
 
     ## Re-add content
     res <- mtbls_sync(x, offline = FALSE)
@@ -124,7 +124,7 @@ test_that(".valid_files_local works", {
 })
 
 test_that("backendMerge,MsBackendMetaboLights works", {
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     ## Online mode
     be <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                             filePattern = "A.cdf")
@@ -138,7 +138,7 @@ test_that("backendMerge,MsBackendMetaboLights works", {
     ## Offline data
     a <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS39",
                            filePattern = "63A.cdf", offline = TRUE)
-    Sys.sleep(5)
+    Sys.sleep(sample(2:7, 1))
     b <- backendInitialize(MsBackendMetaboLights(), mtblsId = "MTBLS8735",
                            filePattern = "2_E_POS.mzML")
 

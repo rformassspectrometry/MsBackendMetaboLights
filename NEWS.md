@@ -1,5 +1,10 @@
 # MsBackendMetaboLights 1.7
 
+# MsBackendMetaboLights 1.7.8
+
+- Add sleep/delay calls to vignette to reduce failures on Bioconductor build
+  systems.
+
 # MsBackendMetaboLights 1.7.7
 
 - Internal refactoring to reduce need to load `BiocFileCache` repeatedly.
