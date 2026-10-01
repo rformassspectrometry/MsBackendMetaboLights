@@ -21,7 +21,10 @@ importFrom(BiocFileCache,
   bfcremove,
   bfcupdate
 )
-importFrom(MsCoreUtils,retry)
+importFrom(MsCoreUtils,
+  rbindFill,
+  retry
+)
 importFrom(S4Vectors,DataFrame)
 importFrom(Spectra,MsBackendMzR)
 importFrom(curl,
@@ -43,8 +46,10 @@ importFrom(utils,
   read.table
 )
 importMethodsFrom(BiocFileCache,"bfcmeta<-")
+importMethodsFrom(BiocFileCache,bfcmeta)
 importMethodsFrom(BiocFileCache,bfcmetalist)
 importMethodsFrom(BiocFileCache,bfcquery)
+importMethodsFrom(BiocFileCache,bfcrid)
 importMethodsFrom(BiocFileCache,bfcrpath)
 importMethodsFrom(ProtGenerics,backendInitialize)
 importMethodsFrom(ProtGenerics,dataOrigin)
