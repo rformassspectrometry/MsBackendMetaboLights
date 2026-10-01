@@ -2,6 +2,13 @@
 
 ## MsBackendMetaboLights 1.7
 
+## MsBackendMetaboLights 1.7.9
+
+- Fix assay IDs being computed from the selected assays only
+  (`assayName`), causing files with the same name in different assays to
+  overwrite each other when assays were synced individually (issue
+  [\#27](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/27)).
+
 ## MsBackendMetaboLights 1.7.8
 
 - Add sleep/delay calls to vignette to reduce failures on Bioconductor

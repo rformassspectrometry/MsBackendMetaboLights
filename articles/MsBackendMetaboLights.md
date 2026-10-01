@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-09-24 09:53:52.143554\
-**Compiled**: Thu Sep 24 10:25:13 2026
+**Last modified:** 2026-10-01 12:01:55.677032\
+**Compiled**: Thu Oct 1 12:25:23 2026
 
 ## Introduction
 
@@ -382,7 +382,7 @@ the MetaboLights data set *MTBLS39*:
 `res`
 
     ##     rid mtbls_id
-    ## 1 BFC41  MTBLS39
+    ## 1 BFC45  MTBLS39
     ##                                                                                           mtbls_assay_name
     ## 1 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##   mtbls_assay_id derived_spectral_data_file
@@ -401,7 +401,7 @@ since only local content is queried. With the default settings, a
 [`mtbls_cached_data_files`](https://rformassspectrometry.github.io/MsBackendMetaboLights/reference/MetaboLights-utils.md)`(``)`
 
     ##      rid mtbls_id
-    ## 27 BFC41  MTBLS39
+    ## 27 BFC45  MTBLS39
     ##                                                                                            mtbls_assay_name
     ## 27 a_MTBLS39_the_plasticity_of_the_grapevine_berry_transcriptome_metabolite_profiling_mass_spectrometry.txt
     ##    mtbls_assay_id derived_spectral_data_file
@@ -674,7 +674,7 @@ files could be extracted.
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.8 Spectra_1.23.5             
+    ## [1] MsBackendMetaboLights_1.7.9 Spectra_1.23.5             
     ## [3] BiocParallel_1.47.0         S4Vectors_0.51.10          
     ## [5] BiocGenerics_0.59.12        generics_0.1.4             
     ## [7] BiocStyle_2.41.0           
