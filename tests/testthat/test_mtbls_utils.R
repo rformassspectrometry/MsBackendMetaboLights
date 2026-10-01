@@ -110,6 +110,31 @@ test_that(".mtbls_data_files and .mtbls_data_files_offline works", {
     expect_equal(a$rpath, d$rpath)
 })
 
+test_that(".mtbls_data_files assay IDs do not depend on assayName", {
+    neg <- "a_MTBLS11656_LC-MS_negative_reverse-phase_metabolite_profiling.txt"
+    pos <- "a_MTBLS11656_LC-MS_positive_reverse-phase_metabolite_profiling.txt"
+    mtbls_delete_cache("MTBLS11656")
+
+    Sys.sleep(sample(2:7, 1))
+    a <- .mtbls_data_files("MTBLS11656", assayName = neg, pattern = "mzXML$",
+                           fileName = "B-119.mzXML")
+    Sys.sleep(sample(2:7, 1))
+    b <- .mtbls_data_files("MTBLS11656", assayName = pos, pattern = "mzXML$",
+                           fileName = "B-119.mzXML")
+    expect_equal(a$mtbls_assay_id, 1L)
+    expect_equal(b$mtbls_assay_id, 2L)
+    expect_true(a$rpath != b$rpath)
+    expect_true(file.size(a$rpath) != file.size(b$rpath))
+
+    Sys.sleep(sample(2:7, 1))
+    ab <- .mtbls_data_files("MTBLS11656", pattern = "mzXML$",
+                            fileName = "B-119.mzXML")
+    expect_equal(ab$mtbls_assay_id, c(1L, 2L))
+    expect_equal(ab$rpath, c(a$rpath, b$rpath))
+
+    mtbls_delete_cache("MTBLS11656")
+})
+
 test_that("mtbls_sync_data_files works", {
     Sys.sleep(sample(2:7, 1))
     expect_error(mtbls_sync_data_files(), "No MetaboLights data")

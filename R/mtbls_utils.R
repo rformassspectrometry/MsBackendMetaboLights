@@ -315,7 +315,9 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 #' - `"rid"`: the BiocFileCache ID of each file.
 #' - `"mtbls_id"`: the MTBLS ID
 #' - `"mtbls_assay_name"`: the name of the assay file for each data file
-#' - `"mtbls_assay_id"`: the ID of the assay file for each data file
+#' - `"mtbls_assay_id"`: the ID of the assay file for each data file, i.e. the
+#'   index of the assay in the (alphabetically sorted) list of all assays of
+#'   the data set. It does not depend on `assayName`.
 #' - `"derived_spectral_data_file"`: the name of the data file in the assay
 #'   file/table
 #' - `"rpath"`: the name of the cached data file (full local path)
@@ -373,7 +375,7 @@ mtbls_cached_data_files <- function(mtblsId = character(),
     }
     ## Cache files
     bfc <- BiocFileCache()
-    assay_idx <- as.integer(as.factor(rep(names(dfiles), lengths(dfiles))))
+    assay_idx <- match(rep(names(dfiles), lengths(dfiles)), anames)
     lfiles <- .bfc_cache_files(URLencode(paste0(fpath, ffiles)), bfc,
                                 paste0(mtblsId, "_", assay_idx))
     ## Remove 0 size files and re-run
@@ -387,7 +389,8 @@ mtbls_cached_data_files <- function(mtblsId = character(),
         rid <- b$rid[b$rpath %in% lfiles[fsize == 0]]
         if (length(rid)) bfcremove(bfc, rids = rid)
         mis <- .bfc_cache_files(URLencode(paste0(fpath, ffiles[fsize == 0])),
-                                bfc, paste0(mtblsId, "_", assay_idx))
+                                bfc,
+                                paste0(mtblsId, "_", assay_idx[fsize == 0]))
         names(lfiles)[match(mis, lfiles)] <- names(mis)
     }
     ## Add and store metadata to the cached files
