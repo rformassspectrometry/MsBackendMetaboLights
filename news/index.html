@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsBackendMetaboLights</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7" id="msbackendmetabolights-17">MsBackendMetaboLights 1.7<a class="anchor" aria-label="anchor" href="#msbackendmetabolights-17"></a></h2>
 </div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.7.10" id="msbackendmetabolights-1710">MsBackendMetaboLights 1.7.10<a class="anchor" aria-label="anchor" href="#msbackendmetabolights-1710"></a></h2>
+<ul><li>Fix syncing data files replacing the metadata of all previously cached files, which could then no longer be found offline (with <code><a href="../reference/MetaboLights-utils.html">mtbls_cached_data_files()</a></code> or <code>offline = TRUE</code>). The metadata is now merged with the existing content (issue <a href="https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/29" class="external-link">#29</a>).</li>
+<li>Data files cached with previous versions that are no longer found offline need to be synced once online again (e.g. with <code><a href="../reference/MetaboLights-utils.html">mtbls_sync_data_files()</a></code> using the same <code>fileName</code>) to become available offline. Files are not downloaded again.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7.9" id="msbackendmetabolights-179">MsBackendMetaboLights 1.7.9<a class="anchor" aria-label="anchor" href="#msbackendmetabolights-179"></a></h2>
 <ul><li>Fix assay IDs being computed from the selected assays only (<code>assayName</code>), causing files with the same name in different assays to overwrite each other when assays were synced individually (issue <a href="https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/27" class="external-link">#27</a>).</li>

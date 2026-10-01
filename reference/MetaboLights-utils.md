@@ -931,5 +931,10 @@ mtbls_sample_data("MTBLS2")
 
 ## List all available files
 mtbls_cached_data_files()
-#> Error: No locally cached data files found for the specified parameters.
+#>     rid  mtbls_id                                            mtbls_assay_name
+#> 1 BFC37 MTBLS8735 a_MTBLS8735_LC-MSMS_positive_hilic_metabolite_profiling.txt
+#>   mtbls_assay_id derived_spectral_data_file
+#> 1              2      FILES/MS_2_E_POS.mzML
+#>                                                                         rpath
+#> 1 /github/home/.cache/R/BiocFileCache/MTBLS8735_2_MTBLS8735_1_MS_2_E_POS.mzML
 ```
