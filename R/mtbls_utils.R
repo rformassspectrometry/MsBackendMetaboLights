@@ -407,21 +407,20 @@ mtbls_cached_data_files <- function(mtblsId = character(),
 
 #' Add the metadata `x` of cached data files to the *MTBLS* table of the
 #' BiocFileCache, keeping the metadata of all other (still) cached files.
-#' For backward compatibility, a table created by a previous package version
-#' (lacking column `"mtbls_assay_id"`) is replaced instead.
+#' For backward compatibility, columns missing in a table created by a
+#' previous package version (e.g. `"mtbls_assay_id"`) are filled with `NA`.
 #'
 #' @importMethodsFrom BiocFileCache bfcmeta bfcrid
+#'
+#' @importFrom MsCoreUtils rbindFill
 #'
 #' @noRd
 .mtbls_update_mtbls_table <- function(bfc, x) {
     if (.mtbls_has_mtbls_table(bfc)) {
         m <- bfcmeta(bfc, "MTBLS")
-        ## Backward compatibility: tables from previous package versions lack
-        ## column "mtbls_assay_id".
-        if (all(colnames(x) %in% colnames(m))) {
-            keep <- !m$rid %in% x$rid & m$rid %in% bfcrid(bfc)
-            x <- rbind(m[keep, colnames(x)], x)
-        }
+        keep <- !(m$rid %in% x$rid) & (m$rid %in% bfcrid(bfc))
+        if (any(keep))
+            x <- rbindFill(m[keep, ], x)
     }
     bfcmeta(bfc, name = "MTBLS", overwrite = TRUE) <- x
 }

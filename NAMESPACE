@@ -21,7 +21,10 @@ importFrom(BiocFileCache,
   bfcremove,
   bfcupdate
 )
-importFrom(MsCoreUtils,retry)
+importFrom(MsCoreUtils,
+  rbindFill,
+  retry
+)
 importFrom(S4Vectors,DataFrame)
 importFrom(Spectra,MsBackendMzR)
 importFrom(curl,

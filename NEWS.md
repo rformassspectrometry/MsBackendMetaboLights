@@ -7,6 +7,10 @@
   `mtbls_cached_data_files()` or `offline = TRUE`). The metadata is now
   merged with the existing content (issue
   [#29](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/29)).
+- Data files cached with previous versions that are no longer found offline
+  need to be synced once online again (e.g. with `mtbls_sync_data_files()`
+  using the same `fileName`) to become available offline. Files are not
+  downloaded again.
 
 # MsBackendMetaboLights 1.7.9
 
