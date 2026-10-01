@@ -43,8 +43,10 @@ importFrom(utils,
   read.table
 )
 importMethodsFrom(BiocFileCache,"bfcmeta<-")
+importMethodsFrom(BiocFileCache,bfcmeta)
 importMethodsFrom(BiocFileCache,bfcmetalist)
 importMethodsFrom(BiocFileCache,bfcquery)
+importMethodsFrom(BiocFileCache,bfcrid)
 importMethodsFrom(BiocFileCache,bfcrpath)
 importMethodsFrom(ProtGenerics,backendInitialize)
 importMethodsFrom(ProtGenerics,dataOrigin)

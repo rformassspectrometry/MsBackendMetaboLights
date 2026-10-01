@@ -158,6 +158,21 @@ test_that("mtbls_cached_data_files works", {
     expect_equal(basename(res$derived_spectral_data_file), "AM063A.cdf")
 })
 
+test_that(".mtbls_data_files keeps previously cached files", {
+    mtbls_delete_cache("MTBLS39")
+    Sys.sleep(sample(2:7, 1))
+    a <- .mtbls_data_files("MTBLS39", pattern = "*", fileName = "AM063A.cdf")
+    Sys.sleep(sample(2:7, 1))
+    b <- .mtbls_data_files("MTBLS39", pattern = "*", fileName = "MN063A.cdf")
+
+    res <- mtbls_cached_data_files("MTBLS39")
+    expect_true(is.data.frame(res))
+    expect_true(nrow(res) == 2)
+    expect_equal(basename(res$derived_spectral_data_file),
+                 c("AM063A.cdf", "MN063A.cdf"))
+    expect_equal(res$rpath, c(a$rpath, b$rpath))
+})
+
 
 test_that("mtbls_delete_cache works", {
     bfc <- BiocFileCache()

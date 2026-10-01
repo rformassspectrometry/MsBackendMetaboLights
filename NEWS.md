@@ -1,5 +1,13 @@
 # MsBackendMetaboLights 1.7
 
+# MsBackendMetaboLights 1.7.10
+
+- Fix syncing data files replacing the metadata of all previously cached
+  files, which could then no longer be found offline (with
+  `mtbls_cached_data_files()` or `offline = TRUE`). The metadata is now
+  merged with the existing content (issue
+  [#29](https://github.com/rformassspectrometry/MsBackendMetaboLights/issues/29)).
+
 # MsBackendMetaboLights 1.7.9
 
 - Fix assay IDs being computed from the selected assays only (`assayName`),
