@@ -9,8 +9,8 @@
 MetaRbolomics4Galaxy project (CUP: D53C25001030003) co-funded by the
 Autonomous Province of Bolzano under the Joint Projects South
 Tyrol–Germany 2025 program.)\
-**Last modified:** 2026-10-01 14:02:56.518119\
-**Compiled**: Thu Oct 1 14:32:19 2026
+**Last modified:** 2026-11-17 14:13:16.804456\
+**Compiled**: Tue Nov 17 15:14:55 2026
 
 ## Introduction
 
@@ -760,7 +760,7 @@ files could be extracted.
 
     ## R version 4.6.1 (2026-06-24)
     ## Platform: x86_64-pc-linux-gnu
-    ## Running under: Ubuntu 24.04.4 LTS
+    ## Running under: Ubuntu 24.04.5 LTS
     ## 
     ## Matrix products: default
     ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -782,15 +782,15 @@ files could be extracted.
     ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] MsBackendMetaboLights_1.7.10 Spectra_1.23.5              
+    ## [1] MsBackendMetaboLights_1.7.11 Spectra_1.23.7              
     ## [3] BiocParallel_1.47.0          S4Vectors_0.51.10           
-    ## [5] BiocGenerics_0.59.12         generics_0.1.4              
+    ## [5] BiocGenerics_0.59.13         generics_0.1.4              
     ## [7] BiocStyle_2.41.0            
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] xfun_0.61              bslib_0.12.0           httr2_1.3.0           
+    ##  [1] xfun_0.62              bslib_0.12.0           httr2_1.3.0           
     ##  [4] htmlwidgets_1.6.4      Biobase_2.73.2         vctrs_0.7.3           
-    ##  [7] tools_4.6.1            curl_8.0.0             parallel_4.6.1        
+    ##  [7] tools_4.6.1            curl_8.1.0             parallel_4.6.1        
     ## [10] tibble_3.3.1           RSQLite_3.53.3         cluster_2.1.8.3       
     ## [13] blob_1.3.0             pkgconfig_2.0.3        data.table_1.18.6.1   
     ## [16] dbplyr_2.6.0           desc_1.4.3             lifecycle_1.0.5       
@@ -799,15 +799,15 @@ files could be extracted.
     ## [25] htmltools_0.5.9        sass_0.4.10            yaml_2.3.12           
     ## [28] pkgdown_2.2.1.9000     pillar_1.11.1          crayon_1.5.3          
     ## [31] jquerylib_0.1.4        MASS_7.3-66            cachem_1.1.0          
-    ## [34] MetaboCoreUtils_1.21.1 tidyselect_1.2.1       digest_0.6.39         
+    ## [34] MetaboCoreUtils_1.21.2 tidyselect_1.2.1       digest_0.6.39         
     ## [37] dplyr_1.2.1            purrr_1.2.2            bookdown_0.48         
     ## [40] fastmap_1.2.0          cli_3.6.6              magrittr_2.0.5        
     ## [43] withr_3.0.3            prettyunits_1.2.0      filelock_1.0.3        
     ## [46] bit64_4.8.6            rmarkdown_2.32         bit_4.6.0             
     ## [49] otel_0.2.0             ragg_1.5.2             hms_1.1.4             
     ## [52] memoise_2.0.1          evaluate_1.0.5         knitr_1.52            
-    ## [55] IRanges_2.47.5         BiocFileCache_3.3.0    rlang_1.3.0           
+    ## [55] IRanges_2.47.5         BiocFileCache_3.3.3    rlang_1.3.0           
     ## [58] Rcpp_1.1.2             glue_1.8.1             DBI_1.3.0             
-    ## [61] mzR_2.47.1             BiocManager_1.30.27    jsonlite_2.0.0        
+    ## [61] mzR_2.47.2             BiocManager_1.30.27    jsonlite_2.0.0        
     ## [64] R6_2.6.1               systemfonts_1.3.2      fs_2.1.0              
     ## [67] ProtGenerics_1.45.0    MsCoreUtils_1.25.4

@@ -4,6 +4,7 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/actions?query=workflow%3AR-CMD-check-bioc)
+[![Test-R-universe](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/workflows/Test-R-universe/badge.svg)](https://github.com/RforMassSpectrometry/MsBackendMetaboLights/actions?query=workflow%3ATest-R-universe)
 [![codecov](https://codecov.io/gh/rformassspectrometry/MsBackendMetaboLights/graph/badge.svg?token=jpxt7OlA2k)](https://codecov.io/gh/rformassspectrometry/MsBackendMetaboLights)
 [![:name status
 badge](https://rformassspectrometry.r-universe.dev/badges/:name)](https://rformassspectrometry.r-universe.dev/)
