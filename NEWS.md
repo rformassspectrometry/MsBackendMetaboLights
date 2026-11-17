@@ -1,5 +1,9 @@
 # MsBackendMetaboLights 1.7
 
+# MsBackendMetaboLights 1.7.11
+
+- Fix examples.
+
 # MsBackendMetaboLights 1.7.10
 
 - Fix syncing data files replacing the metadata of all previously cached
