@@ -159,8 +159,6 @@
 #' ## Get the sample information for one data set
 #' mtbls_sample_data("MTBLS2")
 #'
-#' ## List all available files
-#' mtbls_cached_data_files()
 NULL
 
 #' @rdname MetaboLights-utils
